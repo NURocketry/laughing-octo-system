@@ -1,7 +1,11 @@
 .connected {
-    color: green
+    color: green;
 }
 
 .disconnected {
-    color: red
+    color: red;
+}
+
+.ws-value {
+    font-family: monospace;
 }

@@ -6,8 +6,13 @@
     </head>
     <body>
         <h1>Connection status: <span id="status" class="disconnected">CLOSED</span></h1>
-        <p>Most recent websocket message recieved:</p>
-        <p id="ws-content"></p>
+        <h2>Most recent websocket content recieved:</h2>
+        <div class="ws-content">
+            <p>Altitude: <span class="ws-value" id="altitude">0</span> m</p>
+            <p>Temperature: <span class="ws-value" id="temperature">0</span>  &deg;C</p>
+            <p>Pressure: <span class="ws-value" id="pressure">0</span> hPa</p>
+            <p>Time since launch: <span class="ws-value" id="time">0</span> s</p>
+        </div>
     </body>
     <!-- So it loads after page content -->
     <script src="./client.js"></script>
