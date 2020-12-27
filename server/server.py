@@ -7,12 +7,18 @@ port = '/dev/cu.usbserial-1420'
 baud = 115200
 ser = serial.Serial(port, baud, timeout=1)
 
-#handle income serial data and send to client via websockets
+#h andle income serial data and send to client via websockets
 async def serial_stream(websocket, path):
     while True:
-        #read serial content, strip trailing /r/n, decode bytes to string
-        serial_content = ser.readline().strip().decode('utf-8') 
-        await websocket.send(serial_content)
+        if ser.isOpen():
+            # read serial content, strip trailing /r/n, decode bytes to string
+            serial_content = ser.readline().strip().decode('utf-8') 
+            await websocket.send(serial_content)
+        else: 
+            # if connection has closed for some reason, try and open it again indefinitely
+            # ... objectively a bad idea but hacky solution to allow arduino resets during testing
+            # potentially will need to be properly implemented in case connection with rocket is lost and regained mid flight
+            ser.open()
 
 start_server = websockets.serve(serial_stream, "localhost", 5678)
 
