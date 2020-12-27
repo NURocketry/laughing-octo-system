@@ -6,6 +6,11 @@
     color: red;
 }
 
+.ws-content {
+    margin: 1em;
+    font-size: 120%;
+}
+
 .ws-value {
     font-family: monospace;
 }
