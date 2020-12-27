@@ -14,3 +14,7 @@
 .ws-value {
     font-family: monospace;
 }
+
+#altitude-chart {
+    width: 50vw;
+}
