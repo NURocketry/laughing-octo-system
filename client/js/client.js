@@ -49,6 +49,9 @@ var altitudeChartOptions = {
     }],
     xaxis: {
     //    type: 'numeric', 
+    /* TODO: cant figure out how to make dynamic chart updates work with type: numeric,
+        but this seems to be required for correct formatting
+        */
     }
   }
   
