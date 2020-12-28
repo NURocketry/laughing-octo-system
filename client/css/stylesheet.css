@@ -15,6 +15,10 @@
     font-family: monospace;
 }
 
-#altitude-chart {
-    width: 50vw;
+#chart-container {
+    display: flex;
+}
+
+.charts {
+    width: 30vw;
 }

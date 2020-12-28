@@ -10,6 +10,7 @@
         
         <!-- Apex Charts -->
         <script src="js/apexcharts.min.js"></script>
+        <link rel="stylesheet" href="./css/apexcharts.css">
 
     </head>
 
@@ -26,7 +27,12 @@
         </div>
 
         <!-- is this all you need? -->
-        <div id="altitude-chart"></div>
+        <div id="chart-container">
+            <div class="chart" id="chart"></div>
+            <div class="chart" id="altitude-chart"></div>
+            <div class="chart" id="temperature-chart"></div>
+            <div class="chart" id="pressure-chart"></div>
+        </div>
 
     </body>
 
