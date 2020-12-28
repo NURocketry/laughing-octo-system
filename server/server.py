@@ -13,8 +13,9 @@ async def serial_stream(websocket, path):
         if ser.isOpen():
             # read serial content, strip trailing /r/n, decode bytes to string
             serial_content = ser.readline().strip().decode('utf-8') 
-            print(serial_content) #logging/debugging
-            await websocket.send(serial_content)
+            if len(serial_content): # make sure we don't send a blank message (happens)
+                print(serial_content) #logging/debugging
+                await websocket.send(serial_content)
         else: 
             # if connection has closed for some reason, try and open it again indefinitely
             # ... objectively a bad idea but hacky solution to allow arduino resets during testing
