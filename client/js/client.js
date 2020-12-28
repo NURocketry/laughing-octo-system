@@ -71,13 +71,13 @@ const defaultChartOptions = {
     gauge: {} //TODO
 };
 
+/**
+ * @param data : array of datapoints
+ * @param hasChart : if the data has an associated chart
+ * @param id : DOM id of the chart div
+ * @param options : the apexCharts options for the chart
+ */
 let datasets = {
-    /**
-     * @param data : array of datapoints
-     * @param hasChart : if the data has an associated chart
-     * @param options : the apexCharts options for the chart
-     * @param id : DOM id of the chart div
-     */
     altitude: {
         data: [],
         hasChart: true,
@@ -145,7 +145,7 @@ function render() {
 }
 
 /**
- * @param {Object} dataObj should have the form 
+ * @param dataObj should have the form 
  * { dataSetName1: [new data 1], 
  *   dataSetName2: [new data 2], ... }
  * where dataSetName matches the .name property of the corresonding entry in the datasets object
