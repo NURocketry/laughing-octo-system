@@ -79,7 +79,7 @@ let datasets = {
      * @param id : DOM id of the chart div
      */
     altitude: {
-        data: [0],
+        data: [],
         hasChart: true,
         id: "#altitude-chart",
         options: {
@@ -90,7 +90,7 @@ let datasets = {
         }
     },
     temperature: {
-        data: [0],
+        data: [],
         hasChart: true,
         id: "#temperature-chart",
         options: {
@@ -101,7 +101,7 @@ let datasets = {
         }
     },
     pressure: {
-        data: [0],
+        data: [],
         hasChart: true,
         id: "#pressure-chart",
         options: {
@@ -112,7 +112,7 @@ let datasets = {
         }
     },
     time: {
-        data: [0],
+        data: [],
         hasChart: false
     }
 }
