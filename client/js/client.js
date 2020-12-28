@@ -22,14 +22,25 @@ ws.onmessage = function(e) {
 };
 
 function wsMessageHandler(e) {
-    let wsValues = e.data.split(','); //extract data from ws content
-
-    let namedData = {
-        "altitude": wsValues[0]
+    let wsValues = e.data.split(',').map( x => parseInt(x) ); //extract data from ws content and convert to number
+    
+    //ensure labels are the same as in 'datasets'
+    //numbers put into arrays to match format of addData()
+    let namedData = { 
+        "altitude": [wsValues[0]],
+        "temperature": [wsValues[1]],
+        "pressure": [wsValues[2]],
+        "time": [wsValues[3]]
     }
 
+    //put values in textboxes
     wsValues.map( (val, i) => htmlValues[i].innerText = val);
 
+    //push ws data onto chart data array
+    addData(namedData);
+
+    //re-draw charts accordingly
+    update();
 }
 
 
@@ -54,7 +65,7 @@ const defaultChartOptions = {
         stroke: { curve: 'smooth' },
         title: {
                 text: 'loading...', //placeholder
-                align: 'left'
+                align: 'center'
             },
     },
     gauge: {} //TODO
@@ -133,16 +144,16 @@ function render() {
     }
 }
 
+/**
+ * @param {Object} dataObj should have the form 
+ * { dataSetName1: [new data 1], 
+ *   dataSetName2: [new data 2], ... }
+ * where dataSetName matches the .name property of the corresonding entry in the datasets object
+ * 
+ * data should be within arrays to allow for multiple datapoints to be added at once
+ */
 function addData(dataObj) {
-    /**
-     * @param dataObj : should have the form 
-     * { dataSetName1: [new data 1], 
-     *   dataSetName2: [new data 2] }
-     * where dataSetName matches the .name property of the corresonding entry in the datasets object
-     */
-
-    for ( let key in dataObj ) //set is the string from of each key in dataObj
-        datasets[key].data.push( ...dataObj[key] ) // spread operator (...) turns array into function arguments
+    for ( let key in dataObj ) datasets[key].data.push( ...dataObj[key] ); // spread operator (...) 'splits' array into function arguments
 }
 
 function update() {
@@ -159,35 +170,3 @@ let charts = new Object();
 
 init();
 render();
-
-// let Altitude = new ApexCharts(
-//     document.querySelector(datasets.altitude.id), 
-//     datasets.altitude.options
-// );
-// let Temperature = new ApexCharts(
-//     document.querySelector(datasets.temperature.id), 
-//     datasets.temperature.options
-// );
-// let Pressure = new ApexCharts(
-//     document.querySelector(datasets.pressure.id), 
-//     datasets.pressure.options
-// );
-
-
-// /////////////////////////testing//////////////////////
-// var options = {
-//     chart: {
-//       type: 'line'
-//     },
-//     series: [{
-//       name: 'sales',
-//       data: [30,40,35,50,49,60,70,91,125]
-//     }],
-//     xaxis: {
-//       categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
-//     }
-//   }
-  
-//   var charts.test = new ApexCharts(document.querySelector("#chart"), options);
-  
-//   chart.render();
