@@ -13,6 +13,7 @@ async def serial_stream(websocket, path):
         if ser.isOpen():
             # read serial content, strip trailing /r/n, decode bytes to string
             serial_content = ser.readline().strip().decode('utf-8') 
+            print(serial_content) #logging/debugging
             await websocket.send(serial_content)
         else: 
             # if connection has closed for some reason, try and open it again indefinitely
