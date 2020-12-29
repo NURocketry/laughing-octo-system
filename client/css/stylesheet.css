@@ -1,0 +1,24 @@
+.connected {
+    color: green;
+}
+
+.disconnected {
+    color: red;
+}
+
+.ws-content {
+    margin: 1em;
+    font-size: 120%;
+}
+
+.ws-value {
+    font-family: monospace;
+}
+
+#chart-container {
+    display: flex;
+}
+
+.charts {
+    width: 30vw;
+}
