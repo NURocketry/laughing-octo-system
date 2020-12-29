@@ -22,7 +22,7 @@ ws.onmessage = function(e) {
 };
 
 function wsMessageHandler(e) {
-    let wsValues = e.data.split(',').map( x => parseInt(x) ); //extract data from ws content and convert to number
+    let wsValues = e.data.split(',').map( x => parseFloat(x) ); //extract data from ws content and convert to number
     
     //ensure labels are the same as in 'datasets'
     //numbers put into arrays to match format of addData()
@@ -41,6 +41,10 @@ function wsMessageHandler(e) {
 
     //re-draw charts accordingly
     update();
+
+    //cut off datapoints to keep at 10 max and redraw
+    trimData(namedData, 100);
+    // update();
 }
 
 
@@ -51,7 +55,7 @@ const defaultChartOptions = {
         chart: {
             type: 'line',
             animations: {
-                enabled: true,
+                enabled: false,
                 easing: 'smooth',
                 dynamicAnimation: { speed: 1000 }
             },
@@ -62,7 +66,7 @@ const defaultChartOptions = {
             type: 'numeric' //ensures numbers are treated like numbers not strings
         },
         dataLabels: { enabled: false },
-        stroke: { curve: 'smooth' },
+        stroke: { curve: 'straight' },
         title: {
                 text: 'loading...', //placeholder
                 align: 'center'
@@ -153,7 +157,22 @@ function render() {
  * data should be within arrays to allow for multiple datapoints to be added at once
  */
 function addData(dataObj) {
-    for ( let key in dataObj ) datasets[key].data.push( ...dataObj[key] ); // spread operator (...) 'splits' array into function arguments
+    for ( let key in dataObj )
+        datasets[key].data.push( ...dataObj[key] ); // spread operator (...) 'splits' array into function arguments
+}
+
+function trimData(dataObj, len) {
+    let flag = false;
+    for ( let key in dataObj ) {
+        // console.log(key, datasets[key].data.length);
+        if ( datasets[key].data.length > len ) {
+
+            console.log(datasets[key].data.shift(), " ");
+
+            flag = true;
+        }
+    }
+    return flag;
 }
 
 function update() {
