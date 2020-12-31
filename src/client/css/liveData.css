@@ -4,7 +4,7 @@ body {
 
 .sidenav {
   height: 100%;
-  width: 300px;
+  width: 250px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -24,13 +24,21 @@ body {
 
 .sidenav h1 {
   padding: 6px 8px 6px 16px;
-  font-size: 30px;
+  font-size: 35px;
   color: #f8f9fc;
 }
 
 .sidenav a:hover {
   color: #000;
 }
+
+
+.header img {
+  position: left;
+  width: 15%;
+  height: auto;
+}
+
 
 .main {
   margin-left: 160px; /* Same as the width of the sidenav */
