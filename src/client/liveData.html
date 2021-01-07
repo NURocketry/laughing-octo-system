@@ -26,20 +26,22 @@
 
     <body>
 
-	<div class="container">
+	<!-- Graph Container -->
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col">1</div>
-			<div class="col">2</div>
-			<div class="col">3</div>
+			<div class="col-sm-4"><div class="chart" id="pressure-chart"></div></div>
+			<div class="col-sm-4"><div class="chart" id="altitude-chart"></div></div>
+			<div class="col-sm-4"><div class="chart" id="temperature-chart"></div></div>
 		</div>
 
 		<div class="row">
-			<div class="col">1</div>
-			<div class="col">2</div>
-			<div class="col">3</div>
+			<div class="col-sm-4"><div class="chart" id="velocity-chart"></div></div>
+			<div class="col-sm-4"><div class="chart" id="acceleration-chart"></div></div>
+			<div class="col-sm-4"><div class="chart" id="stress-chart"></div></div>
 		</div>
 	</div>
+	
 
-
+	<script src="./js/client.js"></script>
 	</body>
 </html>

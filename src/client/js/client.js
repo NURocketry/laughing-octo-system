@@ -30,7 +30,7 @@ function wsMessageHandler(e) {
         "altitude": [wsValues[0]],
         "temperature": [wsValues[1]],
         "pressure": [wsValues[2]],
-        "time": [wsValues[3]]
+        "time": [wsValues[4]]
     }
 
     //put values in textboxes
@@ -51,7 +51,7 @@ function wsMessageHandler(e) {
 const defaultChartOptions = {
     line: { //line chart
         series: [], //empty series, will be filled later
-        noData: { text: "loading..." }, //placeholder text until first data point is added
+        noData: { text: "No Data"}, //placeholder text until first data point is added
         chart: {
             type: 'line',
             animations: {
@@ -68,7 +68,7 @@ const defaultChartOptions = {
         dataLabels: { enabled: false },
         stroke: { curve: 'straight' },
         title: {
-                text: 'loading...', //placeholder
+                text: 'Loading...',//placeholder
                 align: 'center'
             },
     },
@@ -112,6 +112,39 @@ let datasets = {
             ...defaultChartOptions.line, 
             ...{ //rest will override defaults
                 title: { text: 'Pressure' }
+            }
+        }
+    },
+    velocity: {
+        data: [],
+        hasChart: true,
+        id: "#velocity-chart",
+        options: {
+            ...defaultChartOptions.line, 
+            ...{ //rest will override defaults
+                title: { text: 'Velocity' }
+            }
+        }
+    },
+    acceleration: {
+        data: [],
+        hasChart: true,
+        id: "#acceleration-chart",
+        options: {
+            ...defaultChartOptions.line, 
+            ...{ //rest will override defaults
+                title: { text: 'acceleration' }
+            }
+        }
+    },
+    stress: {
+        data: [],
+        hasChart: true,
+        id: "#stress-chart",
+        options: {
+            ...defaultChartOptions.line, 
+            ...{ //rest will override defaults
+                title: { text: 'stress' }
             }
         }
     },
