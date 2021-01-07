@@ -26,9 +26,6 @@
     </head>
 
     <body>
-	<div id="main">
-		<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Live Flight Data</span>
-
 		<div id="sideNav" class="sideNav">
 			<img src="../assets/Logo_blackOnTransparent.png">
 			<h1>NU Rocketry</h1>
@@ -38,6 +35,8 @@
 			<a href="review.html">Data Review</a>
 		</div>
 
+	<div id="main">
+		<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Live Flight Data</span>
 
 		<!-- Graph Container -->
 		<div class="container-fluid">
@@ -60,8 +59,8 @@
 
 	<script>
 	function openNav() {
-	  document.getElementById("sideNav").style.width = "300px";
-	  document.getElementById("main").style.marginLeft = "300px";
+	  document.getElementById("sideNav").style.width = "20%";
+	  document.getElementById("main").style.marginLeft = "20%";
 	}
 
 	function closeNav() {

@@ -3,7 +3,7 @@ import asyncio
 import websockets
 
 # Serial stuff
-port = '/dev/cu.usbserial-1420'
+port = '/dev/ttyACM0'
 baud = 115200
 ser = serial.Serial(port, baud, timeout=1)
 

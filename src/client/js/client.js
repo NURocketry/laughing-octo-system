@@ -133,18 +133,18 @@ let datasets = {
         options: {
             ...defaultChartOptions.line, 
             ...{ //rest will override defaults
-                title: { text: 'acceleration' }
+                title: { text: 'Acceleration' }
             }
         }
     },
-    stress: {
+    jerk: {
         data: [],
         hasChart: true,
-        id: "#stress-chart",
+        id: "#jerk-chart",
         options: {
             ...defaultChartOptions.line, 
             ...{ //rest will override defaults
-                title: { text: 'stress' }
+                title: { text: 'Jerk' }
             }
         }
     },
