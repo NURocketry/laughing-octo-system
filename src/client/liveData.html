@@ -20,19 +20,22 @@
 			crossorigin="anonymous"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+	<link rel="Icon" type="image/x-icon" href="../assets/Logo_blackOnTransparent.png" />
     </head>
-
-
 
     <body>
 	<div id="main">
 		<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Live Flight Data</span>
 
 		<div id="sideNav" class="sideNav">
-		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-		  <a href="liveData.html">Live Data</a>
-		  <a href="obsFeed.html">OBS Feed</a>
-		  <a href="review.html">Data Review</a>
+			<img src="../assets/Logo_blackOnTransparent.png">
+			<h1>NU Rocketry</h1>
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a href="liveData.html">Live Data</a>
+			<a href="obsFeed.html">OBS Feed</a>
+			<a href="review.html">Data Review</a>
 		</div>
 
 
@@ -57,8 +60,8 @@
 
 	<script>
 	function openNav() {
-	  document.getElementById("sideNav").style.width = "250px";
-	  document.getElementById("main").style.marginLeft = "250px";
+	  document.getElementById("sideNav").style.width = "300px";
+	  document.getElementById("main").style.marginLeft = "300px";
 	}
 
 	function closeNav() {
