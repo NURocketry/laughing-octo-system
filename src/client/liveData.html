@@ -6,7 +6,7 @@
 
 		<!-- Stylesheets -->
         <link rel="stylesheet" href="css/stylesheet.css">
-
+		<link rel="Icon" type="image/x-icon" href="../assets/Logo_blackOnTransparent.png" />
 
         <script src="js/jquery-3.5.1.min.js"></script>
         <script src="js/apexcharts.min.js"></script>
@@ -19,13 +19,14 @@
 			integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"
 			crossorigin="anonymous"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-
-	<link rel="Icon" type="image/x-icon" href="../assets/Logo_blackOnTransparent.png" />
+		<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+		crossorigin="anonymous">
     </head>
 
     <body>
+		<!-- Navigation Side Bar -->
 		<div id="sideNav" class="sideNav">
 			<img src="../assets/Logo_blackOnTransparent.png">
 			<h1>NU Rocketry</h1>
@@ -35,38 +36,53 @@
 			<a href="review.html">Data Review</a>
 		</div>
 
+
+		<!-- Main Page Content -->
 		<div id="main">
 			<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Live Flight Data</span>
 
 			<!-- Graph Container -->
 			<div class="container-fluid chart-container">
 				<div class="row">
-					<div class="col-sm-4"><div class="chart" id="pressure-chart"></div></div>
-					<div class="col-sm-4"><div class="chart" id="altitude-chart"></div></div>
-					<div class="col-sm-4"><div class="chart" id="temperature-chart"></div></div>
+					<div class="col-sm-2">
+						<h2>Live Values</h2>
+						<p>Connection: <span id="status">Closed</span></p>
+						<p>Altitude: <span class="ws-value" id="altitude">0</span> m</p>
+						<p>Temperature: <span class="ws-value" id="temperature">0</span> &deg;C</p>
+						<p>Velocity: <span class="ws-value" id="velocity">0</span> ms<sup>-1</sup></p>
+						<p>Acceleration: <span class="ws-value" id="acceleration">0</span> ms<sup>-2</sup></p>
+						<p>Pressure: <span class="ws-value" id="pressure">0</span> hPa</p>
+						<p>Time: <span class="ws-value" id="time">0</span> s</p>
+					</div>
+
+					<div class="col-sm-5"><div class="chart" id="altitude-chart"></div></div>
+					<div class="col-sm-5"><div class="chart" id="velocity-chart"></div></div>
 				</div>
 
 				<div class="row">
-					<div class="col-sm-4"><div class="chart" id="velocity-chart"></div></div>
-					<div class="col-sm-4"><div class="chart" id="acceleration-chart"></div></div>
-					<div class="col-sm-4"><div class="chart" id="jerk-chart"></div></div>
+					<div class="col-sm-2">
+						<!-- TODO: Make real not placeholder -->
+						<h2>Flight Stats</h2>
+						<p>Max Altitude</p>
+						<p>Max Velocity</p>
+						<p>Max Acceleration</p>
+						<p>Parachute Status: </p>
+						<p>Engine Status:</p>
+
+					</div>
+
+					<div class="col-sm-5"><div class="chart" id="pressure-chart"></div></div>
+					<div class="col-sm-5"><div class="chart" id="temperature-chart"></div></div>
 				</div>
 			</div>
 		</div>
 
 
-		<script src="./js/client.js"></script>
+		<!-- Rendering/Composition of Graphs -->
+		<script src="./js/client.js"></script> 
 
-		<script>
-		function openNav() {
-		  document.getElementById("sideNav").style.width = "20%";
-		  document.getElementById("main").style.marginLeft = "20%";
-		}
+		<!-- Code for function of the side navigation bar -->
+		<script src="./js/sideBar.js"></script>
 
-		function closeNav() {
-		  document.getElementById("sideNav").style.width = "0";
-		  document.getElementById("main").style.marginLeft= "0";
-		}
-		</script>
 	</body>
 </html>

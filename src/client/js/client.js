@@ -5,20 +5,20 @@ const ws = new WebSocket("ws://localhost:5678/");
 const htmlValues = document.querySelectorAll(".ws-value"); //return array of all matching DOM elements
 
 //basic websocket handlers
-/*
 ws.onopen = function () {
     //change status indicator
-    document.querySelector('#status').classList.replace("disconnected", "connected");
+	
+    //document.querySelector('#status').classList.replace("disconnected", "connected");
     document.querySelector('#status').innerText = "OPEN";
 }
 
 
 ws.onclose = function() {
     //change status indicator
-    document.querySelector('#status').classList.replace("connected", "disconnected");
+	
+    //document.querySelector('#status').classList.replace("connected", "disconnected");
     document.querySelector('#status').innerText = "CLOSED";
 }
-*/
 
 ws.onmessage = function(e) { 
     wsMessageHandler(e);
@@ -35,14 +35,11 @@ function wsMessageHandler(e) {
         "pressure": 	[wsValues[2]],
         "velocity": 	[wsValues[3]],
         "acceleration":	[wsValues[4]],
-        "jerk": 		[wsValues[5]],
-        "time": 		[wsValues[6]]
+        "time": 		[wsValues[5]]
     }
 
-    /*put values in textboxes
+    //put values in textboxes
 	wsValues.map( (val, i) => htmlValues[i].innerText = val);
-	*/
-
 
     //push ws data onto chart data array
     addData(namedData);
@@ -64,7 +61,7 @@ const defaultChartOptions = {
             animations: {
                 enabled: false,
                 easing: 'smooth',
-                dynamicAnimation: { speed: 2000}
+                dynamicAnimation: { speed: 100}
             },
             toolbar: { show: false },
             zoom: { enabled: false }
@@ -141,17 +138,6 @@ let datasets = {
             ...defaultChartOptions.line, 
             ...{ //rest will override defaults
                 title: { text: 'Acceleration' }
-            }
-        }
-    },
-    jerk: {
-        data: [],
-        hasChart: true,
-        id: "#jerk-chart",
-        options: {
-            ...defaultChartOptions.line, 
-            ...{ //rest will override defaults
-                title: { text: 'Jerk' }
             }
         }
     },
