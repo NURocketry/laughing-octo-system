@@ -35,38 +35,38 @@
 			<a href="review.html">Data Review</a>
 		</div>
 
-	<div id="main">
-		<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Live Flight Data</span>
+		<div id="main">
+			<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Live Flight Data</span>
 
-		<!-- Graph Container -->
-		<div class="container-fluid chart-container">
-			<div class="row">
-				<div class="col-sm-4"><div class="chart" id="pressure-chart"></div></div>
-				<div class="col-sm-4"><div class="chart" id="altitude-chart"></div></div>
-				<div class="col-sm-4"><div class="chart" id="temperature-chart"></div></div>
-			</div>
+			<!-- Graph Container -->
+			<div class="container-fluid chart-container">
+				<div class="row">
+					<div class="col-sm-4"><div class="chart" id="pressure-chart"></div></div>
+					<div class="col-sm-4"><div class="chart" id="altitude-chart"></div></div>
+					<div class="col-sm-4"><div class="chart" id="temperature-chart"></div></div>
+				</div>
 
-			<div class="row">
-				<div class="col-sm-4"><div class="chart" id="velocity-chart"></div></div>
-				<div class="col-sm-4"><div class="chart" id="acceleration-chart"></div></div>
-				<div class="col-sm-4"><div class="chart" id="jerk-chart"></div></div>
+				<div class="row">
+					<div class="col-sm-4"><div class="chart" id="velocity-chart"></div></div>
+					<div class="col-sm-4"><div class="chart" id="acceleration-chart"></div></div>
+					<div class="col-sm-4"><div class="chart" id="jerk-chart"></div></div>
+				</div>
 			</div>
 		</div>
-	</div>
 
 
-	<script src="./js/client.js"></script>
+		<script src="./js/client.js"></script>
 
-	<script>
-	function openNav() {
-	  document.getElementById("sideNav").style.width = "20%";
-	  document.getElementById("main").style.marginLeft = "20%";
-	}
+		<script>
+		function openNav() {
+		  document.getElementById("sideNav").style.width = "20%";
+		  document.getElementById("main").style.marginLeft = "20%";
+		}
 
-	function closeNav() {
-	  document.getElementById("sideNav").style.width = "0";
-	  document.getElementById("main").style.marginLeft= "0";
-	}
-	</script>
+		function closeNav() {
+		  document.getElementById("sideNav").style.width = "0";
+		  document.getElementById("main").style.marginLeft= "0";
+		}
+		</script>
 	</body>
 </html>

@@ -26,20 +26,34 @@
 
 
     <body>
-	<!--Side Navigation Header-->
-	<div class='sidenav'>
-		<div class='header'>
-			<h1 id="logo"><a href="liveData.html"><img src="../assets/Logo_blackOnTransparent.png" alt="logo" />NU Rocketry</a></h1>
+		<div id="sideNav" class="sideNav">
+			<img src="../assets/Logo_blackOnTransparent.png">
+			<h1>NU Rocketry</h1>
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a href="liveData.html">Live Data</a>
+			<a href="obsFeed.html">OBS Feed</a>
+			<a href="review.html">Data Review</a>
 		</div>
 
-	<!--Side Navigation Content-->
-		<div class='navData'>
-			<a href="liveData.html">Live Data</a> 
-			<a href="obsFeed.html">OBS Feed</a> 
-			<a href="review.html">Review</a> 
-		</div>
-	<div>
 
+		<div id="main">
+			<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Live Flight Data</span>
+
+			<h1>Place Holder Review Data<h1>
+		</div>
+
+
+		<script>
+		function openNav() {
+		  document.getElementById("sideNav").style.width = "20%";
+		  document.getElementById("main").style.marginLeft = "20%";
+		}
+
+		function closeNav() {
+		  document.getElementById("sideNav").style.width = "0";
+		  document.getElementById("main").style.marginLeft= "0";
+		}
+		</script>
 
 	</body>
 </html>
