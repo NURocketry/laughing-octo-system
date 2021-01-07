@@ -7,16 +7,14 @@ const htmlValues = document.querySelectorAll(".ws-value"); //return array of all
 //basic websocket handlers
 ws.onopen = function () {
     //change status indicator
-	
-    //document.querySelector('#status').classList.replace("disconnected", "connected");
+	document.querySelector('#status').classList.replace("disconnected", "connected");
     document.querySelector('#status').innerText = "OPEN";
 }
 
 
 ws.onclose = function() {
     //change status indicator
-	
-    //document.querySelector('#status').classList.replace("connected", "disconnected");
+	document.querySelector('#status').classList.replace("connected", "disconnected");
     document.querySelector('#status').innerText = "CLOSED";
 }
 
@@ -39,7 +37,7 @@ function wsMessageHandler(e) {
     }
 
     //put values in textboxes
-	wsValues.map( (val, i) => htmlValues[i].innerText = val);
+	wsValues.map( (val, i) => htmlValues[i] = val);
 
     //push ws data onto chart data array
     addData(namedData);
@@ -73,7 +71,7 @@ const defaultChartOptions = {
         stroke: { curve: 'straight' },
         title: {
                 text: 'Loading...',//placeholder
-                align: 'center'
+                align: 'right'
             },
     },
     gauge: {} //TODO
