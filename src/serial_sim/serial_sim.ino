@@ -24,6 +24,12 @@ void loop() {
   Serial.print(",");
   Serial.print(pressure);
   Serial.print(",");
+  Serial.print(pressure);
+  Serial.print(",");
+  Serial.print(pressure);
+  Serial.print(",");
+  Serial.print(pressure);
+  Serial.print(",");
   Serial.println(elapsedTime);
 
 //  delay(1000); //1 second
