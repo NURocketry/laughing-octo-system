@@ -25,23 +25,46 @@
 
 
     <body>
+	<div id="main">
+		<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Live Flight Data</span>
 
-	<!-- Graph Container -->
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-4"><div class="chart" id="pressure-chart"></div></div>
-			<div class="col-sm-4"><div class="chart" id="altitude-chart"></div></div>
-			<div class="col-sm-4"><div class="chart" id="temperature-chart"></div></div>
+		<div id="sideNav" class="sideNav">
+		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		  <a href="liveData.html">Live Data</a>
+		  <a href="obsFeed.html">OBS Feed</a>
+		  <a href="review.html">Data Review</a>
 		</div>
 
-		<div class="row">
-			<div class="col-sm-4"><div class="chart" id="velocity-chart"></div></div>
-			<div class="col-sm-4"><div class="chart" id="acceleration-chart"></div></div>
-			<div class="col-sm-4"><div class="chart" id="stress-chart"></div></div>
+
+		<!-- Graph Container -->
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-4"><div class="chart" id="pressure-chart"></div></div>
+				<div class="col-sm-4"><div class="chart" id="altitude-chart"></div></div>
+				<div class="col-sm-4"><div class="chart" id="temperature-chart"></div></div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-4"><div class="chart" id="velocity-chart"></div></div>
+				<div class="col-sm-4"><div class="chart" id="acceleration-chart"></div></div>
+				<div class="col-sm-4"><div class="chart" id="jerk-chart"></div></div>
+			</div>
 		</div>
 	</div>
 	
 
 	<script src="./js/client.js"></script>
+
+	<script>
+	function openNav() {
+	  document.getElementById("sideNav").style.width = "250px";
+	  document.getElementById("main").style.marginLeft = "250px";
+	}
+
+	function closeNav() {
+	  document.getElementById("sideNav").style.width = "0";
+	  document.getElementById("main").style.marginLeft= "0";
+	}
+	</script>
 	</body>
 </html>
