@@ -5,17 +5,20 @@ const ws = new WebSocket("ws://localhost:5678/");
 const htmlValues = document.querySelectorAll(".ws-value"); //return array of all matching DOM elements
 
 //basic websocket handlers
+/*
 ws.onopen = function () {
     //change status indicator
     document.querySelector('#status').classList.replace("disconnected", "connected");
     document.querySelector('#status').innerText = "OPEN";
 }
 
+
 ws.onclose = function() {
     //change status indicator
     document.querySelector('#status').classList.replace("connected", "disconnected");
     document.querySelector('#status').innerText = "CLOSED";
 }
+*/
 
 ws.onmessage = function(e) { 
     wsMessageHandler(e);
@@ -27,14 +30,19 @@ function wsMessageHandler(e) {
     //ensure labels are the same as in 'datasets'
     //numbers put into arrays to match format of addData()
     let namedData = { 
-        "altitude": [wsValues[0]],
-        "temperature": [wsValues[1]],
-        "pressure": [wsValues[2]],
-        "time": [wsValues[4]]
+        "altitude": 	[wsValues[0]],
+        "temperature": 	[wsValues[1]],
+        "pressure": 	[wsValues[2]],
+        "velocity": 	[wsValues[3]],
+        "acceleration":	[wsValues[4]],
+        "jerk": 		[wsValues[5]],
+        "time": 		[wsValues[6]]
     }
 
-    //put values in textboxes
-    wsValues.map( (val, i) => htmlValues[i].innerText = val);
+    /*put values in textboxes
+	wsValues.map( (val, i) => htmlValues[i].innerText = val);
+	*/
+
 
     //push ws data onto chart data array
     addData(namedData);
@@ -44,7 +52,6 @@ function wsMessageHandler(e) {
 
     //cut off datapoints to keep at 10 max and redraw
     trimData(namedData, 100);
-    // update();
 }
 
 
@@ -57,7 +64,7 @@ const defaultChartOptions = {
             animations: {
                 enabled: false,
                 easing: 'smooth',
-                dynamicAnimation: { speed: 1000 }
+                dynamicAnimation: { speed: 2000}
             },
             toolbar: { show: false },
             zoom: { enabled: false }
