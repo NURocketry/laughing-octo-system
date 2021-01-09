@@ -5,12 +5,13 @@ void setup() {
 
 void loop() {
   //init variables in loop scope
-  static float altitude, temperature, pressure;
+  static float altitude, temperature, pressure, velocity;
   static unsigned long elapsedTime;
   
   //give random values in reasonable range for each quantity
-  altitude = random(500), 
-  temperature = random(15,26), 
+  altitude = random(500) / 2 + 16;
+  temperature = random(15,26) * 7 - 3;
+  velocity = random(15,26);
 //  pressure = random(950,1051);
   //milliseconds since arduino started
   elapsedTime = millis();
@@ -24,11 +25,7 @@ void loop() {
   Serial.print(",");
   Serial.print(pressure);
   Serial.print(",");
-  Serial.print(pressure);
-  Serial.print(",");
-  Serial.print(pressure);
-  Serial.print(",");
-  Serial.print(pressure);
+  Serial.println(velocity);
   Serial.print(",");
   Serial.println(elapsedTime);
 
