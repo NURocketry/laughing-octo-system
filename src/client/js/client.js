@@ -49,33 +49,138 @@ function wsMessageHandler(e) {
 }
 
 
+//Templates for the different graphs options
+//TODO: Remove repeated code 
 const defaultChartOptions = {
-    line: { //line chart
-        series: [], //empty series, will be filled later
-        noData: { text: "No Data"}, //placeholder text until first data point is added
+	line: { 
+		series: [], 
+		noData: { text: "No Data"}, 
 
-	chart: {
-            type: 'line',
+		chart: {
+			type: 'line',
+			foreColor: '#ccc',
+			toolbar: { show: false },
             animations: {
-                enabled: true,
+                enabled: false,
                 easing: 'smooth',
-                dynamicAnimation: { speed: 100}
+                dynamicAnimation: { speed: 1000 }
             },
-            toolbar: { show: false },
-            zoom: { enabled: false },
-			forecolor: "#ccc"
-			},
+		},
+		dropShadow: {
+			enabled: true,
+			top: 3,
+			left: 2,
+			blur: 4,
+			opacity: 1,
+		},
+
+		stroke: {
+			curve: 'smooth'
+		},
+
+		dataLabels: {
+			enabled: false
+		},
+
+		tooltip: {
+			theme: 'dark'
+		},
+
+		grid: {
+			borderColor: "#535A6C",
 			xaxis: {
-				type: 'numeric' //ensures numbers are treated like numbers not strings
-			},
-			dataLabels: { enabled: false },
-			stroke: { curve: 'straight' },
-			title: {
-                text: 'Loading...',//placeholder
-                align: 'right'
+				lines: { show: false}
+			}
+		},
+
+		xaxis: {
+			type: 'numeric',
+		},
+
+	},
+
+	area: { 
+		series: [], 
+		noData: { text: "No Data"}, 
+
+		chart: {
+			type: 'area',
+			foreColor: '#ccc',
+			toolbar: { show: false },
+            animations: {
+                enabled: false,
+                easing: 'smooth',
+                dynamicAnimation: { speed: 1000 }
             },
-    },
-    gauge: {} //TODO
+		},
+		dropShadow: {
+			enabled: true,
+			top: 3,
+			left: 2,
+			blur: 4,
+			opacity: 1,
+		},
+
+		stroke: {
+			curve: 'smooth'
+		},
+
+		dataLabels: {
+			enabled: false
+		},
+
+		tooltip: {
+			theme: 'dark'
+		},
+
+		grid: {
+			borderColor: "#535A6C",
+			xaxis: {
+				lines: { show: false}
+			}
+		},
+
+		xaxis: {
+			type: 'numeric',
+		},
+
+	},
+
+	//Can only take a single value not a series
+	/*
+	guage: {
+		series: [], 
+		noData: { text: "No Data"}, 
+
+		chart: {
+			type: "radialBar",
+			foreColor: '#ccc',
+			toolbar: { show: false },
+            animations: {
+                enabled: false,
+                easing: 'smooth',
+                dynamicAnimation: { speed: 1000 }
+            },
+
+		},
+
+		series: [67],
+		plotOptions: {
+
+		radialBar: {
+			startAngle: -135,
+			endAngle: 135,
+
+			track: {
+				background: '#333',
+				startAngle: -135,
+				endAngle: 135,
+			},
+			dataLabels: { enabled: true}
+		}
+	}
+	*/
+
 };
 
 /**
@@ -92,6 +197,7 @@ let datasets = {
         options: {
             ...defaultChartOptions.line, 
             ...{ //rest will override defaults
+				colors: ['#d45087'],
                 title: { text: 'Altitude' }
             }
         }
@@ -101,8 +207,9 @@ let datasets = {
         hasChart: true,
         id: "#temperature-chart",
         options: {
-            ...defaultChartOptions.line, 
+            ...defaultChartOptions.area, 
             ...{ //rest will override defaults
+				colors: ['#ffa600'],
                 title: { text: 'Temperature' }
             }
         }
@@ -123,8 +230,9 @@ let datasets = {
         hasChart: true,
         id: "#velocity-chart",
         options: {
-            ...defaultChartOptions.line, 
+            ...defaultChartOptions.area, 
             ...{ //rest will override defaults
+				colors: ['#ff7c43'],
                 title: { text: 'Velocity' }
             }
         }
