@@ -53,7 +53,8 @@ const defaultChartOptions = {
     line: { //line chart
         series: [], //empty series, will be filled later
         noData: { text: "No Data"}, //placeholder text until first data point is added
-        chart: {
+
+	chart: {
             type: 'line',
             animations: {
                 enabled: true,
@@ -61,14 +62,15 @@ const defaultChartOptions = {
                 dynamicAnimation: { speed: 100}
             },
             toolbar: { show: false },
-            zoom: { enabled: false }
-        },
-        xaxis: {
-            type: 'numeric' //ensures numbers are treated like numbers not strings
-        },
-        dataLabels: { enabled: false },
-        stroke: { curve: 'straight' },
-        title: {
+            zoom: { enabled: false },
+			forecolor: "#ccc"
+			},
+			xaxis: {
+				type: 'numeric' //ensures numbers are treated like numbers not strings
+			},
+			dataLabels: { enabled: false },
+			stroke: { curve: 'straight' },
+			title: {
                 text: 'Loading...',//placeholder
                 align: 'right'
             },
