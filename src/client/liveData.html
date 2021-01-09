@@ -42,9 +42,9 @@
 			<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
 
 			<!-- Graph Container -->
-			<div class="container-fluid chart-container">
-				<div class="row">
-					<div class="col-sm-2 cup">
+			<div class="container-fluid">
+				<div class="row justify-content-between">
+					<div class="col-md-2 cup">
 						<h2>Live Values</h2>
 						<p>Connection: <span id="status">Closed</span></p>
 						<p>Altitude: <span class="ws-value" id="altitude">0</span> m</p>
@@ -55,12 +55,12 @@
 						<p>Time: <span class="ws-value" id="time">0</span> s</p>
 					</div>
 
-						<div class="col-sm-5 cup"><div class="chart" id="altitude-chart"></div></div>
-						<div class="col-sm-5 cup"><div class="chart" id="velocity-chart"></div></div>
+					<div class="col-md-5 cup"><div class="chart" id="altitude-chart"></div></div>
+					<div class="col-md-5 cup"><div class="chart" id="velocity-chart"></div></div>
 				</div>
 
-				<div class="row">
-					<div class="col-sm-2 cup">
+				<div class="row justify-content-between">
+					<div class="col-md-2 cup">
 						<!-- TODO: Actually Implement -->
 						<h2>Flight Stats</h2>
 						<p>Max Altitude</p>
@@ -71,8 +71,8 @@
 
 					</div>
 
-					<div class="col-sm-5 cup"><div class="chart" id="pressure-chart"></div></div>
-					<div class="col-sm-5 cup"><div class="chart" id="temperature-chart"></div></div>
+					<div class="col-md-5 cup"><div class="chart" id="pressure-chart"></div></div>
+					<div class="col-md-5 cup"><div class="chart" id="temperature-chart"></div></div>
 				</div>
 			</div>
 		</div>

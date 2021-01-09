@@ -3,7 +3,7 @@ body {
 }
 
 #main {
-	background: #fff;
+
 }
 
 .sideNav {
@@ -44,11 +44,6 @@ body {
 	margin-left: 50px;
 }
 
-#main {
-	transition: margin-left .5s;
-	padding: 16px;
-}
-
 @media screen and (max-height: 450px) {
 	.sidenav {padding-top: 15px;}
 	.sidenav a {font-size: 18px;}
@@ -61,11 +56,7 @@ img {
 	padding-right: 2px;
 }
 
-.cup {
-  box-shadow: 0 1px 1px rgba(0,0,0,0.11), 
-              0 2px 2px rgba(0,0,0,0.11), 
-              0 4px 4px rgba(0,0,0,0.11), 
-              0 6px 8px rgba(0,0,0,0.11),
-              0 8px 16px rgba(0,0,0,0.11);
+.test{
+	background-color: red;
 }
 
