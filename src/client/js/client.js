@@ -57,7 +57,7 @@ const defaultChartOptions = {
         chart: {
             type: 'line',
             animations: {
-                enabled: false,
+                enabled: true,
                 easing: 'smooth',
                 dynamicAnimation: { speed: 100}
             },

@@ -1,3 +1,4 @@
+/*
 window.Apex = {
   chart: {
     foreColor: '#ccc',
@@ -426,7 +427,9 @@ var chartArea = new ApexCharts(
 
 chartArea.render();
 
+*/
 /* fusionexport integrations START */
+/*
 (() => {
     const btn = document.getElementById('fusionexport-btn')
     btn.addEventListener('click', async function() {
@@ -444,4 +447,5 @@ chartArea.render();
     });
   }
 )();
+*/
 /* fusionexport integrations END */
