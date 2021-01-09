@@ -40,9 +40,9 @@ body {
 }
 
 .sparkboxes .box .details {
-	position: absolute;
+	/*position: absolute;*/
 	color: #fff;
-	transform: scale(0.7) translate(-22px, 20px);
+	/*transform: scale(0.7) translate(-22px, 20px); */
 }
 .sparkboxes strong {
 	position: relative;
