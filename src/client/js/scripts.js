@@ -1,6 +1,4 @@
-/* This has no real use expect being a guide 
- * for my styling of the graph 
-*/
+/*
 window.Apex = {
   chart: {
     foreColor: '#ccc',
@@ -431,6 +429,7 @@ chartArea.render();
 
 */
 /* fusionexport integrations START */
+/*
 (() => {
     const btn = document.getElementById('fusionexport-btn')
     btn.addEventListener('click', async function() {
@@ -449,3 +448,4 @@ chartArea.render();
   }
 )();
 */
+/* fusionexport integrations END */
