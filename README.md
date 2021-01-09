@@ -1,6 +1,6 @@
 # Summer Project 2020 - Software project - Live data handling
 
 # Quick Start: Running locally
-1. Ensure you have npm installed on your machine
-2. In this project directory run: `npm install`
-3. Run: `npm run serve`
+1. Run serery.py 
+2. Open liveData.html in browser 
+3. Refresh page 
