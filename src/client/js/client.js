@@ -32,7 +32,6 @@ function wsMessageHandler(e) {
         "temperature": 	[wsValues[1]],
         "pressure": 	[wsValues[2]],
         "velocity": 	[wsValues[3]],
-        "acceleration":	[wsValues[4]],
         "time": 		[wsValues[5]]
     }
 
