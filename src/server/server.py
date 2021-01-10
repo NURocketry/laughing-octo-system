@@ -13,9 +13,9 @@ if portSelection == 'n'
 baud = 115200
 ser = serial.Serial(port, baud, timeout=1)
 
-#handle income serial data and send to client via websockets
+#Handle income serial data and send to client via websockets
 async def serial_stream(websocket, path):
-    count = 0 #Used to limit the amount of data sent to site
+    readCount = 0 #Used to limit the amount of data sent to site
     while True:
         if ser.isOpen():
 
@@ -26,8 +26,8 @@ async def serial_stream(websocket, path):
                 print(serial_content) #logging/debugging
 
                 await websocket.send(serial_content)
-                count = 0
-            count += 1
+                readCount = 0
+            readCount += 1
         else: 
             # if connection has closed for some reason, try and open it again indefinitely
             # ... objectively a bad idea but hacky solution to allow arduino resets during testing
