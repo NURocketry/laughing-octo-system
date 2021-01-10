@@ -7,7 +7,7 @@ import websockets
 #Port Selection
 port = 'dev/ttyACM0'
 portSelection = input('Use default port: /dev/ttyACM0? Y/n: ')
-if portSelection == 'n'
+if portSelection == 'n':
     port = input('Port: ')
 
 baud = 115200
