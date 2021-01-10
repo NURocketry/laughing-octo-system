@@ -25,8 +25,6 @@ ws.onmessage = function(e) {
 function wsMessageHandler(e) {
     let wsValues = e.data.split(',').map( x => parseFloat(x) ); //extract data from ws content and convert to number
     
-    //ensure labels are the same as in 'datasets'
-    //numbers put into arrays to match format of addData()
     let namedData = { 
         'altitude': 	[wsValues[0]],
         'temperature': 	[wsValues[1]],
@@ -35,15 +33,16 @@ function wsMessageHandler(e) {
         'time': 		[wsValues[4]]
     }
 
-    //put values in textboxes
-	//TODO: Fix this. Something about this line does not 
-	//play nicely. Needs to be rewritten
+	//TODO 
+	//
+	//Fix this. Something about this line does not play nicely. Needs to be
+	//rewritten. Below is a solution. There has to be a more elegant way to
+	//implement this
 	//wsValues.map( (val, i) => htmlValues[i].innerText = val);
 
-	//TODO: Janky fix to the line of code^
-	htmlValues[0].innerText = wsValues[3];
-	htmlValues[1].innerText = wsValues[0];
-	htmlValues[2].innerText = wsValues[1];
+	htmlValues[0].innerText = namedData['velocity'];
+	htmlValues[1].innerText = namedData['altitude'];
+	htmlValues[2].innerText = namedData['pressure'];
 
     //push ws data onto chart data array
     addData(namedData);
@@ -260,7 +259,7 @@ let datasets = {
  * Automate initialising for when we have heaps of charts
  */
 function init() { //create the actual chart for each 
-    for ( let s in datasets) {// each set in the datasets object
+	for ( let s in datasets) {// each set in the datasets object
         if (datasets[s].hasChart) {// if it contains a .chart property 
             let chartName = s.replace(/^\w/, c => c.toUpperCase()); //capitalise first letter
             // creat chart object
