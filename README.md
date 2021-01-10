@@ -7,6 +7,7 @@
 
 
 ## TODO
+* Get working on Windows
 * Have labels on the access
 * Build local web server
 * Elegant way to implement numeric data in liveData.html
