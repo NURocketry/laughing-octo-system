@@ -5,7 +5,7 @@ import websockets
 # Serial stuff
 
 #Port Selection
-port = 'dev/ttyACM0'
+port = '/dev/ttyACM0'
 portSelection = input('Use default port: /dev/ttyACM0? Y/n: ')
 if portSelection == 'n':
     port = input('Port: ')
@@ -22,7 +22,7 @@ async def serial_stream(websocket, path):
             # read serial content, strip trailing /r/n, decode bytes to string
             serial_content = ser.readline().strip().decode('utf-8')  
 
-            if len(serial_content) and count % 10  == 0: # make sure we don't send a blank message (happens) and limits render time
+            if len(serial_content) and readCount % 10  == 0: # make sure we don't send a blank message (happens) and limits render time
                 print(serial_content) #logging/debugging
 
                 await websocket.send(serial_content)
