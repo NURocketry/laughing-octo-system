@@ -8,14 +8,14 @@ const htmlValues = document.querySelectorAll('.ws-value'); //return array of all
 ws.onopen = function () {
     //change status indicator
 	document.querySelector('#status').classList.replace('disconnected', 'connected');
-    document.querySelector('#status').innerHTML = 'OPEN';
+    document.querySelector('#status').innerText = 'OPEN';
 }
 
 
 ws.onclose = function() {
     //change status indicator
 	document.querySelector('#status').classList.replace('connected', 'disconnected');
-    document.querySelector('#status').innerHTML = 'CLOSED';
+    document.querySelector('#status').innerText = 'CLOSED';
 }
 
 ws.onmessage = function(e) { 
@@ -36,8 +36,14 @@ function wsMessageHandler(e) {
     }
 
     //put values in textboxes
-	e.preventDefault()
-	wsValues.map( (val, i) => htmlValues[i] = val);
+	//TODO: Fix this. Something about this line does not 
+	//play nicely. Needs to be rewritten
+	//wsValues.map( (val, i) => htmlValues[i].innerText = val);
+
+	//TODO: Janky fix the the above code line ^
+	htmlValues[0].innerText = wsValues[3];
+	htmlValues[1].innerText = wsValues[0];
+	htmlValues[2].innerText = wsValues[1];
 
     //push ws data onto chart data array
     addData(namedData);
@@ -46,7 +52,7 @@ function wsMessageHandler(e) {
     update();
 
     //cut off datapoints to keep at 10 max and redraw
-    //trimData(namedData, 100);
+    trimData(namedData, 100);
 }
 
 
