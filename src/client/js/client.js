@@ -87,7 +87,7 @@ const defaultChartOptions = {
 		},
 
 		dataLabels: {
-			enabled: false
+			enabled: false 
 		},
 
 		tooltip: {
