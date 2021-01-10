@@ -32,11 +32,12 @@ function wsMessageHandler(e) {
         'temperature': 	[wsValues[1]],
         'pressure': 	[wsValues[2]],
         'velocity': 	[wsValues[3]],
-        'time': 		[wsValues[5]]
+        'time': 		[wsValues[4]]
     }
 
     //put values in textboxes
-	wsValues.map( (val, i) => htmlValues[i].innerHTML = val);
+	e.preventDefault()
+	wsValues.map( (val, i) => htmlValues[i] = val);
 
     //push ws data onto chart data array
     addData(namedData);
@@ -62,7 +63,7 @@ const defaultChartOptions = {
 			foreColor: '#ccc',
 			toolbar: { show: false },
             animations: {
-                enabled: false,
+                enabled: true,
                 easing: 'smooth',
                 dynamicAnimation: { speed: 1000 }
             },
@@ -109,7 +110,7 @@ const defaultChartOptions = {
 			foreColor: '#ccc',
 			toolbar: { show: false },
             animations: {
-                enabled: false,
+                enabled: true,
                 easing: 'smooth',
                 dynamicAnimation: { speed: 1000 }
             },
@@ -298,7 +299,7 @@ function trimData(dataObj, len) {
         // console.log(key, datasets[key].data.length);
         if ( datasets[key].data.length > len ) {
 
-            console.log(datasets[key].data.shift(), " ");
+            console.log(datasets[key].data.shift(), ' ');
 
             flag = true;
         }
