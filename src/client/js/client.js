@@ -40,7 +40,7 @@ function wsMessageHandler(e) {
 	//play nicely. Needs to be rewritten
 	//wsValues.map( (val, i) => htmlValues[i].innerText = val);
 
-	//TODO: Janky fix the the above code line ^
+	//TODO: Janky fix to the line of code^
 	htmlValues[0].innerText = wsValues[3];
 	htmlValues[1].innerText = wsValues[0];
 	htmlValues[2].innerText = wsValues[1];
@@ -53,12 +53,13 @@ function wsMessageHandler(e) {
 
     //cut off datapoints to keep at 10 max and redraw
     trimData(namedData, 100);
-}
+};
 
 
 //Templates for the different graphs options
 //Documentation: https://apexcharts.com/docs/installation/
 //TODO: Remove repeated code 
+
 const defaultChartOptions = {
 	line: { 
 		series: [], 
@@ -154,8 +155,8 @@ const defaultChartOptions = {
 
 	},
 
-	//Can only take a single value not a series
 	/*
+	//Can only take a single value not a series
 	guage: {
 		series: [], 
 		noData: { text: "No Data"}, 
@@ -188,10 +189,7 @@ const defaultChartOptions = {
 		}
 	}
 	*/
-
-};
-
-
+}
 
 
 //Specific Implementaions of different charts
