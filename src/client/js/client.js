@@ -1,21 +1,21 @@
 //open websocket connection
-const ws = new WebSocket("ws://localhost:5678/");
+const ws = new WebSocket('ws://localhost:5678/');
 
 //text spans for each value
-const htmlValues = document.querySelectorAll(".ws-value"); //return array of all matching DOM elements
+const htmlValues = document.querySelectorAll('.ws-value'); //return array of all matching DOM elements
 
 //basic websocket handlers
 ws.onopen = function () {
     //change status indicator
-	document.querySelector('#status').classList.replace("disconnected", "connected");
-    document.querySelector('#status').innerText = "OPEN";
+	document.querySelector('#status').classList.replace('disconnected', 'connected');
+    document.querySelector('#status').innerHTML = 'OPEN';
 }
 
 
 ws.onclose = function() {
     //change status indicator
-	document.querySelector('#status').classList.replace("connected", "disconnected");
-    document.querySelector('#status').innerText = "CLOSED";
+	document.querySelector('#status').classList.replace('connected', 'disconnected');
+    document.querySelector('#status').innerHTML = 'CLOSED';
 }
 
 ws.onmessage = function(e) { 
@@ -28,15 +28,15 @@ function wsMessageHandler(e) {
     //ensure labels are the same as in 'datasets'
     //numbers put into arrays to match format of addData()
     let namedData = { 
-        "altitude": 	[wsValues[0]],
-        "temperature": 	[wsValues[1]],
-        "pressure": 	[wsValues[2]],
-        "velocity": 	[wsValues[3]],
-        "time": 		[wsValues[5]]
+        'altitude': 	[wsValues[0]],
+        'temperature': 	[wsValues[1]],
+        'pressure': 	[wsValues[2]],
+        'velocity': 	[wsValues[3]],
+        'time': 		[wsValues[5]]
     }
 
     //put values in textboxes
-	wsValues.map( (val, i) => htmlValues[i] = val);
+	wsValues.map( (val, i) => htmlValues[i].innerHTML = val);
 
     //push ws data onto chart data array
     addData(namedData);
@@ -45,11 +45,12 @@ function wsMessageHandler(e) {
     update();
 
     //cut off datapoints to keep at 10 max and redraw
-    trimData(namedData, 100);
+    //trimData(namedData, 100);
 }
 
 
 //Templates for the different graphs options
+//Documentation: https://apexcharts.com/docs/installation/
 //TODO: Remove repeated code 
 const defaultChartOptions = {
 	line: { 
@@ -183,6 +184,10 @@ const defaultChartOptions = {
 
 };
 
+
+
+
+//Specific Implementaions of different charts
 /**
  * @param data : array of datapoints
  * @param hasChart : if the data has an associated chart
@@ -193,7 +198,7 @@ let datasets = {
     altitude: {
         data: [],
         hasChart: true,
-        id: "#altitude-chart",
+        id: '#altitude-chart',
         options: {
             ...defaultChartOptions.line, 
             ...{ //rest will override defaults
@@ -205,7 +210,7 @@ let datasets = {
     temperature: {
         data: [],
         hasChart: true,
-        id: "#temperature-chart",
+        id: '#temperature-chart',
         options: {
             ...defaultChartOptions.area, 
             ...{ //rest will override defaults
@@ -217,7 +222,7 @@ let datasets = {
     pressure: {
         data: [],
         hasChart: true,
-        id: "#pressure-chart",
+        id: '#pressure-chart',
         options: {
             ...defaultChartOptions.line, 
             ...{ //rest will override defaults
@@ -228,7 +233,7 @@ let datasets = {
     velocity: {
         data: [],
         hasChart: true,
-        id: "#velocity-chart",
+        id: '#velocity-chart',
         options: {
             ...defaultChartOptions.area, 
             ...{ //rest will override defaults
@@ -237,22 +242,15 @@ let datasets = {
             }
         }
     },
-    acceleration: {
-        data: [],
-        hasChart: true,
-        id: "#acceleration-chart",
-        options: {
-            ...defaultChartOptions.line, 
-            ...{ //rest will override defaults
-                title: { text: 'Acceleration' }
-            }
-        }
-    },
     time: {
         data: [],
         hasChart: false
     }
 }
+
+
+
+
 /**
  * Automate initialising for when we have heaps of charts
  */
