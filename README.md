@@ -10,7 +10,7 @@
 ### Working on Windows
 Self explanatory. Get to a point where it can run on Microsoft Windows. The
 easiest way to do this the springs to mind would be to ensure that the project
-is running under ![WSL2](https://docs.microsoft.com/en-us/windows/wsl/compare-versions). 
+is running under [WSL2](https://docs.microsoft.com/en-us/windows/wsl/compare-versions). 
 Docker might be another option.
 
 ### Axis Labels
