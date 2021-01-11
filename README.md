@@ -52,3 +52,8 @@ Format will either be CSV or JSON.
 
 ### Ability to review written data
 The ability to review data recorded from previous flights.
+
+### Arrangeable Graphs
+The ability to arrange graphs. Will need to talk with Tristan to get a better
+idea. The idea seems to be akin to a tiling window manager like i3-wm or dwm,
+only without the keyboard centric navigation.
