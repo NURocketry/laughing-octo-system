@@ -1,20 +1,21 @@
 //open websocket connection
-const ws = new WebSocket("ws://localhost:5678/");
+const ws = new WebSocket('ws://localhost:5678/');
 
 //text spans for each value
-const htmlValues = document.querySelectorAll(".ws-value"); //return array of all matching DOM elements
+const htmlValues = document.querySelectorAll('.ws-value'); //return array of all matching DOM elements
 
 //basic websocket handlers
 ws.onopen = function () {
     //change status indicator
-    document.querySelector('#status').classList.replace("disconnected", "connected");
-    document.querySelector('#status').innerText = "OPEN";
+	document.querySelector('#status').classList.replace('disconnected', 'connected');
+    document.querySelector('#status').innerText = 'OPEN';
 }
+
 
 ws.onclose = function() {
     //change status indicator
-    document.querySelector('#status').classList.replace("connected", "disconnected");
-    document.querySelector('#status').innerText = "CLOSED";
+	document.querySelector('#status').classList.replace('connected', 'disconnected');
+    document.querySelector('#status').innerText = 'CLOSED';
 }
 
 ws.onmessage = function(e) { 
@@ -24,17 +25,24 @@ ws.onmessage = function(e) {
 function wsMessageHandler(e) {
     let wsValues = e.data.split(',').map( x => parseFloat(x) ); //extract data from ws content and convert to number
     
-    //ensure labels are the same as in 'datasets'
-    //numbers put into arrays to match format of addData()
     let namedData = { 
-        "altitude": [wsValues[0]],
-        "temperature": [wsValues[1]],
-        "pressure": [wsValues[2]],
-        "time": [wsValues[3]]
+        'altitude': 	[wsValues[0]],
+        'temperature': 	[wsValues[1]],
+        'pressure': 	[wsValues[2]],
+        'velocity': 	[wsValues[3]],
+        'time': 		[wsValues[4]]
     }
 
-    //put values in textboxes
-    wsValues.map( (val, i) => htmlValues[i].innerText = val);
+	//TODO 
+	//
+	//Fix this. Something about this line does not play nicely. Needs to be
+	//rewritten. Below is a solution. There has to be a more elegant way to
+	//implement this
+	//wsValues.map( (val, i) => htmlValues[i].innerText = val);
+
+	htmlValues[0].innerText = namedData['velocity'];
+	htmlValues[1].innerText = namedData['altitude'];
+	htmlValues[2].innerText = namedData['pressure'];
 
     //push ws data onto chart data array
     addData(namedData);
@@ -44,37 +52,146 @@ function wsMessageHandler(e) {
 
     //cut off datapoints to keep at 10 max and redraw
     trimData(namedData, 100);
-    // update();
-}
+};
 
+
+//Templates for the different graphs options
+//Documentation: https://apexcharts.com/docs/installation/
+//TODO: Remove repeated code 
 
 const defaultChartOptions = {
-    line: { //line chart
-        series: [], //empty series, will be filled later
-        noData: { text: "loading..." }, //placeholder text until first data point is added
-        chart: {
-            type: 'line',
+	line: { 
+		series: [], 
+		noData: { text: "No Data"}, 
+
+		chart: {
+			type: 'line',
+			foreColor: '#ccc',
+			toolbar: { show: false },
+            animations: {
+                enabled: true,
+                easing: 'smooth',
+                dynamicAnimation: { speed: 1000 }
+            },
+		},
+		dropShadow: {
+			enabled: true,
+			top: 3,
+			left: 2,
+			blur: 4,
+			opacity: 1,
+		},
+
+		stroke: {
+			curve: 'smooth'
+		},
+
+		dataLabels: {
+			enabled: false 
+		},
+
+		tooltip: {
+			theme: 'dark'
+		},
+
+		grid: {
+			borderColor: "#535A6C",
+			xaxis: {
+				lines: { show: false}
+			}
+		},
+
+		xaxis: {
+			type: 'numeric',
+		},
+
+	},
+
+	area: { 
+		series: [], 
+		noData: { text: "No Data"}, 
+
+		chart: {
+			type: 'area',
+			foreColor: '#ccc',
+			toolbar: { show: false },
+            animations: {
+                enabled: true,
+                easing: 'smooth',
+                dynamicAnimation: { speed: 1000 }
+            },
+		},
+		dropShadow: {
+			enabled: true,
+			top: 3,
+			left: 2,
+			blur: 4,
+			opacity: 1,
+		},
+
+		stroke: {
+			curve: 'smooth'
+		},
+
+		dataLabels: {
+			enabled: false
+		},
+
+		tooltip: {
+			theme: 'dark'
+		},
+
+		grid: {
+			borderColor: "#535A6C",
+			xaxis: {
+				lines: { show: false}
+			}
+		},
+
+		xaxis: {
+			type: 'numeric',
+		},
+
+	},
+
+	/*
+	//Can only take a single value not a series
+	guage: {
+		series: [], 
+		noData: { text: "No Data"}, 
+
+		chart: {
+			type: "radialBar",
+			foreColor: '#ccc',
+			toolbar: { show: false },
             animations: {
                 enabled: false,
                 easing: 'smooth',
                 dynamicAnimation: { speed: 1000 }
             },
-            toolbar: { show: false },
-            zoom: { enabled: false }
-        },
-        xaxis: {
-            type: 'numeric' //ensures numbers are treated like numbers not strings
-        },
-        dataLabels: { enabled: false },
-        stroke: { curve: 'straight' },
-        title: {
-                text: 'loading...', //placeholder
-                align: 'center'
-            },
-    },
-    gauge: {} //TODO
-};
 
+		},
+
+		series: [67],
+		plotOptions: {
+
+		radialBar: {
+			startAngle: -135,
+			endAngle: 135,
+
+			track: {
+				background: '#333',
+				startAngle: -135,
+				endAngle: 135,
+			},
+			dataLabels: { enabled: true}
+		}
+	}
+	*/
+}
+
+
+//Specific Implementaions of different charts
 /**
  * @param data : array of datapoints
  * @param hasChart : if the data has an associated chart
@@ -85,10 +202,11 @@ let datasets = {
     altitude: {
         data: [],
         hasChart: true,
-        id: "#altitude-chart",
+        id: '#altitude-chart',
         options: {
             ...defaultChartOptions.line, 
             ...{ //rest will override defaults
+				colors: ['#d45087'],
                 title: { text: 'Altitude' }
             }
         }
@@ -96,10 +214,11 @@ let datasets = {
     temperature: {
         data: [],
         hasChart: true,
-        id: "#temperature-chart",
+        id: '#temperature-chart',
         options: {
-            ...defaultChartOptions.line, 
+            ...defaultChartOptions.area, 
             ...{ //rest will override defaults
+				colors: ['#ffa600'],
                 title: { text: 'Temperature' }
             }
         }
@@ -107,11 +226,23 @@ let datasets = {
     pressure: {
         data: [],
         hasChart: true,
-        id: "#pressure-chart",
+        id: '#pressure-chart',
         options: {
             ...defaultChartOptions.line, 
             ...{ //rest will override defaults
                 title: { text: 'Pressure' }
+            }
+        }
+    },
+    velocity: {
+        data: [],
+        hasChart: true,
+        id: '#velocity-chart',
+        options: {
+            ...defaultChartOptions.area, 
+            ...{ //rest will override defaults
+				colors: ['#ff7c43'],
+                title: { text: 'Velocity' }
             }
         }
     },
@@ -120,11 +251,15 @@ let datasets = {
         hasChart: false
     }
 }
+
+
+
+
 /**
  * Automate initialising for when we have heaps of charts
  */
 function init() { //create the actual chart for each 
-    for ( let s in datasets) {// each set in the datasets object
+	for ( let s in datasets) {// each set in the datasets object
         if (datasets[s].hasChart) {// if it contains a .chart property 
             let chartName = s.replace(/^\w/, c => c.toUpperCase()); //capitalise first letter
             // creat chart object
@@ -167,7 +302,7 @@ function trimData(dataObj, len) {
         // console.log(key, datasets[key].data.length);
         if ( datasets[key].data.length > len ) {
 
-            console.log(datasets[key].data.shift(), " ");
+            console.log(datasets[key].data.shift(), ' ');
 
             flag = true;
         }
