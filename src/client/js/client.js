@@ -40,6 +40,17 @@ function wsMessageHandler(e) {
     for ( let item of htmlValues ) 
         item.innerText = namedData[item.id]; //extract data based on id
 
+    /**
+     * Better solution based on matching the object label to the html ID. means it doesnt need to be a perfect
+     * match but containing the string is enough.
+     */
+    // for ( let item of htmlValues ) { //each matching DOM element
+    //     for ( let label in namedData ) { //each entry in namedData
+    //         if ( item.id.includes(label) ) { //does the html ID contain the label somewhere *CASE SENSITIVE*
+    //             item.innerText = namedData[label]; //set the value from the corresponding item
+    //         }
+    //     }
+    // }
 
     //push ws data onto chart data array
     addData(namedData);
