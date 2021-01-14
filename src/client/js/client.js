@@ -1,9 +1,6 @@
 //open websocket connection
 const ws = new WebSocket('ws://localhost:5678/');
 
-//text spans for each value
-const htmlValues = document.querySelectorAll('.ws-value'); //return array of all matching DOM elements
-
 //basic websocket handlers
 ws.onopen = function () {
     //change status indicator
@@ -33,16 +30,16 @@ function wsMessageHandler(e) {
         'time': 		[wsValues[4]]
     }
 
-	//TODO 
-	//
-	//Fix this. Something about this line does not play nicely. Needs to be
-	//rewritten. Below is a solution. There has to be a more elegant way to
-	//implement this
-	//wsValues.map( (val, i) => htmlValues[i].innerText = val);
+    const htmlValues = document.querySelectorAll('.ws-value'); //get HTMLCollection of text spans for each value to be displayed
+    
+    /**
+     * this works but relies on the id being _exactly_ the same as the object label, which is fine for the moment but
+     * could cause issues. more robust solution below. I'm leaving this one uncommented for performance and because 
+     * it works atm.
+     */
+    for ( let item of htmlValues ) 
+        item.innerText = namedData[item.id]; //extract data based on id
 
-	htmlValues[0].innerText = namedData['velocity'];
-	htmlValues[1].innerText = namedData['altitude'];
-	htmlValues[2].innerText = namedData['pressure'];
 
     //push ws data onto chart data array
     addData(namedData);
@@ -51,14 +48,14 @@ function wsMessageHandler(e) {
     update();
 
     //cut off datapoints to keep at 10 max and redraw
-    trimData(namedData, 100);
+    trimData(namedData, 50);
 };
 
 
 //Templates for the different graphs options
 //Documentation: https://apexcharts.com/docs/installation/
 //TODO: Remove repeated code 
-
+ 
 const defaultChartOptions = {
 	line: { 
 		series: [], 
@@ -302,8 +299,8 @@ function trimData(dataObj, len) {
         // console.log(key, datasets[key].data.length);
         if ( datasets[key].data.length > len ) {
 
-            console.log(datasets[key].data.shift(), ' ');
-
+            // console.log(datasets[key].data.shift(), ' ');
+            datasets[key].data.shift()
             flag = true;
         }
     }
