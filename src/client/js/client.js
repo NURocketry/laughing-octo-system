@@ -23,11 +23,12 @@ function wsMessageHandler(e) {
     let wsValues = e.data.split(',').map( x => parseFloat(x) ); //extract data from ws content and convert to number
     
     let namedData = { 
-        'altitude': 	[wsValues[0]],
-        'temperature': 	[wsValues[1]],
-        'pressure': 	[wsValues[2]],
-        'velocity': 	[wsValues[3]],
-        'time': 		[wsValues[4]]
+        'time': 			[wsValues[0]],
+        'altitude': 		[wsValues[1]],
+        'velocity': 		[wsValues[2]],
+        'acceleration': 	[wsValues[3]],
+        'temperature': 		[wsValues[4]],
+        'pressure': 		[wsValues[5]]
     }
 
     const htmlValues = document.querySelectorAll('.ws-value'); //get HTMLCollection of text spans for each value to be displayed
@@ -59,7 +60,7 @@ function wsMessageHandler(e) {
     update();
 
     //cut off datapoints to keep at 10 max and redraw
-    trimData(namedData, 50);
+    //trimData(namedData, 50);
 };
 
 
@@ -212,7 +213,7 @@ let datasets = {
         hasChart: true,
         id: '#altitude-chart',
         options: {
-            ...defaultChartOptions.line, 
+            ...defaultChartOptions.area, 
             ...{ //rest will override defaults
 				colors: ['#d45087'],
                 title: { text: 'Altitude' }
@@ -224,7 +225,7 @@ let datasets = {
         hasChart: true,
         id: '#temperature-chart',
         options: {
-            ...defaultChartOptions.area, 
+            ...defaultChartOptions.line, 
             ...{ //rest will override defaults
 				colors: ['#ffa600'],
                 title: { text: 'Temperature' }
@@ -251,6 +252,18 @@ let datasets = {
             ...{ //rest will override defaults
 				colors: ['#ff7c43'],
                 title: { text: 'Velocity' }
+            }
+        }
+    },
+    acceleration: {
+        data: [],
+        hasChart: true,
+        id: '#acceleration-chart',
+        options: {
+            ...defaultChartOptions.area, 
+            ...{ //rest will override defaults
+				colors: ['#ff1919'],
+                title: { text: 'Acceleration' }
             }
         }
     },
