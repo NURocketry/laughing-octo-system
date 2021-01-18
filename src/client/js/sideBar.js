@@ -1,9 +1,10 @@
-function openNav() {
-	document.getElementById("sideNav").style.width = "20%";
-	document.getElementById("main").style.marginLeft = "20%";
-}
-
-function closeNav() {
-	document.getElementById("sideNav").style.width = "0";
-	document.getElementById("main").style.marginLeft= "0";
-}
+$(document).ready(function () {
+	$("#menu").on("click", function () {
+		$("#menu").css("opacity", "0");
+		$("#lgMenu").addClass("enter");
+	});
+	$("#exit").on("click", function () {
+		$("#lgMenu").removeClass("enter");
+		$("#menu").css("opacity", "1");
+	});
+});
