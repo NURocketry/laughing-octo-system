@@ -163,40 +163,82 @@ const defaultChartOptions = {
 
 	},
 
-	/*
-	//Can only take a single value not a series
 	guage: {
-		series: [], 
-		noData: { text: "No Data"}, 
-
+		series: [80],
 		chart: {
-			type: "radialBar",
-			foreColor: '#ccc',
+			type: 'radialBar',
 			toolbar: { show: false },
-            animations: {
-                enabled: false,
-                easing: 'smooth',
-                dynamicAnimation: { speed: 1000 }
-            },
-
+			foreColor: '#ccc'
 		},
 
-		series: [67],
 		plotOptions: {
-
-		radialBar: {
-			startAngle: -135,
-			endAngle: 135,
-
-			track: {
-				background: '#333',
+			radialBar: {
 				startAngle: -135,
 				endAngle: 135,
-			},
-			dataLabels: { enabled: true}
-		}
+				hollow: {
+					margin: 0,
+					size: '70%',
+					background: '#fff',
+					//imageOffsetX: 0,
+					//imageOffsetY: 0,
+					position: 'front',
+					dropShadow: {
+						enabled: true,
+						top: 3,
+						left: 0,
+						blur: 4,
+						opacity: 0.24
+					}
+				},
+				track: {
+					//background: '#fff',
+					strokeWidth: '67%',
+					//margin: 0, // margin is in pixels
+					dropShadow: {
+						enabled: true,
+						top: -3,
+						left: 0,
+						blur: 4,
+						opacity: 0.35
+					}
+					},
+				dataLabels: {
+					show: true,
+					name: {
+						offsetY: -10,
+						show: true,
+						color: '#888',
+						fontSize: '17px'
+					},
+					value: {
+						formatter: function(val) {
+							
+							return 10;
+						},
+					color: '#111',
+					fontSize: '36px',
+					show: true,
+					}
+				}
+			}
+		},
+
+		fill: {
+				type: 'gradient',
+				gradient: {
+					shade: 'dark',
+					type: 'horizontal',
+					shadeIntensity: 0.5,
+					gradientToColors: ['#ABE5A1'],
+					inverseColors: true,
+					opacityFrom: 1,
+					opacityTo: 1,
+					stops: [0, 100]
+				}
+		},
+		stroke: { lineCap: 'round' },
+		labels: ['G'],
 	}
-	*/
 }
 
 
@@ -261,6 +303,18 @@ let datasets = {
         id: '#acceleration-chart',
         options: {
             ...defaultChartOptions.area, 
+            ...{ //rest will override defaults
+				colors: ['#ff1919'],
+                title: { text: 'Acceleration' }
+            }
+        }
+    },
+    acceleration: {
+        data: [],
+        hasChart: true,
+        id: '#acceleration-guage',
+        options: {
+            ...defaultChartOptions.guage, 
             ...{ //rest will override defaults
 				colors: ['#ff1919'],
                 title: { text: 'Acceleration' }
