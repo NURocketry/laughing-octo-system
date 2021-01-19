@@ -93,16 +93,21 @@ h1, h2, h3, h4, h5, h6, strong {
 }
 
 
+/* ------------------------------------- */
+/* 				Side bar				 */ 
+/* ------------------------------------- */
+
+
 #menu {
 	transform: rotate(90deg);
 	left: 20px;
-	font-size: 4em;
+	font-size: 2em;
 	font-weight: 800;
 	z-index: 111;
 	cursor: pointer;
 	text-align: center;
-	transition: all 0.5s;
-	-webkit-transition: all 0.25s;
+	transition: all 0.2s;
+	-webkit-transition: all 0.2s;
 	position: absolute;
 }
 
@@ -114,6 +119,7 @@ ul {
 	list-style: none;
 	padding: 0;
 	margin-top: 75px;
+	opacity: 1;
 }
 
 li {
@@ -124,10 +130,11 @@ li {
 	margin: 15px 0;
 	color: white;
 	cursor: pointer;
-	background-color: #00936e;
+	background-color: #1977cf;
 	font-size: 1em;
 	letter-spacing: 0.2em;
 	transition: all 0.25s;
+	opacity: 1;
 }
 
 li:hover {
@@ -137,19 +144,24 @@ li:hover {
 	font-size: 1.5em;
 }
 
-#lgMenu {
+#lgMenu  {
+	padding-top: 1em;
 	width: 400px;
 	height: 100%;
 	top: 0;
 	left: -400px;
 	overflow: hidden;
-	background-color: black;
-	/*box-shadow: 5px 5px 10px grey;*/
+	background-color: #2B2D3E;
 	position: absolute;
 	z-index: 11;
-	opacity: 0;
 	transition: all 0.25s;
 	-webkit-transition: all 0.25s;
+	opacity: 0.9;
+	box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+}
+
+#lgMenu a {
+	color: inherit;
 }
 
 #exit {
@@ -169,9 +181,17 @@ li:hover {
 }
 
 #lgMenu.enter {
-	opacity: 1;
 	left: 0;
 }
+
+#brand {
+	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	height: auto;
+}
+
 
 
 
