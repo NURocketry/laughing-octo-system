@@ -31,7 +31,7 @@ async def serial_stream(websocket, path):
                 # for some reason including the sleep makes it work on windows, if it causes and issues the sleep
                 # time can be decreased
                 # please note that it is in seconds, not millisecond
-                await asyncio.sleep(1)
+                await asyncio.sleep(0)
 
                 readCount = 0
             readCount += 1
