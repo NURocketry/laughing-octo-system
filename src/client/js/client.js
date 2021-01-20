@@ -60,7 +60,7 @@ function wsMessageHandler(e) {
     update();
 
     //cut off datapoints to keep at 10 max and redraw
-    //trimData(namedData, 50);
+    trimData(namedData, 50);
 };
 
 
