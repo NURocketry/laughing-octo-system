@@ -1,17 +1,16 @@
 body {
-  background: #343E59;
-  color: #777;
-  font-family: Montserrat, Arial, sans-serif;
+	background: #343E59;
+	color: #777;
+	font-family: Montserrat, Arial, sans-serif;
 }
 
 .body-bg {
-  background: #F3F4FA !important;
+	background: #F3F4FA !important;
 }
 
 h1, h2, h3, h4, h5, h6, strong {
-  font-weight: 600;
+	font-weight: 600;
 }
-
 
 .content-area {
 	max-width: 1280px;
@@ -96,7 +95,6 @@ h1, h2, h3, h4, h5, h6, strong {
 /* ------------------------------------- */
 /* 				Side bar				 */ 
 /* ------------------------------------- */
-
 
 #menu {
 	transform: rotate(90deg);
@@ -191,11 +189,4 @@ li:hover {
 	width: 80%;
 	height: auto;
 }
-
-
-
-
-
-
-
 
