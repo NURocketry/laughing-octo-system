@@ -17,7 +17,7 @@ USERS = set()
 
 STATE = "1,1,1,1,1"
 
-async def notify_state():
+async def notify_state(STATE):
     if USERS:  # asyncio.wait doesn't accept an empty list
         message = STATE
         await asyncio.wait([user.send(message) for user in USERS])
@@ -52,7 +52,7 @@ async def serial_stream():
                 print(serial_content)  # logging/debugging
 
                 STATE = serial_content
-                await notify_state()
+                await notify_state(serial_content)
 
                 # for some reason including the sleep makes it work on windows, if it causes and issues the sleep
                 # time can be decreased
