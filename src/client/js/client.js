@@ -16,6 +16,8 @@ ws.onclose = function() {
 }
 
 ws.onmessage = function(e) { 
+    console.log("New message:")
+    console.log(e)
     wsMessageHandler(e);
 };
 

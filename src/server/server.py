@@ -1,48 +1,65 @@
-import serial
+from aiohttp import web
+import socketio
+import threading
+import logging
 import asyncio
-import websockets
 
-# Serial stuff
+## creates a new Async Socket IO Server
+sio = socketio.AsyncServer()
+## Creates a new Aiohttp Web Application
+app = web.Application()
+# Binds our Socket.IO server to our Web App
+## instance
+sio.attach(app)
 
-# Port Selection
-port = '/dev/ttyACM0'
-portSelection = input('Use default port: /dev/ttyACM0? Y/n: ')
-if portSelection == 'n':
-    port = input('Port: ')
+## we can define aiohttp endpoints just as we normally
+## would with no change
+async def index(request):
+    with open('../client/liveData.html') as f:
+        return web.Response(text=f.read(), content_type='text/html')
 
-baud = 115200
-ser = serial.Serial(port, baud, timeout=1)
+## If we wanted to create a new websocket endpoint,
+## use this decorator, passing in the name of the
+## event we wish to listen out for
+@sio.on('message')
+async def print_message(sid, message):
+    ## When we receive a new event of type
+    ## 'message' through a socket.io connection
+    ## we print the socket ID and the message
+    print("Socket ID: " , sid)
+    print(message)
+    await sio.emit('message', message)
 
 
-# Handle income serial data and send to client via websockets
-async def serial_stream(websocket, path):
-    readCount = 0  # Used to limit the amount of data sent to site
+## We bind our aiohttp endpoint to our app
+## router
+app.router.add_get('/', index)
+
+## We kick off our server
+
+async def broadcast():
     while True:
-        if ser.isOpen():
-
-            # read serial content, strip trailing /r/n, decode bytes to string
-            serial_content = ser.readline().strip().decode('utf-8')
-
-            if len(serial_content) and readCount == 9:  # make sure we don't send a blank message (happens) and limits render time
-                print(serial_content)  # logging/debugging
-
-                await websocket.send(serial_content)
-
-                # for some reason including the sleep makes it work on windows, if it causes and issues the sleep
-                # time can be decreased
-                # please note that it is in seconds, not millisecond
-                await asyncio.sleep(0)
-
-                readCount = 0
-            readCount += 1
-        else:
-            # if connection has closed for some reason, try and open it again indefinitely
-            # ... objectively a bad idea but hacky solution to allow arduino resets during testing
-            # potentially will need to be properly implemented in case connection with rocket is lost and regained mid flight
-            ser.open()
+        print("broadcast")
+        await sio.broadcast.emit('message', "hello")
+        await asyncio.sleep(1)
 
 
-start_server = websockets.serve(serial_stream, "localhost", 5678)
+# x = threading.Thread(target=broadcast)
+# logging.info("Main    : before running thread")
+# x.start()
 
-asyncio.get_event_loop().run_until_complete(start_server)
+if __name__ == '__main__':
+    web.run_app(app)
+
+async def multiple_tasks():
+    input_coroutines = [broadcast()]
+    res = await asyncio.gather(*input_coroutines, return_exceptions=True)
+    
+    return res
+
+
+asyncio.get_event_loop().run_until_complete(multiple_tasks())
 asyncio.get_event_loop().run_forever()
+
+
+
