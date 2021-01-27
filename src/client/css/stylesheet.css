@@ -97,7 +97,6 @@ h1, h2, h3, h4, h5, h6, strong {
 /* ------------------------------------- */
 
 #menu {
-	transform: rotate(90deg);
 	left: 20px;
 	font-size: 2em;
 	font-weight: 800;
@@ -111,6 +110,7 @@ h1, h2, h3, h4, h5, h6, strong {
 
 #menu:hover {
 	color: #ff9900;
+	transform: rotate(120deg);
 }
 
 ul {
@@ -190,3 +190,6 @@ li:hover {
 	height: auto;
 }
 
+/* ------------------------------------- */
+/* 				Carousell 				 */
+/* ------------------------------------- */
