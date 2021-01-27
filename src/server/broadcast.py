@@ -1,6 +1,7 @@
 import serial
 import asyncio
 import websockets
+from aiohttp import web
 
 # Serial stuff
 
@@ -14,8 +15,6 @@ baud = 115200
 ser = serial.Serial(port, baud, timeout=1)
 
 USERS = set()
-
-STATE = "1,1,1,1,1"
 
 async def notify_state(STATE):
     if USERS:  # asyncio.wait doesn't accept an empty list
@@ -51,8 +50,7 @@ async def serial_stream():
             if len(serial_content) and readCount == 9:  # make sure we don't send a blank message (happens) and limits render time
                 print(serial_content)  # logging/debugging
 
-                STATE = serial_content
-                await notify_state(serial_content)
+                await notify_state("1,1,1,1,1")
 
                 # for some reason including the sleep makes it work on windows, if it causes and issues the sleep
                 # time can be decreased
@@ -69,9 +67,19 @@ async def serial_stream():
 
 start_server = websockets.serve(counter, "localhost", 5678)
 
+#Web server to publish web page contents this includes resources like css and js files
+async def index(request):
+    return web.FileResponse('../client/index.html')
+
+app = web.Application()
+app.add_routes([web.get('/', index)])
+app.router.add_static('/', path='../client/')
+
 #https://www.oreilly.com/library/view/daniel-arbuckles-mastering/9781787283695/9633e64b-af31-4adb-b008-972f492701d8.xhtml
 asyncio.ensure_future(start_server)
 asyncio.ensure_future(serial_stream())
+asyncio.ensure_future(web.run_app(app,port=8080)) #Web server running on port 8080
+
 
 loop = asyncio.get_event_loop()
 loop.run_forever()
