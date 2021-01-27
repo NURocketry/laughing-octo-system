@@ -15,7 +15,8 @@ ws.onclose = function() {
     document.querySelector('#status').innerText = 'CLOSED';
 }
 
-ws.onmessage = function(e) { 
+ws.onmessage = function(e) {
+    console.log(e)
     wsMessageHandler(e);
 };
 
