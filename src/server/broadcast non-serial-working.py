@@ -55,6 +55,7 @@ async def serial_stream():
 
 start_server = websockets.serve(counter, "localhost", 5678)
 
+#Web server to publish web page contents this includes resources like css and js files
 async def index(request):
     return web.FileResponse('../client/index.html')
 
@@ -65,7 +66,7 @@ app.router.add_static('/', path='../client/')
 #https://www.oreilly.com/library/view/daniel-arbuckles-mastering/9781787283695/9633e64b-af31-4adb-b008-972f492701d8.xhtml
 asyncio.ensure_future(start_server)
 asyncio.ensure_future(serial_stream())
-asyncio.ensure_future(web.run_app(app,port=8080))
+asyncio.ensure_future(web.run_app(app,port=8080)) #Web server running on port 8080
 
 
 loop = asyncio.get_event_loop()
