@@ -21,7 +21,7 @@ else: # no filepath given, write
 
     # init required serial stuff
     #Port Selection
-    port = input('port: ') if input('use default port: /dev/ttyACM0? Y/n: ') == 'n' else '/dev/ttyACM0'
+    port = input('port: ') if input('use default port: /dev/cu.usbserial-1420? Y/n: ') == 'n' else '/dev/cu.usbserial-1420' #sorry noel if i forget to change this back lol
 
     baud = 115200
     ser = serial.Serial(port, baud, timeout=1)
@@ -60,21 +60,29 @@ async def file_stream(websocket, path):
     for _line in f:
         
         csv_content = f.readline().strip() # read line discarding the newline character
-        
+
         if len(csv_content) < 2 : continue # dont send empty lines
+        # dont merge these two if statements because itll fuckup the $read_count rate limiting
 
-        timestamp = float(csv_content.split(',')[0]) # exract time value from csv line
+        if (read_count % 10) == 0: # limits render time
 
-        offset = timestamp - (time.time() - reference_time) # delta between the python program's time and the live time
-        
-        if offset > 0: #if the loop is running faster than incoming data, wait to catch up
-            time.sleep(offset/100)
-        '''
-        TODO: fix timing issues, probably something to do with offset not accounting for execution time, or differences
-        in reacount rate limiting for serial streaming/reading from file.
-        '''
-        if read_count % 10  == 0: # limits render time
             print(csv_content) #logging/debugging
+
+            '''
+            TODO: fix timing issues, probably something to do with offset not accounting for execution time, or differences
+            in reacount rate limiting for serial streaming/reading from file.
+            '''
+
+            timestamp = float( csv_content.split(',')[0] ) # exract time value from csv line
+            current_time = time.time()
+            delta = current_time - reference_time # difference between the python program's time and the live time
+            offset = timestamp - delta # amount by which the program is ahead of schedule
+            
+            print("-> %0.3f (%0.3f = %0.3f - %0.3f)" % (offset, delta, current_time, reference_time) ) #debugging
+
+            if offset > 0: #if the loop is running faster than incoming data, wait to catch up
+                time.sleep(offset)
+            
             await websocket.send(csv_content)
         
         read_count += 1 
@@ -85,7 +93,7 @@ async def file_stream(websocket, path):
 # requires windows-1252 encoding instead of UTF-8 because superscript 2's arent ecoded as utf8 atm
 with open(filepath, mode, encoding = 'windows-1252' ) as f: #ensures f.close() is called at the end
     if mode == 'r':
-        f.readline() # discard csv column labels
+        # next(f) # discard csv column labels
         start_server = websockets.serve(file_stream, "localhost", 5678)
     elif mode == 'w':
         f.write("Time (s), Altitude (m), Velocity (m/s), Acceleration (m/s^2), Air temperature (°C), Air pressure (mbar)\n") # add column labels
