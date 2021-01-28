@@ -54,13 +54,13 @@ async def serial_stream(websocket, path):
 
 #handle file data and send to client via websockets
 async def file_stream(websocket, path):
+
     read_count = 0 # rate limit sent data
+
     reference_time = time.time() # seconds since epoch for accurate playback
 
     for line in (l.strip() for l in f): # iterate over each line with trailing newlines removed
         
-        # csv_content = f.readline().strip() # read line discarding the newline character
-
         if len(line) < 2 : continue # dont send empty lines
         # dont merge these two if statements because itll fuckup the $read_count rate limiting
 
@@ -68,26 +68,23 @@ async def file_stream(websocket, path):
 
             print(line) #logging/debugging
 
-            '''
-            TODO: fix timing issues, probably something to do with offset not accounting for execution time, or differences
-            in reacount rate limiting for serial streaming/reading from file.
-            '''
-
             timestamp = float( line.split(',')[0] ) # exract time value from csv line
-            current_time = time.time()
+
+            current_time = time.time() # take a wild fucking guess what this is xox
+
             delta = current_time - reference_time # difference between the python program's time and the live time
             offset = timestamp - delta # amount by which the program is ahead of schedule
             
-            print("-> %0.3f (%0.3f = %0.3f - %0.3f)" % (offset, delta, current_time, reference_time) ) #debugging
+            # print("-> %0.3f (%0.3f = %0.3f - %0.3f)" % (offset, delta, current_time, reference_time) ) #debugging
 
             if offset > 0: #if the loop is running faster than incoming data, wait to catch up
                 time.sleep(offset)
             
             await websocket.send(line)
         
-        read_count += 1 
+        read_count += 1 # increment rate limiter
     
-    print("Finished replaying launch data from '%s'" % filepath)
+    print("\nFinished replaying launch data from '%s'" % filepath)
 
         
 # requires windows-1252 encoding instead of UTF-8 because superscript 2's arent ecoded as utf8 atm
