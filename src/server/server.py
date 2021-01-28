@@ -21,7 +21,7 @@ else: # no filepath given, write
 
     # init required serial stuff
     #Port Selection
-    port = input('port: ') if input('use default port: /dev/ttyACM0? Y/n: ') == 'n' else '/dev/ttyACM0';
+    port = input('port: ') if input('use default port: /dev/ttyACM0? Y/n: ') == 'n' else '/dev/ttyACM0'
 
     baud = 115200
     ser = serial.Serial(port, baud, timeout=1)
@@ -57,7 +57,7 @@ async def file_stream(websocket, path):
     read_count = 0 # rate limit sent data
     reference_time = time.time() # seconds since epoch for accurate playback
 
-    for line in f:
+    for _line in f:
         
         csv_content = f.readline().strip() # read line discarding the newline character
         
