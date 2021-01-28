@@ -68,7 +68,7 @@ async def file_stream(websocket, path):
         offset = timestamp - (time.time() - reference_time) # delta between the python program's time and the live time
         
         if offset > 0: #if the loop is running faster than incoming data, wait to catch up
-            time.sleep(offset)
+            time.sleep(offset/100)
         '''
         TODO: fix timing issues, probably something to do with offset not accounting for execution time, or differences
         in reacount rate limiting for serial streaming/reading from file.
@@ -82,8 +82,8 @@ async def file_stream(websocket, path):
     print("Finished replaying launch data from '%s'" % filepath)
 
         
-
-with open(filepath, mode, encoding = 'utf-8' ) as f: #ensures f.close() is called at the end
+# requires windows-1252 encoding instead of UTF-8 because superscript 2's arent ecoded as utf8 atm
+with open(filepath, mode, encoding = 'windows-1252' ) as f: #ensures f.close() is called at the end
     if mode == 'r':
         f.readline() # discard csv column labels
         start_server = websockets.serve(file_stream, "localhost", 5678)
