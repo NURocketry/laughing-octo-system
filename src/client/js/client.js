@@ -22,42 +22,24 @@ ws.onmessage = function(e) {
 function wsMessageHandler(e) {
     let wsValues = e.data.split(',').map( x => parseFloat(x) ); //extract data from ws content and convert to number
     
-    let namedData = { 
-        'time': 			[wsValues[0]],
-        'altitude': 		[wsValues[1]],
-        'velocity': 		[wsValues[2]],
-        'acceleration': 	[wsValues[3]],
-        'temperature': 		[wsValues[4]],
-        'pressure': 		[wsValues[5]]
+    //update currentData global for use in other functions
+    currentData = { 
+        'time': 			wsValues[0],
+        'altitude': 		wsValues[1],
+        'velocity': 		wsValues[2],
+        'acceleration': 	wsValues[3],
+        'temperature': 		wsValues[4],
+        'pressure': 		wsValues[5]
     }
 
-    const htmlValues = document.querySelectorAll('.ws-value'); //get HTMLCollection of text spans for each value to be displayed
-    
-    /**
-     * this works but relies on the id being _exactly_ the same as the object label, which is fine for the moment but
-     * could cause issues. more robust solution below. I'm leaving this one uncommented for performance and because 
-     * it works atm.
-     */
-    for ( let item of htmlValues ) 
-        item.innerText = namedData[item.id]; //extract data based on id
-
-    /**
-     * Better solution based on matching the object label to the html ID. means it doesnt need to be a perfect
-     * match but containing the string is enough.
-     */
-    // for ( let item of htmlValues ) { //each matching DOM element
-    //     for ( let label in namedData ) { //each entry in namedData
-    //         if ( item.id.includes(label) ) { //does the html ID contain the label somewhere *CASE SENSITIVE*
-    //             item.innerText = namedData[label]; //set the value from the corresponding item
-    //         }
-    //     }
-    // }
+    //update data and labels of info boxes
+    updateInfoBoxes(currentData);
 
     //push ws data onto chart data array
-    addData(namedData);
+    addData(currentData);
 
     //re-draw charts accordingly
-    update();
+    updateCharts();
 
     //cut off datapoints to keep at 10 max and redraw
     //trimData(namedData, 50);
@@ -273,7 +255,33 @@ let datasets = {
     }
 }
 
-
+// details of data coming in
+const dataInfo = {
+    'time': {
+        heading: "Time",
+        unit: "s"
+    },
+    'altitude': {
+        heading: "Altitude",
+        unit: "m"
+    },
+    'velocity': {
+        heading: "Velocity",
+        unit: "m/s"
+    },
+    'acceleration': {
+        heading: "Acceleration",
+        unit: "m/s\xB2" /*escape code for superscript two*/
+    },
+    'temperature': {
+        heading: "Temperature",
+        unit: "\xB0C" /*escape code for degree symbol*/
+    },
+    'pressure': {
+        heading: "Pressure",
+        unit: "hPa"
+    }
+}
 
 
 /**
@@ -310,7 +318,7 @@ function render() {
  *   dataSetName2: [new data 2], ... }
  * where dataSetName matches the .name property of the corresonding entry in the datasets object
  * 
- * data should be within arrays to allow for multiple datapoints to be added at once
+ * data can be within arrays to allow for multiple datapoints to be added at once
  */
 function addData(dataObj) {
     for ( let key in dataObj )
@@ -331,7 +339,7 @@ function trimData(dataObj, len) {
     return flag;
 }
 
-function update() {
+function updateCharts() {
     for ( let s in datasets) { // each set in the datasets object
         if (datasets[s].hasChart) {// if it contains a .chart property 
             let chartName = s.replace(/^\w/, c => c.toUpperCase()); //capitalise first letter
@@ -340,8 +348,53 @@ function update() {
     }
 }
 
-//hold all the ApexCharts chart elements
+
+/***************************
+ * INFO BOX DROPDOWN STUFF *
+ **************************/
+
+
+/**
+ * @param dataObj should have the form 
+ * { dataSetName1: [new data 1], 
+ *   dataSetName2: [new data 2], ... }
+ * where dataSetName matches the .name property of the corresonding entry in the datasets object
+ * 
+ * data can be within arrays to allow for multiple datapoints to be added at once
+ */
+function updateInfoBoxes() {
+    const infoBoxes = document.querySelectorAll('.info-box'); //get HTMLCollection of text spans for each value to be displayed
+    
+    for ( let box of infoBoxes ) {
+        const label = box.dataset.label; //value of the data-label attribute
+        //update heading
+        box.querySelector(".info-box-heading").innerText = dataInfo[label].heading; //retrieve correct heading from reference
+        //update value
+        box.querySelector(".info-box-value").innerText = currentData[label]; //retrieve most recent value from global variable
+        //update unit
+        box.querySelector(".info-box-unit").innerText = dataInfo[label].unit; //retrieve correcct unit from reference with html escape codes
+    }
+}
+
+
+
+
+/**
+ * ACTUAL CODE TO RUN
+ */
+
+// hold all the ApexCharts chart elements
 let charts = new Object();
+
+// hold the most recent value of each datapoint
+let currentData = { 
+    'time': null,
+    'altitude': null,
+    'velocity': null,
+    'acceleration': null,
+    'temperature': null,
+    'pressure': null
+}
 
 init();
 render();

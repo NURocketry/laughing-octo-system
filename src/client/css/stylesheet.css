@@ -190,3 +190,32 @@ li:hover {
 	height: auto;
 }
 
+
+/* ------------------------------------- */
+/* 				Info boxes				 */ 
+/* ------------------------------------- */
+
+.info-box {
+	position: relative;
+}
+
+.info-box-selection {
+	position: absolute;
+	top: 0;
+	right: 0;
+
+	/* visibility: hidden; */
+	opacity: 0; /* hide by default */
+	/* animate transition */
+	transition: visibility 0.2s linear, opacity 0.2s linear;
+}
+
+/* when hovering on the main box, show selection arrow */
+.info-box-container:hover .info-box-selection {
+	/* visibility: visible; */
+	opacity: 1;
+}
+
+.info-box-selection > p:hover {
+	cursor: pointer;
+}
