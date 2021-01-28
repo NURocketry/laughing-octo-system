@@ -113,14 +113,14 @@ h1, h2, h3, h4, h5, h6, strong {
 	color: #ff9900;
 }
 
-ul {
+#lgMenu ul {
 	list-style: none;
 	padding: 0;
 	margin-top: 75px;
 	opacity: 1;
 }
 
-li {
+#lgMenu li {
 	text-align: center;
 	text-transform: uppercase;
 	height: 70px;
@@ -135,7 +135,7 @@ li {
 	opacity: 1;
 }
 
-li:hover {
+#lgMenu li:hover {
 	background-color: white;
 	color: black;
 	letter-spacing: 0.3em;
@@ -199,23 +199,65 @@ li:hover {
 	position: relative;
 }
 
-.info-box-selection {
+.info-box-selection-arrow {
 	position: absolute;
 	top: 0;
 	right: 0;
 
-	/* visibility: hidden; */
 	opacity: 0; /* hide by default */
 	/* animate transition */
-	transition: visibility 0.2s linear, opacity 0.2s linear;
+	transition: opacity 0.2s linear;
 }
 
 /* when hovering on the main box, show selection arrow */
-.info-box-container:hover .info-box-selection {
-	/* visibility: visible; */
+.info-box-container:hover .info-box-selection-arrow {
 	opacity: 1;
 }
 
-.info-box-selection > p:hover {
+.info-box-selection-arrow > p:hover {
 	cursor: pointer;
+}
+
+.info-box-selection-list {
+	position: absolute;
+	top: 0;
+	right: 0;
+
+	background-color: #F3F4FA;
+	border-radius: .3em;
+	
+	opacity: 0;
+	visibility: hidden;
+
+	transition: opacity 0.2s linear, display 0.2s linear
+}
+
+.info-box-selection-arrow:hover .info-box-selection-list, .info-box-selection-list:hover {
+	visibility: visible;
+	opacity: 1;
+	z-index: 9999
+}
+
+.info-box-selection-list ul {
+	list-style: none;
+
+	padding: 0.2em 1em;
+
+	margin: 0.2em 0 !important; /*override some dumb automatic bottom margin from _reboot.scss*/
+
+}
+
+.info-box-selection-list li {
+
+	margin: 0.2em 0;
+	padding: .25em 1em;
+
+	font-size: 1.2rem;
+
+	color: black;
+}
+
+.info-box-selection-list li:hover {
+	background-color: lightgrey;
+	border-radius: 0.2em;
 }
