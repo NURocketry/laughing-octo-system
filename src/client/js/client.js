@@ -19,6 +19,16 @@ ws.onmessage = function(e) {
     wsMessageHandler(e);
 };
 
+let flightStats= { 
+	maxVelocity: 		null,
+	maxAcceleration: 	null,
+	maxAltitude: 		null,
+	minTemperature: 	null,
+	maxTemperature: 	null,
+	minPressure: 		null,
+	maxPressure: 		null
+}
+
 function wsMessageHandler(e) {
     let wsValues = e.data.split(',').map( x => parseFloat(x) ); //extract data from ws content and convert to number
     
@@ -31,15 +41,20 @@ function wsMessageHandler(e) {
         'pressure': 		[wsValues[5]]
     }
 
-    const htmlValues = document.querySelectorAll('.ws-value'); //get HTMLCollection of text spans for each value to be displayed
+	//get HTMLCollection of text spans for each value to be displayed
+	const htmlValuesTelemetry = document.querySelectorAll('.ws-value'); 
+	const htmlValuesStats = document.querySelectorAll('.ws-stat'); 
     
     /**
      * this works but relies on the id being _exactly_ the same as the object label, which is fine for the moment but
      * could cause issues. more robust solution below. I'm leaving this one uncommented for performance and because 
      * it works atm.
      */
-    for ( let item of htmlValues ) 
+	statUpdate(wsValues);
+    for ( let item of htmlValuesTelemetry ) 
         item.innerText = namedData[item.id]; //extract data based on id
+    for ( let test of htmlValuesStats ) 
+        test.innerText = flightStats[test.id]; //extract data based on id
 
     /**
      * Better solution based on matching the object label to the html ID. means it doesnt need to be a perfect
@@ -63,6 +78,40 @@ function wsMessageHandler(e) {
     //trimData(namedData, 50);
 };
 
+function statUpdate(data) {
+	console.log(data);
+	if(flightStats.maxVelocity == null) {
+		flightStats.maxVelocity = data[2]
+		flightStats.maxAcceleration = data[3]
+		flightStats.maxAltitude = data[1]
+		flightStats.minTemperature = data[4]
+		flightStats.maxTemperature = data[4]
+		flightStats.minPressure = data[5]
+		flightStats.maxPressure = data[5]
+	}
+
+	if(data[2] > flightStats.maxVelocity)
+		flightStats.maxVelocity = data[2]
+
+	if(data[3] > flightStats.maxAcceleration)
+		flightStats.maxAcceleration = data[3]
+
+	if(data[1] > flightStats.maxAltitude)
+		flightStats.maxAltitude = data[1]
+
+	if(data[4] < flightStats.minTemperature)
+		flightStats.minTemperature = data[4]
+
+	if(data[4] > flightStats.maxTemperature)
+		flightStats.maxTemperature = data[4]
+
+	if(data[5] < flightStats.minPressure)
+		flightStats.minPressure = data[5]
+
+	if(data[5] > flightStats.maxPressure)
+		flightStats.maxPressure = data[5]
+
+}
 
 //Templates for the different graphs options
 //Documentation: https://apexcharts.com/docs/installation/
@@ -215,7 +264,7 @@ let datasets = {
         options: {
             ...defaultChartOptions.area, 
             ...{ //rest will override defaults
-				colors: ['#d45087'],
+				colors: ['#9b5de5'],
                 title: { text: 'Altitude' }
             }
         }
@@ -227,7 +276,7 @@ let datasets = {
         options: {
             ...defaultChartOptions.line, 
             ...{ //rest will override defaults
-				colors: ['#ffa600'],
+				colors: ['#f15bb5'],
                 title: { text: 'Temperature' }
             }
         }
@@ -239,6 +288,7 @@ let datasets = {
         options: {
             ...defaultChartOptions.line, 
             ...{ //rest will override defaults
+				colors: ['#fee440'],
                 title: { text: 'Pressure' }
             }
         }
@@ -250,7 +300,7 @@ let datasets = {
         options: {
             ...defaultChartOptions.area, 
             ...{ //rest will override defaults
-				colors: ['#ff7c43'],
+				colors: ['#00bbf9'],
                 title: { text: 'Velocity' }
             }
         }
@@ -262,17 +312,59 @@ let datasets = {
         options: {
             ...defaultChartOptions.area, 
             ...{ //rest will override defaults
-				colors: ['#ff1919'],
+				colors: ['#00f5d4'],
                 title: { text: 'Acceleration' }
             }
         }
     },
     time: {
         data: [],
-        hasChart: false
+		id: '#time-chart',
+        hasChart: true,
+        options: {
+            ...defaultChartOptions.area, 
+            ...{ //rest will override defaults
+				colors: ['#00f5d4'],
+                title: { text: 'Time' }
+            }
+        }
     }
 }
 
+function statUpdate(data) {
+	console.log(data);
+	if(flightStats.maxVelocity == null) {
+		flightStats.maxVelocity = data[2]
+		flightStats.maxAcceleration = data[3]
+		flightStats.maxAltitude = data[1]
+		flightStats.minTemperature = data[4]
+		flightStats.maxTemperature = data[4]
+		flightStats.minPressure = data[5]
+		flightStats.maxPressure = data[5]
+	}
+
+	if(data[2] > flightStats.maxVelocity)
+		flightStats.maxVelocity = data[2]
+
+	if(data[3] > flightStats.maxAcceleration)
+		flightStats.maxAcceleration = data[3]
+
+	if(data[1] > flightStats.maxAltitude)
+		flightStats.maxAltitude = data[1]
+
+	if(data[4] < flightStats.minTemperature)
+		flightStats.minTemperature = data[4]
+
+	if(data[4] > flightStats.maxTemperature)
+		flightStats.maxTemperature = data[4]
+
+	if(data[5] < flightStats.minPressure)
+		flightStats.minPressure = data[5]
+
+	if(data[5] > flightStats.maxPressure)
+		flightStats.maxPressure = data[5]
+
+}
 
 
 

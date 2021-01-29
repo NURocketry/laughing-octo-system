@@ -17,6 +17,19 @@ h1, h2, h3, h4, h5, h6, strong {
 	margin: 0 auto;
 }
 
+#logo {
+	height: auto;
+	width: 40%;
+	display: block;
+	margin: auto;
+	padding-top: 5px;
+	padding-bottom: 10px;
+}
+
+.header {
+	color: white;
+	font-family: Montserrat, Arial, sans-serif;
+}
 .box {
 	background-color: #2B2D3E;
 	padding: 25px 20px;
@@ -50,19 +63,23 @@ h1, h2, h3, h4, h5, h6, strong {
 }
 
 .sparkboxes .box1 {
-	background-image: linear-gradient( 135deg, #ABDCFF 10%, #0396FF 100%);
+	background: #681FC1;
 }
 
 .sparkboxes .box2 {
-	background-image: linear-gradient( 135deg, #2AFADF 10%, #4C83FF 100%);
+	background: #E1148F;
 }
 
 .sparkboxes .box3 {
-	background-image: linear-gradient( 135deg, #FFD3A5 10%, #FD6585 100%);
+	background: #F4D301;
 }
 
 .sparkboxes .box4 {
-	background-image: linear-gradient( 135deg, #EE9AE5 10%, #5961F9 100%);
+	background: #0099CC;
+}
+
+.sparkboxes .box5 {
+	background: #00A38D;
 }
 
 #fusionexport-btn {
@@ -193,3 +210,11 @@ li:hover {
 /* ------------------------------------- */
 /* 				Carousell 				 */
 /* ------------------------------------- */
+
+.carousel-control-prev {
+	width: 12%;
+}
+
+.carousel-control-next {
+	width: 12%;
+}

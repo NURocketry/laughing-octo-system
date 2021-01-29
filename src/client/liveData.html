@@ -52,7 +52,9 @@
 						<div class="carousel-inner">
 							<div class="carousel-item active">
 								<div class="d-block w-100">
-									<!-- Graphs -->
+									<div class="col-md-6">
+										<h2 class="header">Live Telemetry: Graphs</h2>
+									</div>
 									<div class="row">
 										<div class="col-md-4">
 											<div class="box shadow mt-4">
@@ -89,63 +91,172 @@
 							</div>
 							<div class="carousel-item">
 								<div class="d-block w-100">
-									<!--Insert Content Here -->
-									<p>Live Numeric Data</p>
+									<div class="col-md-6">
+										<h2 class="header">Live Telemetry: Numeric</h2>
+									</div>
+									<div class="row sparkboxes mt-4">
+										<div class="col-md-6">
+											<div class="box box1">
+												<div class="details">
+													<h3>Connection</h3>
+													<h4><span id="status">Closed</span></h4>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="box box1">
+												<div class="details">
+													<h3>Velocity</h3>
+													<h4><span class="ws-value" id="velocity">0</span> ms<sup>-1</sup></h4>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row sparkboxes mt-4">
+										<div class="col-md-6">
+											<div class="box box4">
+												<div class="details">
+													<h3>Acceleration</h3>
+													<h4><span class="ws-value" id="acceleration">0</span> m<sup>-2</sup></h4>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="box box4">
+												<div class="details">
+													<h3>Altitude</h3>
+													<h4><span class="ws-value" id="altitude">0</span> m</h4>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+									<div class="row sparkboxes mt-4">
+										<div class="col-md-6">
+											<div class="box box3">
+												<div class="details">
+													<h3>Temperature</h3>
+													<h4><span class="ws-value" id="temperature">0</span> &deg;C</h4>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="box box3">
+												<div class="details">
+													<h3>Pressure</h3>
+													<h4><span class="ws-value" id="pressure">0</span> hPa</h4>
+												</div>
+											</div>
+										</div>
+									</div>	
 								</div>
 							</div>
 
 							<div class="carousel-item">
 								<div class="d-block w-100">
-									<!--Insert Content Here -->
-									<p>Single Focused Graph</p>
+									<div class="col-md-12">
+										<h2 class="header">Focus</h2>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="box shadow mt-12">
+												<div id="time-chart"></div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="carousel-item">
 								<div class="d-block w-100">
-									<table class="table">
-										<tbody>
-											<tr>
-												<td>Connection</td>
-												<td id="status">Closed</td>
-											</tr>
-											<tr>
-												<td>Max Altitude</td>
-												<td><span class="ws-value" id="maxAltitude">0</span> m</td>
-											</tr>
-											<tr>
-												<td>Max Velocity</td>
-												<td><span class="ws-value" id="maxVelocity">0</span> ms<sup>-1</sup></td>
-											</tr>
-											<tr>
-												<td>Max Acceleration</td>
-												<td><span class="ws-value" id="maxAcceleration">0</span> m<sup>-2</sup></td>
-											</tr>
-											<tr>
-												<td>Max Temperature</td>
-												<td><span class="ws-value" id="maxTemperature">0</span> &deg;C</td>
-											</tr>
-											<tr>
-												<td>Min Temperature</td>
-												<td><span class="ws-value" id="minTemperature">0</span> &deg;C</td>
-											</tr>
-											<tr>
-												<td>Max Pressure</td>
-												<td><span class="ws-value" id="maxPressure">0</span> hPa</td>
-											</tr>
-											<tr>
-												<td>Min Pressure</td>
-												<td><span class="ws-value" id="minPressure">0</span> hPa</td>
-											</tr>
-										</tbody>
-									</table>
+									<div class="col-md-6">
+										<h2 class="header">Flight Statistics</h2>
+									</div>
+									<div class="row sparkboxes mt-4">
+										<div class="col-md-6">
+											<div class="box box1">
+												<div class="details">
+													<h3>Connection</h3>
+													<h4><span id="status">Closed</span></h4>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="box box1">
+												<div class="details">
+													<h3>Max Velocity</h3>
+													<h4><span class="ws-stat" id="maxVelocity">0</span> ms<sup>-1</sup></h4>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row sparkboxes mt-4">
+										<div class="col-md-6">
+											<div class="box box2">
+												<div class="details">
+													<h3>Max Acceleration</h3>
+													<h4><span class="ws-stat" id="maxAcceleration">0</span> ms<sup>-2</sup></h4>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="box box2">
+												<div class="details">
+													<h3>Max Altitude</h3>
+													<h4><span class="ws-stat" id="maxAltitude">0</span> m</h4>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row sparkboxes mt-4">
+										<div class="col-md-6">
+											<div class="box box3">
+												<div class="details">
+													<h3>Min Temperature</h3>
+													<h4><span class="ws-stat" id="minTemperature">0</span> &deg;C</h4>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="box box3">
+												<div class="details">
+													<h3>Max Temperature</h3>
+													<h4><span class="ws-stat" id="maxTemperature">0</span> &deg;C</h4>
+												</div>
+											</div>
+										</div>
+									</div>	
+									<div class="row sparkboxes mt-4">
+										<div class="col-md-6">
+											<div class="box box4">
+												<div class="details">
+													<h3>Min Pressure</h3>
+													<h4><span class="ws-stat" id="minPressure">0</span> hPa</h4>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="box box4">
+												<div class="details">
+													<h3>Max Pressure</h3>
+													<h4><span class="ws-stat" id="maxPressure">0</span> hPa</h4>
+												</div>
+											</div>
+										</div>
+									</div>	
 								</div>
 							</div>
 							<div class="carousel-item">
 								<div class="d-block w-100">
+									<div class="row">
+										<div class="col-md-12">
+											<h2 class="header">GPS</h2>
+										</div>
+									</div>
 									<div class="embed-responsive embed-responsive-16by9">
 										<iframe
-											src="https://www.google.com/maps/embed/v1/place?key=
-												 &q=University+of+Newcastle"
+											src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCuWkB6d3961vTwWSVjs5XdNkKKsNr2XTc
+												 &q=33.8688° S, 151.2093° E "
 											allowfullscreen> </iframe>
 									</div>
 								</div>
@@ -155,13 +266,12 @@
 				</div>
 			</div>
 		</div>
-				<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="false"></span>
-				</a>
-				<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="false"></span>
-				</a>
-		<!-- Code that runs graphs -->
+		<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="false"></span>
+		</a>
+		<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="false"></span>
+		</a>
 		<script src="./js/sideBar.js"></script>
 		<script src="./js/client.js"></script>
 	</body>
