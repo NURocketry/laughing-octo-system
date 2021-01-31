@@ -19,16 +19,6 @@ ws.onmessage = function(e) {
     wsMessageHandler(e);
 };
 
-let flightStats= { 
-	maxVelocity: 		null,
-	maxAcceleration: 	null,
-	maxAltitude: 		null,
-	minTemperature: 	null,
-	maxTemperature: 	null,
-	minPressure: 		null,
-	maxPressure: 		null
-}
-
 function wsMessageHandler(e) {
     let wsValues = e.data.split(',').map( x => parseFloat(x) ); //extract data from ws content and convert to number
     
@@ -43,34 +33,18 @@ function wsMessageHandler(e) {
 
 	//get HTMLCollection of text spans for each value to be displayed
 	const htmlValuesTelemetry = document.querySelectorAll('.ws-value'); 
-	const htmlValuesStats = document.querySelectorAll('.ws-stat'); 
-    
+
     /**
      * this works but relies on the id being _exactly_ the same as the object label, which is fine for the moment but
      * could cause issues. more robust solution below. I'm leaving this one uncommented for performance and because 
      * it works atm.
      */
-	statUpdate(wsValues);
-    for ( let item of htmlValuesTelemetry ) 
+    for ( let item of htmlValuesTelemetry )
         item.innerText = namedData[item.id]; //extract data based on id
-    for ( let test of htmlValuesStats ) 
-        test.innerText = flightStats[test.id]; //extract data based on id
-
-    /**
-     * Better solution based on matching the object label to the html ID. means it doesnt need to be a perfect
-     * match but containing the string is enough.
-     */
-    // for ( let item of htmlValues ) { //each matching DOM element
-    //     for ( let label in namedData ) { //each entry in namedData
-    //         if ( item.id.includes(label) ) { //does the html ID contain the label somewhere *CASE SENSITIVE*
-    //             item.innerText = namedData[label]; //set the value from the corresponding item
-    //         }
-    //     }
-    // }
-
+	
     //push ws data onto chart data array
     addData(namedData);
-
+	
     //re-draw charts accordingly
     update();
 
@@ -78,50 +52,14 @@ function wsMessageHandler(e) {
     //trimData(namedData, 50);
 };
 
-function statUpdate(data) {
-	console.log(data);
-	if(flightStats.maxVelocity == null) {
-		flightStats.maxVelocity = data[2]
-		flightStats.maxAcceleration = data[3]
-		flightStats.maxAltitude = data[1]
-		flightStats.minTemperature = data[4]
-		flightStats.maxTemperature = data[4]
-		flightStats.minPressure = data[5]
-		flightStats.maxPressure = data[5]
-	}
-
-	if(data[2] > flightStats.maxVelocity)
-		flightStats.maxVelocity = data[2]
-
-	if(data[3] > flightStats.maxAcceleration)
-		flightStats.maxAcceleration = data[3]
-
-	if(data[1] > flightStats.maxAltitude)
-		flightStats.maxAltitude = data[1]
-
-	if(data[4] < flightStats.minTemperature)
-		flightStats.minTemperature = data[4]
-
-	if(data[4] > flightStats.maxTemperature)
-		flightStats.maxTemperature = data[4]
-
-	if(data[5] < flightStats.minPressure)
-		flightStats.minPressure = data[5]
-
-	if(data[5] > flightStats.maxPressure)
-		flightStats.maxPressure = data[5]
-
-}
 
 //Templates for the different graphs options
 //Documentation: https://apexcharts.com/docs/installation/
-//TODO: Remove repeated code 
  
 const defaultChartOptions = {
 	line: { 
 		series: [], 
 		noData: { text: "No Data"}, 
-
 		chart: {
 			type: 'line',
 			foreColor: '#ccc',
@@ -168,7 +106,6 @@ const defaultChartOptions = {
 	area: { 
 		series: [], 
 		noData: { text: "No Data"}, 
-
 		chart: {
 			type: 'area',
 			foreColor: '#ccc',
@@ -210,42 +147,7 @@ const defaultChartOptions = {
 			type: 'numeric',
 		},
 
-	},
-
-	/*
-	//Can only take a single value not a series
-	guage: {
-		series: [], 
-		noData: { text: "No Data"}, 
-
-		chart: {
-			type: "radialBar",
-			foreColor: '#ccc',
-			toolbar: { show: false },
-            animations: {
-                enabled: false,
-                easing: 'smooth',
-                dynamicAnimation: { speed: 1000 }
-            },
-
-		},
-
-		series: [67],
-		plotOptions: {
-
-		radialBar: {
-			startAngle: -135,
-			endAngle: 135,
-
-			track: {
-				background: '#333',
-				startAngle: -135,
-				endAngle: 135,
-			},
-			dataLabels: { enabled: true}
-		}
 	}
-	*/
 }
 
 
@@ -259,6 +161,7 @@ const defaultChartOptions = {
 let datasets = {
     altitude: {
         data: [],
+		stats: {min: null, max: null},
         hasChart: true,
         id: '#altitude-chart',
         options: {
@@ -271,6 +174,7 @@ let datasets = {
     },
     temperature: {
         data: [],
+		stats: {min: null, max: null},
         hasChart: true,
         id: '#temperature-chart',
         options: {
@@ -283,6 +187,7 @@ let datasets = {
     },
     pressure: {
         data: [],
+		stats: {min: null, max: null},
         hasChart: true,
         id: '#pressure-chart',
         options: {
@@ -295,6 +200,7 @@ let datasets = {
     },
     velocity: {
         data: [],
+		stats: {min: null, max: null},
         hasChart: true,
         id: '#velocity-chart',
         options: {
@@ -307,6 +213,7 @@ let datasets = {
     },
     acceleration: {
         data: [],
+		stats: {min: null, max: null},
         hasChart: true,
         id: '#acceleration-chart',
         options: {
@@ -319,6 +226,7 @@ let datasets = {
     },
     time: {
         data: [],
+		stats: {min: null, max: null},
 		id: '#time-chart',
         hasChart: true,
         options: {
@@ -330,42 +238,6 @@ let datasets = {
         }
     }
 }
-
-function statUpdate(data) {
-	console.log(data);
-	if(flightStats.maxVelocity == null) {
-		flightStats.maxVelocity = data[2]
-		flightStats.maxAcceleration = data[3]
-		flightStats.maxAltitude = data[1]
-		flightStats.minTemperature = data[4]
-		flightStats.maxTemperature = data[4]
-		flightStats.minPressure = data[5]
-		flightStats.maxPressure = data[5]
-	}
-
-	if(data[2] > flightStats.maxVelocity)
-		flightStats.maxVelocity = data[2]
-
-	if(data[3] > flightStats.maxAcceleration)
-		flightStats.maxAcceleration = data[3]
-
-	if(data[1] > flightStats.maxAltitude)
-		flightStats.maxAltitude = data[1]
-
-	if(data[4] < flightStats.minTemperature)
-		flightStats.minTemperature = data[4]
-
-	if(data[4] > flightStats.maxTemperature)
-		flightStats.maxTemperature = data[4]
-
-	if(data[5] < flightStats.minPressure)
-		flightStats.minPressure = data[5]
-
-	if(data[5] > flightStats.maxPressure)
-		flightStats.maxPressure = data[5]
-
-}
-
 
 
 /**
@@ -405,17 +277,28 @@ function render() {
  * data should be within arrays to allow for multiple datapoints to be added at once
  */
 function addData(dataObj) {
-    for ( let key in dataObj )
+    for ( let key in dataObj ) {
         datasets[key].data.push( ...dataObj[key] ); // spread operator (...) 'splits' array into function arguments
+
+		//Determines the min/max for each element in the dataset
+		//used for the statistics page
+		let min = datasets[key].stats.min; 
+		let max = datasets[key].stats.max; 
+		if( dataObj[key] < min || min == null ) {
+			datasets[key].stats.min = dataObj[key][0]; 
+		}
+		if(dataObj[key] > max || max == null) {
+			datasets[key].stats.max = dataObj[key][0]; 
+		}
+
+	}
 }
 
 function trimData(dataObj, len) {
     let flag = false;
     for ( let key in dataObj ) {
-        // console.log(key, datasets[key].data.length);
         if ( datasets[key].data.length > len ) {
 
-            // console.log(datasets[key].data.shift(), ' ');
             datasets[key].data.shift()
             flag = true;
         }
