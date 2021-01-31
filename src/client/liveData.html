@@ -1,278 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=0.9" />
-		<title>Live Data</title>
-		<link
-			rel="stylesheet"
-			href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-			/>
-		<link
-			href="https://fonts.googleapis.com/css?family=Montserrat"
-			rel="stylesheet"
-			/>
-		<link
-			href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap"
-			rel="stylesheet">
-		<link
-			rel="stylesheet"
-			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-			/>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=0.9" />
+        <title>Live Data</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-			crossorigin="anonymous"></script> 
+			crossorigin="anonymous"></script>
 		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js":
+			src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+				:
 			integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
 			crossorigin="anonymous"></script>
-		<script src="./js/apexcharts.js"></script>
-		<link rel="stylesheet" href="./css/stylesheet.css" />
-	</head>
-	<body>
-		<nav>
-			<div id="lgMenu">
-				<span id="exit"><img src="../assets/Logo_wText_whiteOnTransparent.png" id="brand" class="img-fluid"/> &times;</span>
-				<ul>
-					<li><a>Live Data</a></li>
-					<li><a>OBS Feed</a></li>
-					<li><a>Review</a></li>
-					<li><a href="https://nurocketry.org" target="_blank">About Us</a></li>
-				</ul>
-			</div>
-		</nav>
-		<div id="logo" class="img-fluid row">
-			<div id="menu">⚙</div>
-			<img src="../assets/Logo_wText_whiteOnTransparent.png" id="logo"/>
-		</div>
-		<div id="wrapper">
-			<div class="content-area">
-				<div class="main">
-					<div id="carouselExampleIndicators" class="carousel slide" data-interval="false">
-						<div class="carousel-inner">
-							<div class="carousel-item active">
-								<div class="d-block w-100">
-									<div class="col-md-6">
-										<h2 class="header">Live Telemetry: Graphs</h2>
-									</div>
-									<div class="row">
-										<div class="col-md-4">
-											<div class="box shadow mt-4">
-												<div id="temperature-chart"></div>
-											</div>
-										</div>
+        <script src="./js/apexcharts.js"></script>
+        <link rel="stylesheet" href="./css/stylesheet.css" />
+    </head>
+    <body>
+        <nav>
+            <div id="lgMenu">
+                <span id="exit"><img src="../assets/Logo_wText_whiteOnTransparent.png" id="brand" class="img-fluid" /> &times;</span>
+                <ul>
+                    <li><a>Live Data</a></li>
+                    <li><a>OBS Feed</a></li>
+                    <li><a>Review</a></li>
+                    <li><a href="https://nurocketry.org" target="_blank">About Us</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div id="logo" class="img-fluid row">
+            <div id="menu">⚙</div>
+            <img src="../assets/Logo_wText_whiteOnTransparent.png" id="logo"/>
+        </div>
+        <div id="wrapper">
+            <div class="content-area">
+                <div class="main">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-interval="false">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="d-block w-100">
+                                    <div class="col-md-6">
+                                        <h2 class="header">Live Telemetry: Graphs</h2>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="box shadow mt-4">
+                                                <div id="temperature-chart"></div>
+                                            </div>
+                                        </div>
 
-										<div class="col-md-4">
-											<div class="box shadow mt-4">
-												<div id="altitude-chart"></div>
-											</div>
-										</div>
+                                        <div class="col-md-4">
+                                            <div class="box shadow mt-4">
+                                                <div id="altitude-chart"></div>
+                                            </div>
+                                        </div>
 
-										<div class="col-md-4">
-											<div class="box shadow mt-4">
-												<div id="pressure-chart"></div>
-											</div>
-										</div>
-									</div>
+                                        <div class="col-md-4">
+                                            <div class="box shadow mt-4">
+                                                <div id="pressure-chart"></div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-									<div class="row">
-										<div class="col-md-6">
-											<div class="box shadow mt-4">
-												<div id="velocity-chart"></div>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="box shadow mt-4">
-												<div id="acceleration-chart"></div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="carousel-item">
-								<div class="d-block w-100">
-									<div class="col-md-6">
-										<h2 class="header">Live Telemetry: Numeric</h2>
-									</div>
-									<div class="row sparkboxes mt-4">
-										<div class="col-md-6">
-											<div class="box box1">
-												<div class="details">
-													<h3>Connection</h3>
-													<h4><span id="status">Closed</span></h4>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="box box1">
-												<div class="details">
-													<h3>Velocity</h3>
-													<h4><span class="ws-value" id="velocity">0</span> ms<sup>-1</sup></h4>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row sparkboxes mt-4">
-										<div class="col-md-6">
-											<div class="box box4">
-												<div class="details">
-													<h3>Acceleration</h3>
-													<h4><span class="ws-value" id="acceleration">0</span> m<sup>-2</sup></h4>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="box box4">
-												<div class="details">
-													<h3>Altitude</h3>
-													<h4><span class="ws-value" id="altitude">0</span> m</h4>
-												</div>
-											</div>
-										</div>
-									</div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="box shadow mt-4">
+                                                <div id="velocity-chart"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="box shadow mt-4">
+                                                <div id="acceleration-chart"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="d-block w-100">
+                                    <div class="col-md-6">
+                                        <h2 class="header">Live Telemetry: Numeric</h2>
+                                    </div>
+                                    <div class="row sparkboxes mt-4">
+                                        <div class="col-md-6">
+                                            <div class="box box1">
+                                                <div class="details">
+                                                    <h3>Connection</h3>
+                                                    <h4><span id="status">Closed</span></h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="box box1">
+                                                <div class="details">
+                                                    <h3>Velocity</h3>
+                                                    <h4><span class="ws-value" id="velocity">0</span> ms<sup>-1</sup></h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row sparkboxes mt-4">
+                                        <div class="col-md-6">
+                                            <div class="box box4">
+                                                <div class="details">
+                                                    <h3>Acceleration</h3>
+                                                    <h4><span class="ws-value" id="acceleration">0</span> m<sup>-2</sup></h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="box box4">
+                                                <div class="details">
+                                                    <h3>Altitude</h3>
+                                                    <h4><span class="ws-value" id="altitude">0</span> m</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    <div class="row sparkboxes mt-4">
+                                        <div class="col-md-6">
+                                            <div class="box box3">
+                                                <div class="details">
+                                                    <h3>Temperature</h3>
+                                                    <h4><span class="ws-value" id="temperature">0</span> &deg;C</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="box box3">
+                                                <div class="details">
+                                                    <h3>Pressure</h3>
+                                                    <h4><span class="ws-value" id="pressure">0</span> hPa</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-									<div class="row sparkboxes mt-4">
-										<div class="col-md-6">
-											<div class="box box3">
-												<div class="details">
-													<h3>Temperature</h3>
-													<h4><span class="ws-value" id="temperature">0</span> &deg;C</h4>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="box box3">
-												<div class="details">
-													<h3>Pressure</h3>
-													<h4><span class="ws-value" id="pressure">0</span> hPa</h4>
-												</div>
-											</div>
-										</div>
-									</div>	
-								</div>
-							</div>
-
-							<div class="carousel-item">
-								<div class="d-block w-100">
-									<div class="col-md-12">
-										<h2 class="header">Focus</h2>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<div class="box shadow mt-12">
-												<div id="time-chart"></div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="carousel-item">
-								<div class="d-block w-100">
-									<div class="col-md-6">
-										<h2 class="header">Flight Statistics</h2>
-									</div>
-									<div class="row sparkboxes mt-4">
-										<div class="col-md-6">
-											<div class="box box1">
-												<div class="details">
-													<h3>Connection</h3>
-													<h4><span id="status">Closed</span></h4>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="box box1">
-												<div class="details">
-													<h3>Max Velocity</h3>
-													<h4><span class="ws-stat" id="maxVelocity">0</span> ms<sup>-1</sup></h4>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row sparkboxes mt-4">
-										<div class="col-md-6">
-											<div class="box box2">
-												<div class="details">
-													<h3>Max Acceleration</h3>
-													<h4><span class="ws-stat" id="maxAcceleration">0</span> ms<sup>-2</sup></h4>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="box box2">
-												<div class="details">
-													<h3>Max Altitude</h3>
-													<h4><span class="ws-stat" id="maxAltitude">0</span> m</h4>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row sparkboxes mt-4">
-										<div class="col-md-6">
-											<div class="box box3">
-												<div class="details">
-													<h3>Min Temperature</h3>
-													<h4><span class="ws-stat" id="minTemperature">0</span> &deg;C</h4>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="box box3">
-												<div class="details">
-													<h3>Max Temperature</h3>
-													<h4><span class="ws-stat" id="maxTemperature">0</span> &deg;C</h4>
-												</div>
-											</div>
-										</div>
-									</div>	
-									<div class="row sparkboxes mt-4">
-										<div class="col-md-6">
-											<div class="box box4">
-												<div class="details">
-													<h3>Min Pressure</h3>
-													<h4><span class="ws-stat" id="minPressure">0</span> hPa</h4>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="box box4">
-												<div class="details">
-													<h3>Max Pressure</h3>
-													<h4><span class="ws-stat" id="maxPressure">0</span> hPa</h4>
-												</div>
-											</div>
-										</div>
-									</div>	
-								</div>
-							</div>
-							<div class="carousel-item">
-								<div class="d-block w-100">
-									<div class="row">
-										<div class="col-md-12">
-											<h2 class="header">GPS</h2>
-										</div>
-									</div>
-									<div class="embed-responsive embed-responsive-16by9">
-										<iframe
-											src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCuWkB6d3961vTwWSVjs5XdNkKKsNr2XTc
-												 &q=33.8688° S, 151.2093° E "
-											allowfullscreen> </iframe>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <div class="carousel-item">
+                                <div class="d-block w-100">
+                                    <div class="col-md-12">
+                                        <h2 class="header">Focus</h2>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="box shadow mt-12">
+                                                <div id="time-chart"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="d-block w-100">
+                                    <div class="col-md-6">
+                                        <h2 class="header">Flight Statistics</h2>
+                                    </div>
+                                    <div class="row sparkboxes mt-4">
+                                        <div class="col-md-6">
+                                            <div class="box box1">
+                                                <div class="details">
+                                                    <h3>Connection</h3>
+                                                    <h4><span id="status">Closed</span></h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="box box1">
+                                                <div class="details">
+                                                    <h3>Max Velocity</h3>
+                                                    <h4><span class="ws-value" id="maxVelocity">0</span> ms<sup>-1</sup></h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row sparkboxes mt-4">
+                                        <div class="col-md-6">
+                                            <div class="box box2">
+                                                <div class="details">
+                                                    <h3>Max Acceleration</h3>
+                                                    <h4><span class="ws-value" id="maxAcceleration">0</span> ms<sup>-2</sup></h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="box box2">
+                                                <div class="details">
+                                                    <h3>Max Altitude</h3>
+                                                    <h4><span class="ws-value" id="maxAltitude">0</span> m</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row sparkboxes mt-4">
+                                        <div class="col-md-6">
+                                            <div class="box box3">
+                                                <div class="details">
+                                                    <h3>Min Temperature</h3>
+                                                    <h4><span class="ws-value" id="minTemperature">0</span> &deg;C</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="box box3">
+                                                <div class="details">
+                                                    <h3>Max Temperature</h3>
+                                                    <h4><span class="ws-value" id="maxTemperature">0</span> &deg;C</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row sparkboxes mt-4">
+                                        <div class="col-md-6">
+                                            <div class="box box4">
+                                                <div class="details">
+                                                    <h3>Min Pressure</h3>
+                                                    <h4><span class="ws-value" id="minPressure">0</span> hPa</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="box box4">
+                                                <div class="details">
+                                                    <h3>Max Pressure</h3>
+                                                    <h4><span class="ws-value" id="maxPressure">0</span> hPa</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="d-block w-100">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h2 class="header">GPS</h2>
+                                        </div>
+                                    </div>
+                                    <div class="embed-responsive embed-responsive-16by9">
+										<!-- Embed map here using iframe -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
 			<span class="carousel-control-prev-icon" aria-hidden="false"></span>
-		</a>
-		<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-			<span class="carousel-control-next-icon" aria-hidden="false"></span>
-		</a>
-		<script src="./js/sideBar.js"></script>
-		<script src="./js/client.js"></script>
-	</body>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="false"></span>
+        </a>
+        <script src="./js/sideBar.js"></script>
+        <script src="./js/client.js"></script>
+    </body>
 </html>

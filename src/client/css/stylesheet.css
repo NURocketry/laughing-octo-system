@@ -26,10 +26,15 @@ h1, h2, h3, h4, h5, h6, strong {
 	padding-bottom: 10px;
 }
 
+/* ------------------------------------- */
+/* 			Telemetry Elements 		 	 */ 
+/* ------------------------------------- */
+
 .header {
 	color: white;
 	font-family: Montserrat, Arial, sans-serif;
 }
+
 .box {
 	background-color: #2B2D3E;
 	padding: 25px 20px;
@@ -50,6 +55,7 @@ h1, h2, h3, h4, h5, h6, strong {
 .sparkboxes .box .details {
 	color: #fff;
 }
+
 .sparkboxes strong {
 	position: relative;
 	z-index: 3;
@@ -80,32 +86,6 @@ h1, h2, h3, h4, h5, h6, strong {
 
 .sparkboxes .box5 {
 	background: #00A38D;
-}
-
-#fusionexport-btn {
-	min-width: 169px;
-	min-height: 38px;
-	text-align: center;
-}
-
-#fusionexport-btn .span {
-	display: inline-block;
-}
-
-.spinner-border {
-	display: none;
-}
-
-#fusionexport-btn[disabled] {
-	cursor: wait;
-}
-
-#fusionexport-btn[disabled] .spinner-border {
-	display: inline-block;
-}
-
-#fusionexport-btn[disabled] .btn-text {
-	display: none;
 }
 
 
@@ -191,6 +171,7 @@ li:hover {
 	transition: all 0.25s;
 	-webkit-transition: all 0.25s;
 }
+
 #exit:hover {
 	color: #ff9900;
 }
