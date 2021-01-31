@@ -23,13 +23,29 @@ function wsMessageHandler(e) {
     let wsValues = e.data.split(',').map( x => parseFloat(x) ); //extract data from ws content and convert to number
     
     let namedData = { 
-        'time': 			[wsValues[0]],
-        'altitude': 		[wsValues[1]],
-        'velocity': 		[wsValues[2]],
-        'acceleration': 	[wsValues[3]],
-        'temperature': 		[wsValues[4]],
-        'pressure': 		[wsValues[5]]
+        'time': 				[wsValues[0]],
+        'altitude': 			[wsValues[1]],
+        'velocity': 			[wsValues[2]],
+        'acceleration':		 	[wsValues[3]],
+        'temperature': 			[wsValues[4]],
+        'pressure': 			[wsValues[5]],
     }
+
+
+    //push ws data onto chart data array and handles statistics
+    addData(namedData);
+
+	namedData.minVelocity = datasets.velocity.stats.min;
+	namedData.maxVelocity = datasets.velocity.stats.max;
+	namedData.minAltitude = datasets.altitude.stats.min;
+	namedData.maxAltitude = datasets.altitude.stats.max;
+	namedData.minAcceleration = datasets.acceleration.stats.min;
+	namedData.maxAcceleration = datasets.acceleration.stats.max;
+	namedData.minTemperature = datasets.temperature.stats.min;
+	namedData.maxTemperature = datasets.temperature.stats.max;
+	namedData.minPressure	= datasets.pressure.stats.min;
+	namedData.maxPressure = datasets.pressure.stats.max;
+
 
 	//get HTMLCollection of text spans for each value to be displayed
 	const htmlValuesTelemetry = document.querySelectorAll('.ws-value'); 
@@ -39,12 +55,12 @@ function wsMessageHandler(e) {
      * could cause issues. more robust solution below. I'm leaving this one uncommented for performance and because 
      * it works atm.
      */
+	console.log(htmlValuesTelemetry);
     for ( let item of htmlValuesTelemetry )
         item.innerText = namedData[item.id]; //extract data based on id
+
 	
-    //push ws data onto chart data array
-    addData(namedData);
-	
+
     //re-draw charts accordingly
     update();
 
@@ -154,6 +170,7 @@ const defaultChartOptions = {
 //Specific Implementaions of different charts
 /**
  * @param data : array of datapoints
+ * @param stats: statistics for that data element 
  * @param hasChart : if the data has an associated chart
  * @param id : DOM id of the chart div
  * @param options : the apexCharts options for the chart
