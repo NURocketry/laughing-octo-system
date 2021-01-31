@@ -35,30 +35,37 @@ function wsMessageHandler(e) {
     //push ws data onto chart data array and handles statistics
     addData(namedData);
 
-	namedData.minVelocity = datasets.velocity.stats.min;
-	namedData.maxVelocity = datasets.velocity.stats.max;
-	namedData.minAltitude = datasets.altitude.stats.min;
-	namedData.maxAltitude = datasets.altitude.stats.max;
-	namedData.minAcceleration = datasets.acceleration.stats.min;
-	namedData.maxAcceleration = datasets.acceleration.stats.max;
-	namedData.minTemperature = datasets.temperature.stats.min;
-	namedData.maxTemperature = datasets.temperature.stats.max;
-	namedData.minPressure	= datasets.pressure.stats.min;
-	namedData.maxPressure = datasets.pressure.stats.max;
-
 
 	//get HTMLCollection of text spans for each value to be displayed
 	const htmlValuesTelemetry = document.querySelectorAll('.ws-value'); 
+	const htmlValuesStatsMin = document.querySelectorAll('.ws-min'); 
+	const htmlValuesStatsMax = document.querySelectorAll('.ws-max'); 
 
+	console.log(htmlValuesStatsMin);
     /**
      * this works but relies on the id being _exactly_ the same as the object label, which is fine for the moment but
      * could cause issues. more robust solution below. I'm leaving this one uncommented for performance and because 
      * it works atm.
      */
-	console.log(htmlValuesTelemetry);
+	//This loops appends named data with all the minimums
+    for ( let item of htmlValuesStatsMin ){
+		//i.e Concert minVelocity => velocity
+		// so it is in the same format as in datasets
+		let formatted = item.id.slice(3).toLowerCase();
+
+		//Adds data to namedData for easy display
+		namedData[item.id] = datasets[formatted]['stats']['min'];
+	}
+	
+	//This loops appends named data with all the maximums 
+    for ( let item of htmlValuesStatsMax ){
+		let formatted = item.id.slice(3).toLowerCase();
+		namedData[item.id] = datasets[formatted]['stats']['max'];
+		
+	}
+
     for ( let item of htmlValuesTelemetry )
         item.innerText = namedData[item.id]; //extract data based on id
-
 	
 
     //re-draw charts accordingly
