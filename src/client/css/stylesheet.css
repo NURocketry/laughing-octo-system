@@ -69,23 +69,24 @@ h1, h2, h3, h4, h5, h6, strong {
 }
 
 .sparkboxes .box1 {
-	background: #681FC1;
+	/*background: #681FC1;*/
+	background: #2B2D3E;
 }
 
 .sparkboxes .box2 {
-	background: #E1148F;
+	background: #2B2D3E;
 }
 
 .sparkboxes .box3 {
-	background: #F4D301;
+	background: #2B2D3E;
 }
 
 .sparkboxes .box4 {
-	background: #0099CC;
+	background: #2B2D3E;
 }
 
 .sparkboxes .box5 {
-	background: #00A38D;
+	background: #2B2D3E;
 }
 
 
