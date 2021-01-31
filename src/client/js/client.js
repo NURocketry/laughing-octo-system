@@ -38,30 +38,30 @@ function wsMessageHandler(e) {
 
 	//get HTMLCollection of text spans for each value to be displayed
 	const htmlValuesTelemetry = document.querySelectorAll('.ws-value'); 
-	const htmlValuesStatsMin = document.querySelectorAll('.ws-min'); 
-	const htmlValuesStatsMax = document.querySelectorAll('.ws-max'); 
+	const htmlValuesStats = document.querySelectorAll('.ws-stat'); 
 
-	console.log(htmlValuesStatsMin);
     /**
      * this works but relies on the id being _exactly_ the same as the object label, which is fine for the moment but
      * could cause issues. more robust solution below. I'm leaving this one uncommented for performance and because 
      * it works atm.
      */
-	//This loops appends named data with all the minimums
-    for ( let item of htmlValuesStatsMin ){
+	
+	
+	//Appends named data with all the minimums statistics
+    for ( let item of htmlValuesStats ){
+		
 		//i.e Concert minVelocity => velocity
 		// so it is in the same format as in datasets
 		let formatted = item.id.slice(3).toLowerCase();
 
 		//Adds data to namedData for easy display
 		namedData[item.id] = datasets[formatted]['stats']['min'];
-	}
-	
-	//This loops appends named data with all the maximums 
-    for ( let item of htmlValuesStatsMax ){
-		let formatted = item.id.slice(3).toLowerCase();
-		namedData[item.id] = datasets[formatted]['stats']['max'];
-		
+		if(item.id.slice(0,3) == 'min') {
+			namedData[item.id] = datasets[formatted]['stats']['min'];
+		}
+		else if(item.id.slice(0,3) == 'max') {
+			namedData[item.id] = datasets[formatted]['stats']['max'];
+		}
 	}
 
     for ( let item of htmlValuesTelemetry )
