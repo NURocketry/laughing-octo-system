@@ -4,15 +4,23 @@ const ws = new WebSocket('ws://localhost:5678/');
 //basic websocket handlers
 ws.onopen = function () {
     //change status indicator
-	document.querySelector('#status').classList.replace('disconnected', 'connected');
-    document.querySelector('#status').innerText = 'OPEN';
+	document.querySelector('.status').classList.replace('disconnected', 'connected');
+    document.querySelector('.status').innerText = 'OPEN';
+	document.querySelector(".status");
+	let status = document.querySelectorAll(".status");
+	for (let item of status) 
+		item.style.color= "green";
 }
 
 
 ws.onclose = function() {
     //change status indicator
-	document.querySelector('#status').classList.replace('connected', 'disconnected');
-    document.querySelector('#status').innerText = 'CLOSED';
+	document.querySelector('.status').classList.replace('connected', 'disconnected');
+    document.querySelector('.status').innerText = 'CLOSED';
+	let status = document.querySelectorAll(".status");
+	for (let item of status) 
+		item.style.color= "red";
+		
 }
 
 ws.onmessage = function(e) { 
