@@ -1,25 +1,38 @@
 body {
-  background: #343E59;
-  color: #777;
-  font-family: Montserrat, Arial, sans-serif;
+	background: #343E59;
+	color: #777;
+	font-family: Montserrat, Arial, sans-serif;
 }
 
 .body-bg {
-  background: #F3F4FA !important;
+	background: #F3F4FA !important;
 }
 
 h1, h2, h3, h4, h5, h6, strong {
-  font-weight: 600;
-}
-
-body {
-  /*background: linear-gradient(45deg,#3a3a60,#5f5f8e);
-  min-height: 100vh;*/
+	font-weight: 600;
 }
 
 .content-area {
 	max-width: 1280px;
 	margin: 0 auto;
+}
+
+#logo {
+	height: auto;
+	width: 40%;
+	display: block;
+	margin: auto;
+	padding-top: 5px;
+	padding-bottom: 10px;
+}
+
+/* ------------------------------------- */
+/* 			Telemetry Elements 		 	 */ 
+/* ------------------------------------- */
+
+.header {
+	color: white;
+	font-family: Montserrat, Arial, sans-serif;
 }
 
 .box {
@@ -40,10 +53,9 @@ body {
 }
 
 .sparkboxes .box .details {
-	/*position: absolute;*/
 	color: #fff;
-	/*transform: scale(0.7) translate(-22px, 20px); */
 }
+
 .sparkboxes strong {
 	position: relative;
 	z-index: 3;
@@ -57,44 +69,134 @@ body {
 }
 
 .sparkboxes .box1 {
-	background-image: linear-gradient( 135deg, #ABDCFF 10%, #0396FF 100%);
+	/*background: #681FC1;*/
+	background: #2B2D3E;
 }
 
 .sparkboxes .box2 {
-	background-image: linear-gradient( 135deg, #2AFADF 10%, #4C83FF 100%);
+	background: #2B2D3E;
 }
 
 .sparkboxes .box3 {
-	background-image: linear-gradient( 135deg, #FFD3A5 10%, #FD6585 100%);
+	background: #2B2D3E;
 }
 
 .sparkboxes .box4 {
-	background-image: linear-gradient( 135deg, #EE9AE5 10%, #5961F9 100%);
+	background: #2B2D3E;
 }
 
-/* fusionexport btn CSS START */
-#fusionexport-btn {
-	min-width: 169px;
-	min-height: 38px;
+.sparkboxes .box5 {
+	background: #2B2D3E;
+}
+
+
+/* ------------------------------------- */
+/* 				Side bar				 */ 
+/* ------------------------------------- */
+
+#menu {
+	left: 20px;
+	font-size: 2em;
+	font-weight: 800;
+	z-index: 111;
+	cursor: pointer;
 	text-align: center;
+	transition: all 0.2s;
+	-webkit-transition: all 0.2s;
+	position: absolute;
 }
 
-#fusionexport-btn .span {
-	display: inline-block;
+#menu:hover {
+	color: #ff9900;
+	transform: rotate(120deg);
 }
 
-.spinner-border {
-	display: none;
+ul {
+	list-style: none;
+	padding: 0;
+	margin-top: 75px;
+	opacity: 1;
 }
 
-#fusionexport-btn[disabled] {
-	cursor: wait;
+li {
+	text-align: center;
+	text-transform: uppercase;
+	height: 70px;
+	line-height: 70px;
+	margin: 15px 0;
+	color: white;
+	cursor: pointer;
+	background-color: #1977cf;
+	font-size: 1em;
+	letter-spacing: 0.2em;
+	transition: all 0.25s;
+	opacity: 1;
 }
 
-#fusionexport-btn[disabled] .spinner-border {
-	display: inline-block;
+li:hover {
+	background-color: white;
+	color: black;
+	letter-spacing: 0.3em;
+	font-size: 1.5em;
 }
 
-#fusionexport-btn[disabled] .btn-text {
-	display: none;
+#lgMenu  {
+	padding-top: 1em;
+	width: 400px;
+	height: 100%;
+	top: 0;
+	left: -400px;
+	overflow: hidden;
+	background-color: #2B2D3E;
+	position: absolute;
+	z-index: 11;
+	transition: all 0.25s;
+	-webkit-transition: all 0.25s;
+	opacity: 0.9;
+	box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+}
+
+#lgMenu a {
+	color: inherit;
+}
+
+#exit {
+	position: absolute;
+	right: 10px;
+	padding: 0px;
+	top: -10px;
+	font-size: 4em;
+	color: white;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.25s;
+	-webkit-transition: all 0.25s;
+}
+
+#exit:hover {
+	color: #ff9900;
+}
+
+#lgMenu.enter {
+	left: 0;
+}
+
+#brand {
+	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	height: auto;
+}
+
+/* ------------------------------------- */
+/* 				Carousell 				 */
+/* ------------------------------------- */
+
+.carousel-control-prev {
+	width: 12%;
+}
+
+.carousel-control-next {
+	width: 12%;
 }
