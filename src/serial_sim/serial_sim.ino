@@ -12,22 +12,24 @@ void loop() {
   altitude = random(500), 
   temperature = random(15,26), 
   //milliseconds since arduino started
-  elapsedTime = millis()/10;
+  elapsedTime = (float)millis()/(float)1000;
   
-  pressure = 100*(float)sin((float)elapsedTime/10000);
+  pressure = 100*(float)sin((float)elapsedTime/100);
 
   //log each, comma separated
+  Serial.print(elapsedTime);
+  Serial.print(",");
   Serial.print(altitude);
+  Serial.print(",");
+  Serial.print(pressure); //velocity
+  Serial.print(",");
+  Serial.print(altitude); //acceleration
   Serial.print(",");
   Serial.print(temperature);
   Serial.print(",");
-  Serial.print(pressure);
-  Serial.print(",");
-  Serial.print(pressure);
-  Serial.print(",");
-  Serial.println(elapsedTime);
+  Serial.println(pressure);
 
-//  delay(1000); //1 second
+  delay(100); //1 second
   //random delay
   delay(random(1,50));
 }
