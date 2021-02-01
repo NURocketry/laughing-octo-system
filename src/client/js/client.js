@@ -372,7 +372,6 @@ function trimData(dataObj, len) {
     let flag = false;
     for ( let key in dataObj ) {
         if ( datasets[key].series[0].data.length > len ) {
-
             datasets[key].series[0].data.shift()
             flag = true;
         }
@@ -387,15 +386,8 @@ function update() {
 
              try{
                 if(Object.keys(datasets[s].series[0].data).length != 0){
-                        charts[chartName].updateOptions({
-                            series: [{
-                                name : "Series",
-                                data: datasets[s].series[0].data
-                            }]
-                        },
-                        false,
-                        false,
-                        false);
+                    
+                        charts[chartName].updateSeries({data: datasets[s].series[0].data})
                     
                 }
             }catch (e){
