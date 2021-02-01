@@ -26,6 +26,11 @@ h1, h2, h3, h4, h5, h6, strong {
 	padding-bottom: 10px;
 }
 
+.w-100 {
+	width: 80%!important;
+	margin: 0 auto;
+}
+
 /* ------------------------------------- */
 /* 			Telemetry Elements 		 	 */ 
 /* ------------------------------------- */
@@ -69,7 +74,6 @@ h1, h2, h3, h4, h5, h6, strong {
 }
 
 .sparkboxes .box1 {
-	/*background: #681FC1;*/
 	background: #2B2D3E;
 }
 
@@ -194,9 +198,17 @@ li:hover {
 /* ------------------------------------- */
 
 .carousel-control-prev {
-	width: 12%;
+	position: center;
+	top: 50%;
+	height: 5%;
+	width: 5%;
+	background: black;
 }
 
 .carousel-control-next {
-	width: 12%;
+	position: center;
+	top: 50%;
+	height: 5%;
+	width: 5%;
+	background: black;
 }
