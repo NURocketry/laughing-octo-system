@@ -40,7 +40,7 @@ async def serial_stream(websocket, path):
 
             if len(serial_content): # make sure we don't send a blank message (happens) and 
 
-                f.write(serial_content + "\n") # log to file (no rate limiting for logs)
+                f.writelines(serial_content) # log to file with trailing newline(!) (no rate limiting for logs)
 
                 if read_count % 10  == 0: # limits render time
                     print(serial_content) #logging/debugging
