@@ -27,7 +27,7 @@ h1, h2, h3, h4, h5, h6, strong {
 }
 
 .w-100 {
-	width: 80%!important;
+	width: 90%!important;
 	margin: 0 auto;
 }
 
@@ -207,7 +207,6 @@ li:hover {
 	top: 50%;
 	height: 5%;
 	width: 5%;
-	background: black;
 }
 
 .carousel-control-next {
@@ -215,5 +214,4 @@ li:hover {
 	top: 50%;
 	height: 5%;
 	width: 5%;
-	background: black;
 }
