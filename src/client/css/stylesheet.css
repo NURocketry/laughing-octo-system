@@ -69,24 +69,28 @@ h1, h2, h3, h4, h5, h6, strong {
 }
 
 .sparkboxes .box1 {
-	/*background: #681FC1;*/
-	background: #2B2D3E;
+	/*background: #2B2D3E;*/
+	background: #023e8a;
 }
 
 .sparkboxes .box2 {
-	background: #2B2D3E;
+	/*background: #2B2D3E;*/
+	background: #0077b6;
 }
 
 .sparkboxes .box3 {
-	background: #2B2D3E;
+	/*background: #2B2D3E;*/
+	background: #0096c7;
 }
 
 .sparkboxes .box4 {
-	background: #2B2D3E;
+	/*background: #2B2D3E;*/
+	background: #00b4d8;
 }
 
 .sparkboxes .box5 {
-	background: #2B2D3E;
+	/*background: #2B2D3E;*/
+	background: #48cae4;
 }
 
 
@@ -194,9 +198,19 @@ li:hover {
 /* ------------------------------------- */
 
 .carousel-control-prev {
-	width: 12%;
+	width: 5%;
+	height: 5%;
+	top: 50%;
+	display: center;
+	position: center;
+	background: black;
 }
 
 .carousel-control-next {
-	width: 12%;
+	width: 2%;
+	height: 5%;
+	top: 50%;
+	background: black;
+	width: 5%;
+	background: black;
 }
