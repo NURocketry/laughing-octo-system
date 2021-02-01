@@ -53,7 +53,8 @@ function wsMessageHandler(e) {
      * could cause issues. more robust solution below. I'm leaving this one uncommented for performance and because 
      * it works atm.
      */
-	
+    
+    
 	
 	//Appends named data with all the minimums statistics
     for ( let item of htmlValuesStats ){
@@ -310,8 +311,10 @@ function render() {
  */
 function addData(dataObj) {
     for ( let key in dataObj ) {
-        datasets[key].data.push( ...dataObj[key] ); // spread operator (...) 'splits' array into function arguments
-
+        if (Array.isArray(dataObj[key]))
+            datasets[key].data.push(...dataObj[key]);// spread operator (...) 'splits' array into function arguments
+        else 
+            datasets[key].data.push(dataObj[key]);
 		//Determines the min/max for each element in the dataset
 		//used for the statistics page
 		let min = datasets[key].stats.min; 
@@ -329,6 +332,8 @@ function addData(dataObj) {
 function trimData(dataObj, len) {
     let flag = false;
     for ( let key in dataObj ) {
+
+        console.log(key, datasets[key]);
         if ( datasets[key].data.length > len ) {
 
             datasets[key].data.shift()
