@@ -23,7 +23,7 @@ else: # no filepath given, write
 
     # init required serial stuff
     #Port Selection
-    port = input('port: ') if input('use default port: /dev/cu.usbserial-1420? Y/n: ') == 'n' else '/dev/cu.usbserial-1420'
+    port = input('port: ') if input('use default port: COM3? Y/n: ') == 'n' else 'COM3'
 
     baud = 115200
     ser = serial.Serial(port, baud, timeout=1) # establish serial connection
