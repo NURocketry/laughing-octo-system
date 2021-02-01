@@ -261,7 +261,7 @@ let datasets = {
         data: [],
 		stats: {min: null, max: null},
 		id: '#time-chart',
-        hasChart: true,
+        hasChart: false, //IMPORTANT, time has NO graph
         options: {
             ...defaultChartOptions.area, 
             ...{ //rest will override defaults
