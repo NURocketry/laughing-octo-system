@@ -26,6 +26,11 @@ h1, h2, h3, h4, h5, h6, strong {
 	padding-bottom: 10px;
 }
 
+.w-100 {
+	width: 80%!important;
+	margin: 0 auto;
+}
+
 /* ------------------------------------- */
 /* 			Telemetry Elements 		 	 */ 
 /* ------------------------------------- */
@@ -198,19 +203,17 @@ li:hover {
 /* ------------------------------------- */
 
 .carousel-control-prev {
-	width: 5%;
-	height: 5%;
-	top: 50%;
-	display: center;
 	position: center;
+	top: 50%;
+	height: 5%;
+	width: 5%;
 	background: black;
 }
 
 .carousel-control-next {
-	width: 2%;
-	height: 5%;
+	position: center;
 	top: 50%;
-	background: black;
+	height: 5%;
 	width: 5%;
 	background: black;
 }
