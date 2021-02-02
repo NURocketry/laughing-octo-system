@@ -24,7 +24,7 @@ ws.onclose = function() {
 }
 
 ws.onmessage = function(e) { 
-    console.log(e)
+    // console.log(e)
     wsMessageHandler(e);
 };
 
@@ -377,10 +377,12 @@ function addData(dataObj) {
 function trimData(dataObj, len) {
     let flag = false;
     for ( let key in dataObj ) {
-        if ( datasets[key].series[0].data.length > len ) {
+        if(datasets[key]){
+            if ( datasets[key].series[0].data.length > len ) {
 
-            datasets[key].series[0].data.shift()
-            flag = true;
+                datasets[key].series[0].data.shift()
+                flag = true;
+            }
         }
     }
     return flag;
@@ -391,25 +393,20 @@ function update() {
         if (datasets[s].hasChart) {// if it contains a .chart property
             var chartName = s.replace(/^\w/, c => c.toUpperCase()); //capitalise first letter
 
-             try{
-                if(Object.keys(datasets[s].series[0].data).length != 0){
+            if(Object.keys(datasets[s].series[0].data).length != 0){
                     
-                    console.log(chartName)
-                    console.log(charts[chartName])
-                        charts[chartName].updateOptions({
-                            series: [{
-                                name : "Series",
-                                data: datasets[s].series[0].data
-                            }]
-                        },
-                        false,
-                        false,
-                        false);                        
+        
+                charts[chartName].updateOptions({
+                    series: [{
+                        name : "Series",
+                        data: datasets[s].series[0].data
+                    }]
+                },
+                false,
+                false,
+                false);                        
                     
                 }
-            }catch (e){
-                console.log(e);
-            }
             
         }
     }
