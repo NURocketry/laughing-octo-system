@@ -32,12 +32,12 @@ function wsMessageHandler(e) {
     let wsValues = e.data.split(',').map( x => parseFloat(x) ); //extract data from ws content and convert to number
     
     let namedData = { 
-        'time': 	      [wsValues[0]],
-        'altitude': 	  [wsValues[1]],
-        'velocity': 	  [wsValues[2]],
-        'acceleration': [wsValues[3]],
-        'temperature': 	[wsValues[4]],
-        'pressure': 	  [wsValues[5]]
+        'time': 	        [wsValues[0]],
+        'altitude': 	    [wsValues[1]],
+        'velocity': 	    [wsValues[2]],
+        'acceleration':     [wsValues[3]],
+        'temperature': 	    [wsValues[4]],
+        'pressure': 	    [wsValues[5]]
     }
 
 
@@ -82,7 +82,7 @@ function wsMessageHandler(e) {
 
     //cut off datapoints to keep at 10 max and redraw
     trimData(namedData, 100);
-};
+}
 
 
 //Templates for the different graphs options

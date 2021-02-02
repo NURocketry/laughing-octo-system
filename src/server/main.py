@@ -101,7 +101,7 @@ async def serial_stream():
         f.writelines(stateString)
         await notify_state(stateString)
         await asyncio.sleep(0.5)
-        a = a +1 
+        a = a + 3
 
 #handle file data and send to client via websockets
 async def file_stream(websocket, path):
