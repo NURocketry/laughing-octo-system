@@ -81,7 +81,7 @@ function wsMessageHandler(e) {
     update();
 
     //cut off datapoints to keep at 10 max and redraw
-    trimData(namedData, 50);
+    trimData(namedData, 100);
 };
 
 
@@ -202,6 +202,7 @@ let defaultChartOptions = {
  * @param options : the apexCharts options for the chart
  */
 let datasets = {
+    data: [],
     altitude: {
         series: [
             {
@@ -222,6 +223,7 @@ let datasets = {
         }
     },
     temperature: {
+        data: [],
         series: [
             {
               name: "Series",
@@ -240,6 +242,7 @@ let datasets = {
         }
     },
     pressure: {
+        data: [],
         series: [
             {
               name: "Series",
@@ -258,6 +261,7 @@ let datasets = {
         }
     },
     velocity: {
+        data: [],
         series: [
             {
               name: "Series",
@@ -276,6 +280,7 @@ let datasets = {
         }
     },
     acceleration: {
+        data: [],
         series: [
             {
               name: "Series",
@@ -294,6 +299,7 @@ let datasets = {
         }
     },
     time: {
+        data: [],
         series: [
             {
               name: "Series",
@@ -302,7 +308,7 @@ let datasets = {
           ],
 		stats: {min: null, max: null},
 		id: '#time-chart',
-        hasChart: true,
+        hasChart: false,
         options: {
             ...defaultChartOptions.area, 
             ...{ //rest will override defaults
@@ -372,6 +378,7 @@ function trimData(dataObj, len) {
     let flag = false;
     for ( let key in dataObj ) {
         if ( datasets[key].series[0].data.length > len ) {
+
             datasets[key].series[0].data.shift()
             flag = true;
         }
@@ -381,13 +388,23 @@ function trimData(dataObj, len) {
 
 function update() {
     for ( var s in datasets) { // each set in the datasets object
-        if (datasets[s].hasChart) {// if it contains a .chart property 
+        if (datasets[s].hasChart) {// if it contains a .chart property
             var chartName = s.replace(/^\w/, c => c.toUpperCase()); //capitalise first letter
 
              try{
                 if(Object.keys(datasets[s].series[0].data).length != 0){
                     
-                        charts[chartName].updateSeries({data: datasets[s].series[0].data})
+                    console.log(chartName)
+                    console.log(charts[chartName])
+                        charts[chartName].updateOptions({
+                            series: [{
+                                name : "Series",
+                                data: datasets[s].series[0].data
+                            }]
+                        },
+                        false,
+                        false,
+                        false);                        
                     
                 }
             }catch (e){
@@ -399,7 +416,7 @@ function update() {
 }
 
 //hold all the ApexCharts chart elements
-let charts = new Object();
+var charts = new Object();
 
 init();
 render();
