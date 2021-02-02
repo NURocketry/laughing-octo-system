@@ -12,9 +12,19 @@ $(document).ready(function () {
         $("#menu").css("opacity", "1");
     });
 
-    $("OBSFeed").on("click", function(){
-        $("#changeFeed").removeClass("Enter");
-        $("#menu").css("opacity", "1");
-    })
+    $("#obs_feed").on("click", function () {
+        let flag = $("#obs_feed").html() === "Overlay mode";
+
+        if (flag === true) {
+            $("#obs_feed").html("Normal mode");
+            $(".box.shadow.mt-4").css('cursor', 'default');
+            $(".box.shadow.mt-4").draggable({ disabled : true});
+        } else {
+            $("#obs_feed").html("Overlay mode");
+            $(".box.shadow.mt-4").css('cursor', 'move');
+            $(".box.shadow.mt-4").draggable({ disabled : false});
+        }
+
+    });
 
 });
