@@ -318,13 +318,13 @@ function addData(dataObj) {
 
 		//Determines the min/max for each element in the dataset
 		//used for the statistics page
-		let min = datasets[key].stats.min; 
-		let max = datasets[key].stats.max; 
-		if( dataObj[key] < min || min == null ) {
-			datasets[key].stats.min = dataObj[key][0]; 
+		let min = datasets[key].stats.min;
+		let max = datasets[key].stats.max;
+		if( dataObj[key] < min || min == null ) { //if current value is smaller than min
+			datasets[key].stats.min = dataObj[key]; 
 		}
-		if(dataObj[key] > max || max == null) {
-			datasets[key].stats.max = dataObj[key][0]; 
+		if(dataObj[key] > max || max == null) {  //if current value is larger than max
+			datasets[key].stats.max = dataObj[key]; 
 		}
 
 	}
@@ -365,18 +365,19 @@ function displayData(dataObj) {
         let quantity = item.closest('.details').dataset.quantity;
 
 		//Adds data to currentData for easy display
-		if( label.startsWith('min') ) //case sensitive
+		if ( label.startsWith('min') ) //case sensitive
 			dataObj[label] = datasets[quantity]['stats']['min'];
-		else if( label.startsWith('max') ) //case sensitive
+		else if ( label.startsWith('max') ) //case sensitive
 			dataObj[label] = datasets[quantity]['stats']['max'];
 	}
 
-    //get HTMLCollection of text spans for all telemetry values
-    const htmlValuesTelemetry = document.querySelectorAll('.ws-value'); 
+    // //get HTMLCollection of text spans for all telemetry values
+    // const htmlValuesTelemetry = document.querySelectorAll('.ws-value'); 
     
-    //update all telemetry values
-    for ( let item of htmlValuesTelemetry )
-        item.innerText = dataObj[item.id]; //extract data based on id
+    // //update all telemetry values
+    // for ( let item of htmlValuesTelemetry )
+    //     item.innerText = dataObj[item.id]; //extract data based on id
+    updateAllInfoBoxValues();
 }
 
 function updateCharts() {
@@ -393,39 +394,44 @@ function updateCharts() {
  * INFO BOX DROPDOWN STUFF *
  **************************/
 
-// Selects each dropdown list title on the numeric telemetry page
-let numericTelemetryDropdowns = document.querySelectorAll("select[name='numeric-telemetry']");
+// Selects each dropdown list title on the numeric telemetry and flight stats pages
+let infoBoxDropdowns = document.querySelectorAll("select[name='numeric-telemetry'], select[name='flight-stats']");
 
 // Oh boy this is a lot
 // Adds an event listener to teach dropdown menu that will trigger when a new value is selected 
-Array.from(numericTelemetryDropdowns, dropdown => dropdown.addEventListener("change", function(e) {
+Array.from(infoBoxDropdowns, dropdown => dropdown.addEventListener("change", function(e) {
     // 'this' is the element which caused the event listener to trigger, i.e. the 'select' tag
     // .closest() will traverse up the parent nodes until it finds a matching tag
     // we then change the data label of the info box to match the new selected value
+    console.log(`[*] Updating ${this.closest('.info-box').dataset.label} box to ${this.value}`)
     this.closest('.info-box').dataset.label = this.value;
-    console.log(`[*] Updated ${this.closest('.info-box').dataset.label} box to ${this.value}`)
     // now that the value has been changed, update the corresponding box
-    updateInfoBox(this.value);
+    updateInfoBoxDetails(this.value);
 }));
 
-function updateInfoBox(label) {
+// Update the value and other relevant details for a specific info box
+function updateInfoBoxDetails(label) {
     //get HTMLCollection of text spans for each value to be displayed
     const infoBoxes = document.querySelectorAll(`.info-box[data-label=${label}]`); 
     //still needs a for loop because multiple boxes can have the same label
     for ( let box of infoBoxes ) {
         const label = box.dataset.label; //value of the data-label attribute
 
+        //update value
+        box.querySelector(".info-box-value").innerText = currentData[label]; //retrieve most recent value from global variable
+
         //different processing required for each dropdown
         const context = box.querySelector('select').name;
         switch (context) {
             case 'numeric-telemetry':
-                //update value
-                box.querySelector(".info-box-value").innerText = currentData[label]; //retrieve most recent value from global variable
                 //update unit
                 box.querySelector(".info-box-unit").innerText = dataInfo[label].unit; //retrieve correcct unit from reference with html escape codes
                 break;
             case 'flight-stats':
-                //not yet implememnted
+                //the quantity in question, i.e. maxValue -> value
+                const quantity = box.dataset.quantity;
+                //update unit
+                box.querySelector(".info-box-unit").innerText = dataInfo[quantity].unit; //retrieve correct unit from reference with html escape codes
                 break;
             default:
                 continue
@@ -433,16 +439,14 @@ function updateInfoBox(label) {
     }
 }
 
-function updateAllInfoBoxes() {
-    const infoBoxes = document.querySelectorAll('.info-box'); //get HTMLCollection of text spans for each value to be displayed
+// Updates only the VALUE for every info box
+function updateAllInfoBoxValues() {
+    //get HTMLCollection of text spans for each value to be displayed
+    const infoBoxes = document.querySelectorAll('.info-box');
     
-    for ( let box of infoBoxes ) {
-        const label = box.dataset.label; //value of the data-label attribute
-        //update value
-        box.querySelector(".info-box-value").innerText = currentData[label]; //retrieve most recent value from global variable
-        //update unit
-        box.querySelector(".info-box-unit").innerText = dataInfo[label].unit; //retrieve correcct unit from reference with html escape codes
-    }
+    for ( let box of infoBoxes )
+        //update text with most recent value from global variable
+        box.querySelector(".info-box-value").innerText = currentData[box.dataset.label];
 }
 
 
