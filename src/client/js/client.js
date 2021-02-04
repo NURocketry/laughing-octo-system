@@ -302,7 +302,7 @@ let datasets = {
           ],
 		stats: {min: null, max: null},
 		id: '#time-chart',
-        hasChart: true,
+        hasChart: false, //!!!! NO
         options: {
             ...defaultChartOptions.area, 
             ...{ //rest will override defaults
@@ -387,7 +387,7 @@ function update() {
              try{
                 if(Object.keys(datasets[s].series[0].data).length != 0){
                     
-                        charts[chartName].updateSeries({data: datasets[s].series[0].data})
+                        charts[chartName].updateSeries([{data: datasets[s].series[0].data}]); //musb be object within array
                     
                 }
             }catch (e){
