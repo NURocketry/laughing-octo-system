@@ -40,33 +40,11 @@ function wsMessageHandler(e) {
         'pressure':     wsValues[5]
     }
 
-	//get HTMLCollection of text spans for each value to be displayed
-	const htmlValuesTelemetry = document.querySelectorAll('.ws-value'); 
-	const htmlValuesStats = document.querySelectorAll('.ws-stat'); 
-	
-	//Appends named data with all the minimums statistics
-    for ( let item of htmlValuesStats ){
-		
-		//i.e Concert minVelocity => velocity
-		// so it is in the same format as in datasets
-        let formatted = item.id.slice(3).toLowerCase();
-
-		//Adds data to namedData for easy display
-		currentData[item.id] = datasets[formatted]['stats']['min'];
-		if(item.id.slice(0,3) == 'min') {
-			currentData[item.id] = datasets[formatted]['stats']['min'];
-		}
-		else if(item.id.slice(0,3) == 'max') {
-			currentData[item.id] = datasets[formatted]['stats']['max'];
-		}
-	}
-
-    for ( let item of htmlValuesTelemetry )
-        item.innerText = currentData[item.id]; //extract data based on id
-
-
     //push ws data onto chart data array and handles statistics
     addData(currentData);
+
+    //display all websocket data in relevant info boxes
+    displayData(currentData);
 
     //re-draw charts accordingly
     updateCharts();
@@ -329,7 +307,9 @@ function render() {
  */
 function addData(dataObj) {
     for ( let key in dataObj ) {
-        // console.log(key);
+        // check to make sure we only add data we're expecting 
+        if ( !datasets.hasOwnProperty(key) ) continue; 
+        
         //check whether we're adding one or many datapoints
         if (Array.isArray(dataObj[key]))
             datasets[key].data.push(...dataObj[key]);// spread operator (...) 'splits' array into function arguments
@@ -351,17 +331,52 @@ function addData(dataObj) {
 }
 
 function trimData(dataObj, len) {
-    let flag = false;
+    let didTrimData = false;
     for ( let key in dataObj ) {
+        // check to make sure we only trip data we're expecting 
+        if ( !datasets.hasOwnProperty(key) ) continue; 
 
-        console.log(key, datasets[key]);
+        // console.log(key, datasets[key]);
         if ( datasets[key].data.length > len ) {
 
             datasets[key].data.shift()
-            flag = true;
+            didTrimData = true;
         }
     }
-    return flag;
+    return didTrimData;
+}
+
+/**
+ * @param dataObj should have the form 
+ * { dataSetName1: [new data 1], 
+ *   dataSetName2: [new data 2], ... }
+ * where dataSetName matches the .name property of the corresonding entry in the datasets object
+ * 
+ * data can be within arrays to allow for multiple datapoints to be added at once
+ */
+function displayData(dataObj) {
+	//get HTMLCollection of text spans for each stat to be displayed
+	const htmlValuesStats = document.querySelectorAll('.ws-stat'); 
+	
+    //Appends named data with all the minimums statistics
+    //NOTE: Stats must be a min/max values
+    for ( let item of htmlValuesStats ){
+        let label = item.closest('.details').dataset.label;
+        let quantity = item.closest('.details').dataset.quantity;
+
+		//Adds data to currentData for easy display
+		if( label.startsWith('min') ) //case sensitive
+			dataObj[label] = datasets[quantity]['stats']['min'];
+		else if( label.startsWith('max') ) //case sensitive
+			dataObj[label] = datasets[quantity]['stats']['max'];
+	}
+
+    //get HTMLCollection of text spans for all telemetry values
+    const htmlValuesTelemetry = document.querySelectorAll('.ws-value'); 
+    
+    //update all telemetry values
+    for ( let item of htmlValuesTelemetry )
+        item.innerText = dataObj[item.id]; //extract data based on id
 }
 
 function updateCharts() {
@@ -388,7 +403,7 @@ Array.from(numericTelemetryDropdowns, dropdown => dropdown.addEventListener("cha
     // .closest() will traverse up the parent nodes until it finds a matching tag
     // we then change the data label of the info box to match the new selected value
     this.closest('.info-box').dataset.label = this.value;
-    console.log(`Updated ${this.closest('.info-box').dataset.label} box to ${this.value}`)
+    console.log(`[*] Updated ${this.closest('.info-box').dataset.label} box to ${this.value}`)
     // now that the value has been changed, update the corresponding box
     updateInfoBox(this.value);
 }));
@@ -410,7 +425,7 @@ function updateInfoBox(label) {
                 box.querySelector(".info-box-unit").innerText = dataInfo[label].unit; //retrieve correcct unit from reference with html escape codes
                 break;
             case 'flight-stats':
-                //not implemented yet
+                //not yet implememnted
                 break;
             default:
                 continue
