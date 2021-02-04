@@ -206,6 +206,8 @@ h1, h2, h3, h4, h5, h6, strong {
 	color: white;
 	font-family: Montserrat, Arial, sans-serif;
 	font-weight: 600;
+
+	width: 100%;
 }
 
 .info-box-heading select:hover {
