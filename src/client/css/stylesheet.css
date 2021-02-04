@@ -17,6 +17,29 @@ h1, h2, h3, h4, h5, h6, strong {
 	margin: 0 auto;
 }
 
+#logo {
+	height: auto;
+	width: 40%;
+	display: block;
+	margin: auto;
+	padding-top: 5px;
+	padding-bottom: 10px;
+}
+
+.w-100 {
+	width: 90%!important;
+	margin: 0 auto;
+}
+
+/* ------------------------------------- */
+/* 			Telemetry Elements 		 	 */ 
+/* ------------------------------------- */
+
+.header {
+	color: white;
+	font-family: Montserrat, Arial, sans-serif;
+}
+
 .box {
 	background-color: #2B2D3E;
 	padding: 25px 20px;
@@ -37,6 +60,7 @@ h1, h2, h3, h4, h5, h6, strong {
 .sparkboxes .box .details {
 	color: #fff;
 }
+
 .sparkboxes strong {
 	position: relative;
 	z-index: 3;
@@ -50,45 +74,23 @@ h1, h2, h3, h4, h5, h6, strong {
 }
 
 .sparkboxes .box1 {
-	background-image: linear-gradient( 135deg, #ABDCFF 10%, #0396FF 100%);
+	background: #2B2D3E;
 }
 
 .sparkboxes .box2 {
-	background-image: linear-gradient( 135deg, #2AFADF 10%, #4C83FF 100%);
+	background: #2B2D3E;
 }
 
 .sparkboxes .box3 {
-	background-image: linear-gradient( 135deg, #FFD3A5 10%, #FD6585 100%);
+	background: #2B2D3E;
 }
 
 .sparkboxes .box4 {
-	background-image: linear-gradient( 135deg, #EE9AE5 10%, #5961F9 100%);
+	background: #2B2D3E;
 }
 
-#fusionexport-btn {
-	min-width: 169px;
-	min-height: 38px;
-	text-align: center;
-}
-
-#fusionexport-btn .span {
-	display: inline-block;
-}
-
-.spinner-border {
-	display: none;
-}
-
-#fusionexport-btn[disabled] {
-	cursor: wait;
-}
-
-#fusionexport-btn[disabled] .spinner-border {
-	display: inline-block;
-}
-
-#fusionexport-btn[disabled] .btn-text {
-	display: none;
+.sparkboxes .box5 {
+	background: #2B2D3E;
 }
 
 
@@ -97,7 +99,6 @@ h1, h2, h3, h4, h5, h6, strong {
 /* ------------------------------------- */
 
 #menu {
-	transform: rotate(90deg);
 	left: 20px;
 	font-size: 2em;
 	font-weight: 800;
@@ -111,6 +112,7 @@ h1, h2, h3, h4, h5, h6, strong {
 
 #menu:hover {
 	color: #ff9900;
+	transform: rotate(120deg);
 }
 
 #lgMenu ul {
@@ -174,6 +176,7 @@ h1, h2, h3, h4, h5, h6, strong {
 	transition: all 0.25s;
 	-webkit-transition: all 0.25s;
 }
+
 #exit:hover {
 	color: #ff9900;
 }
@@ -260,4 +263,21 @@ h1, h2, h3, h4, h5, h6, strong {
 .info-box-selection-list li:hover {
 	background-color: lightgrey;
 	border-radius: 0.2em;
+}
+/* ------------------------------------- */
+/* 				Carousell 				 */
+/* ------------------------------------- */
+
+.carousel-control-prev {
+	position: center;
+	top: 50%;
+	height: 5%;
+	width: 5%;
+}
+
+.carousel-control-next {
+	position: center;
+	top: 50%;
+	height: 5%;
+	width: 5%;
 }
