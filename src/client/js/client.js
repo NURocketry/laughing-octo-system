@@ -30,8 +30,8 @@ ws.onmessage = function(e) {
 function wsMessageHandler(e) {
     let wsValues = e.data.split(',').map( x => parseFloat(x) ); //extract data from ws content and convert to number
     
-    //update currentData global for use in other functions
-    currentData = { 
+    // update currentData global for use in other functions
+    currentData = {  ...currentData, //spread operator ensures object isnt overriden, only named field are updated.
         'time':         wsValues[0],
         'altitude':     wsValues[1],
         'velocity':     wsValues[2],
@@ -39,7 +39,7 @@ function wsMessageHandler(e) {
         'temperature': 	wsValues[4],
         'pressure':     wsValues[5]
     }
-
+    
     //push ws data onto chart data array and handles statistics
     addData(currentData);
 
@@ -400,38 +400,49 @@ let infoBoxDropdowns = document.querySelectorAll("select[name='numeric-telemetry
 // Oh boy this is a lot
 // Adds an event listener to teach dropdown menu that will trigger when a new value is selected 
 Array.from(infoBoxDropdowns, dropdown => dropdown.addEventListener("change", function(e) {
+
+    const infoBox = this.closest('.info-box'); //div containing the dropdown
+
+    console.log(`[*] Updating ${infoBox.dataset.label} box to ${this.value}`)
+
     // 'this' is the element which caused the event listener to trigger, i.e. the 'select' tag
     // .closest() will traverse up the parent nodes until it finds a matching tag
     // we then change the data label of the info box to match the new selected value
-    console.log(`[*] Updating ${this.closest('.info-box').dataset.label} box to ${this.value}`)
-    this.closest('.info-box').dataset.label = this.value;
+    infoBox.dataset.label = this.value;
+
     // now that the value has been changed, update the corresponding box
-    updateInfoBoxDetails(this.value);
+    updateInfoBoxDetails(infoBox, this.value);
 }));
 
 // Update the value and other relevant details for a specific info box
-function updateInfoBoxDetails(label) {
+/**
+ * TODO: KNOWN BUG
+ * Data will sometimes display as undefined for 'flight-stats' info boxes until next refresh
+ * After next refresh (on updateInfoBoxDetails() call) the data will display correctly
+ */
+function updateInfoBoxDetails(infoBox, label) {
     //get HTMLCollection of text spans for each value to be displayed
     const infoBoxes = document.querySelectorAll(`.info-box[data-label=${label}]`); 
     //still needs a for loop because multiple boxes can have the same label
     for ( let box of infoBoxes ) {
-        const label = box.dataset.label; //value of the data-label attribute
 
-        //update value
-        box.querySelector(".info-box-value").innerText = currentData[label]; //retrieve most recent value from global variable
+        //update value w/ most recent value from global variable
+        box.querySelector(".info-box-value").innerText = currentData[box.dataset.label];
 
         //different processing required for each dropdown
         const context = box.querySelector('select').name;
         switch (context) {
             case 'numeric-telemetry':
-                //update unit
-                box.querySelector(".info-box-unit").innerText = dataInfo[label].unit; //retrieve correcct unit from reference with html escape codes
+                //update unit w/ correct unit from reference with html escape codes
+                box.querySelector(".info-box-unit").innerText = dataInfo[box.dataset.label].unit;
                 break;
             case 'flight-stats':
-                //the quantity in question, i.e. maxValue -> value
-                const quantity = box.dataset.quantity;
-                //update unit
-                box.querySelector(".info-box-unit").innerText = dataInfo[quantity].unit; //retrieve correct unit from reference with html escape codes
+                box.dataset.quantity = box.dataset.label.slice(3).toLowerCase(); //unfortunately hardcoded but im tired
+
+                console.log("[?]", box.dataset.label, box.dataset.quantity);
+                //update unit correct unit from reference with html escape codes
+                //... box.dataset.quantity gives quantity in question, i.e. maxValue -> value
+                box.querySelector(".info-box-unit").innerText = dataInfo[box.dataset.quantity].unit;
                 break;
             default:
                 continue
