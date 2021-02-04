@@ -100,7 +100,7 @@
                                                         <select name="numeric-telemetry">
                                                             <option value="velocity" selected="selected">Velocity</option>
                                                             <option value="acceleration">Acceleration</option>
-                                                            <option value="altitude">Alitude</option>
+                                                            <option value="altitude">Altitude</option>
                                                             <option value="temperature">Temperature</option>
                                                             <option value="pressure">Pressure</option>
                                                         </select>
@@ -118,12 +118,12 @@
                                                         <select name="numeric-telemetry">
                                                             <option value="velocity">Velocity</option>
                                                             <option value="acceleration" selected="selected">Acceleration</option>
-                                                            <option value="altitude">Alitude</option>
+                                                            <option value="altitude">Altitude</option>
                                                             <option value="temperature">Temperature</option>
                                                             <option value="pressure">Pressure</option>
                                                         </select>
                                                     </h3>
-                                                    <h4><span class="info-box-value ws-value" id="acceleration">0</span> <span class="info-box-unit">m</span></h4>
+                                                    <h4><span class="info-box-value ws-value" id="acceleration">0</span> <span class="info-box-unit">m/s&sup2;</span></h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -134,7 +134,7 @@
                                                         <select name="numeric-telemetry">
                                                             <option value="velocity">Velocity</option>
                                                             <option value="acceleration">Acceleration</option>
-                                                            <option value="altitude" selected="selected">Alitude</option>
+                                                            <option value="altitude" selected="selected">Altitude</option>
                                                             <option value="temperature">Temperature</option>
                                                             <option value="pressure">Pressure</option>
                                                         </select>
@@ -153,12 +153,12 @@
                                                         <select name="numeric-telemetry">
                                                             <option value="velocity">Velocity</option>
                                                             <option value="acceleration">Acceleration</option>
-                                                            <option value="altitude">Alitude</option>
+                                                            <option value="altitude">Altitude</option>
                                                             <option value="temperature" selected="selected">Temperature</option>
                                                             <option value="pressure">Pressure</option>
                                                         </select>
                                                     </h3>
-                                                    <h4><span class="info-box-value ws-value" id="temperature">0</span> <span class="info-box-unit">m</span></h4>
+                                                    <h4><span class="info-box-value ws-value" id="temperature">0</span> <span class="info-box-unit">&deg;C</span></h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -169,12 +169,12 @@
                                                         <select name="numeric-telemetry">
                                                             <option value="velocity">Velocity</option>
                                                             <option value="acceleration">Acceleration</option>
-                                                            <option value="altitude">Alitude</option>
+                                                            <option value="altitude">Altitude</option>
                                                             <option value="temperature">Temperature</option>
                                                             <option value="pressure" selected="selected">Pressure</option>
                                                         </select>
                                                     </h3>
-                                                    <h4><span class="info-box-value ws-value" id="pressure">0</span> <span class="info-box-unit">m</span></h4>
+                                                    <h4><span class="info-box-value ws-value" id="pressure">0</span> <span class="info-box-unit">hPa</span></h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -211,64 +211,134 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="box box1">
-                                                <div class="details">
-                                                    <h3>Max Velocity</h3>
-                                                    <h4><span class="ws-value ws-stat" id="maxVelocity">0</span> ms<sup>-1</sup></h4>
+                                            <div class="box box1 info-box-container">
+                                                <div class="details info-box" data-label="maxVelocity" data-quantity="velocity">
+                                                    <h3 class="info-box-heading">
+                                                        <select name="flight-stats">
+                                                            <option value="maxVelocity" selected="selected">Max Velocity</option>
+                                                            <option value="maxAcceleration">Max Acceleration</option>
+                                                            <option value="maxAltitude">Max Altitude</option>
+                                                            <option value="minTemperature">Min Temperature</option>
+                                                            <option value="maxTemperature">Max Temperature</option>
+                                                            <option value="minPressure">Min Pressure</option>
+                                                            <option value="maxPressure">Max Pressure</option>
+                                                        </select>
+                                                    </h3>
+                                                    <h4><span class="info-box-value ws-value ws-stat" id="maxVelocity">0</span> <span class="info-box-unit">m/s</span></h4>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row sparkboxes mt-4">
                                         <div class="col-md-6">
-                                            <div class="box box2">
-                                                <div class="details">
-                                                    <h3>Max Acceleration</h3>
-                                                    <h4><span class="ws-value ws-stat" id="maxAcceleration">0</span> ms<sup>-2</sup></h4>
+                                            <div class="box box2 info-box-container">
+                                                <div class="details info-box" data-label="maxAcceleration" data-quantity="acceleration">
+                                                    <h3 class="info-box-heading">
+                                                        <select name="flight-stats">
+                                                            <option value="maxVelocity">Max Velocity</option>
+                                                            <option value="maxAcceleration" selected="selected">Max Acceleration</option>
+                                                            <option value="maxAltitude">Max Altitude</option>
+                                                            <option value="minTemperature">Min Temperature</option>
+                                                            <option value="maxTemperature">Max Temperature</option>
+                                                            <option value="minPressure">Min Pressure</option>
+                                                            <option value="maxPressure">Max Pressure</option>
+                                                        </select>
+                                                    </h3>
+                                                    <h4><span class="info-box-value ws-value ws-stat" id="maxAcceleration">0</span> <span class="info-box-unit">m/s&sup2;</span></h4>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="box box2">
-                                                <div class="details">
-                                                    <h3>Max Altitude</h3>
-                                                    <h4><span class="ws-value ws-stat" id="maxAltitude">0</span> m</h4>
+                                            <div class="box box2 info-box-container">
+                                                <div class="details info-box" data-label="maxAltitude" data-quantity="altitude">
+                                                    <h3 class="info-box-heading">
+                                                        <select name="flight-stats">
+                                                            <option value="maxVelocity">Max Velocity</option>
+                                                            <option value="maxAcceleration">Max Acceleration</option>
+                                                            <option value="maxAltitude" selected="selected">Max Altitude</option>
+                                                            <option value="minTemperature">Min Temperature</option>
+                                                            <option value="maxTemperature">Max Temperature</option>
+                                                            <option value="minPressure">Min Pressure</option>
+                                                            <option value="maxPressure">Max Pressure</option>
+                                                        </select>
+                                                    </h3>
+                                                    <h4><span class="info-box-value ws-value ws-stat" id="maxAltitude">0</span> <span class="info-box-unit">m</span></h4>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row sparkboxes mt-4">
                                         <div class="col-md-6">
-                                            <div class="box box3">
-                                                <div class="details">
-                                                    <h3>Min Temperature</h3>
-                                                    <h4><span class="ws-value ws-stat" id="minTemperature">0</span> &deg;C</h4>
+                                            <div class="box box3 info-box-container">
+                                                <div class="details info-box" data-label="minTemperature" data-quantity="temperature">
+                                                    <h3 class="info-box-heading">
+                                                        <select name="flight-stats">
+                                                            <option value="maxVelocity">Max Velocity</option>
+                                                            <option value="maxAcceleration">Max Acceleration</option>
+                                                            <option value="maxAltitude">Max Altitude</option>
+                                                            <option value="minTemperature" selected="selected">Min Temperature</option>
+                                                            <option value="maxTemperature">Max Temperature</option>
+                                                            <option value="minPressure">Min Pressure</option>
+                                                            <option value="maxPressure">Max Pressure</option>
+                                                        </select>
+                                                    </h3>
+                                                    <h4><span class="info-box-value ws-value ws-stat" id="minTemperature">0</span> <span class="info-box-unit">&deg;C</span></h4>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="box box3">
-                                                <div class="details">
-                                                    <h3>Max Temperature</h3>
-                                                    <h4><span class="ws-value ws-stat" id="maxTemperature">0</span> &deg;C</h4>
+                                            <div class="box box3 info-box-container">
+                                                <div class="details info-box" data-label="maxTemperature" data-quantity="temperature">
+                                                    <h3 class="info-box-heading">
+                                                        <select name="flight-stats">
+                                                            <option value="maxVelocity">Max Velocity</option>
+                                                            <option value="maxAcceleration">Max Acceleration</option>
+                                                            <option value="maxAltitude">Max Altitude</option>
+                                                            <option value="minTemperature">Min Temperature</option>
+                                                            <option value="maxTemperature" selected="selected">Max Temperature</option>
+                                                            <option value="minPressure">Min Pressure</option>
+                                                            <option value="maxPressure">Max Pressure</option>
+                                                        </select>
+                                                    </h3>
+                                                    <h4><span class="info-box-value ws-value ws-stat" id="maxTemperature">0</span> <span class="info-box-unit">&deg;C</span></h4>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row sparkboxes mt-4">
                                         <div class="col-md-6">
-                                            <div class="box box4">
-                                                <div class="details">
-                                                    <h3>Min Pressure</h3>
-                                                    <h4><span class="ws-value ws-stat" id="minPressure">0</span> hPa</h4>
+                                            <div class="box box4 info-box-container">
+                                                <div class="details info-box" data-label="minPressure" data-quantity="pressure">
+                                                    <h3 class="info-box-heading">
+                                                        <select name="flight-stats">
+                                                            <option value="maxVelocity">Max Velocity</option>
+                                                            <option value="maxAcceleration">Max Acceleration</option>
+                                                            <option value="maxAltitude">Max Altitude</option>
+                                                            <option value="minTemperature">Min Temperature</option>
+                                                            <option value="maxTemperature">Max Temperature</option>
+                                                            <option value="minPressure" selected="selected">Min Pressure</option>
+                                                            <option value="maxPressure">Max Pressure</option>
+                                                        </select>
+                                                    </h3>
+                                                    <h4><span class="info-box-value ws-value ws-stat" id="minPressure">0</span> <span class="info-box-unit">hPa</span></h4>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="box box4">
-                                                <div class="details">
-                                                    <h3>Max Pressure</h3>
-                                                    <h4><span class="ws-value ws-stat" id="maxPressure">0</span> hPa</h4>
+                                            <div class="box box4 info-box-container">
+                                                <div class="details info-box" data-label="maxPressure" data-quantity="pressure">
+                                                    <h3 class="info-box-heading">
+                                                        <select name="flight-stats">
+                                                            <option value="maxVelocity">Max Velocity</option>
+                                                            <option value="maxAcceleration">Max Acceleration</option>
+                                                            <option value="maxAltitude">Max Altitude</option>
+                                                            <option value="minTemperature">Min Temperature</option>
+                                                            <option value="maxTemperature">Max Temperature</option>
+                                                            <option value="minPressure">Min Pressure</option>
+                                                            <option value="maxPressure" selected="selected">Max Pressure</option>
+                                                        </select>
+                                                    </h3>
+                                                    <h4><span class="info-box-value ws-value ws-stat" id="maxPressure">0</span> <span class="info-box-unit">hPa</span></h4>
                                                 </div>
                                             </div>
                                         </div>
