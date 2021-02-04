@@ -195,7 +195,7 @@ h1, h2, h3, h4, h5, h6, strong {
 
 
 /* ------------------------------------- */
-/* 				Info boxes				 */ 
+/*        Info boxes / Dropdowns		 */ 
 /* ------------------------------------- */
 
 .info-box-heading select {
@@ -210,8 +210,21 @@ h1, h2, h3, h4, h5, h6, strong {
 	width: 100%;
 }
 
-.info-box-heading select:hover {
+.info-box-heading select:hover, .charts-dropdown:hover {
 	cursor: pointer;
+}
+
+.charts-dropdown {
+	background-color: transparent;
+	border: none;
+	margin: 0;
+
+	/* text */
+	color: #ccc;
+	font-family: Montserrat, Arial, sans-serif;
+	font-weight: 600;
+
+	width: 100%;
 }
 
 /* ------------------------------------- */

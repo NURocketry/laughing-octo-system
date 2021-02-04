@@ -165,12 +165,13 @@ let datasets = {
         data: [],
 		stats: {min: null, max: null},
         hasChart: true,
+        active: true,
         id: '#altitude-chart',
         options: {
             ...defaultChartOptions.area, 
             ...{ //rest will override defaults
 				colors: ['#9b5de5'],
-                title: { text: 'Altitude' }
+                // title: { text: 'Altitude' }
             }
         }
     },
@@ -178,12 +179,13 @@ let datasets = {
         data: [],
 		stats: {min: null, max: null},
         hasChart: true,
+        active: true,
         id: '#temperature-chart',
         options: {
             ...defaultChartOptions.line, 
             ...{ //rest will override defaults
 				colors: ['#f15bb5'],
-                title: { text: 'Temperature' }
+                // title: { text: 'Temperature' }
             }
         }
     },
@@ -191,12 +193,13 @@ let datasets = {
         data: [],
 		stats: {min: null, max: null},
         hasChart: true,
+        active: true,
         id: '#pressure-chart',
         options: {
             ...defaultChartOptions.line, 
             ...{ //rest will override defaults
 				colors: ['#fee440'],
-                title: { text: 'Pressure' }
+                // title: { text: 'Pressure' }
             }
         }
     },
@@ -204,12 +207,13 @@ let datasets = {
         data: [],
 		stats: {min: null, max: null},
         hasChart: true,
+        active: true,
         id: '#velocity-chart',
         options: {
             ...defaultChartOptions.area, 
             ...{ //rest will override defaults
 				colors: ['#00bbf9'],
-                title: { text: 'Velocity' }
+                // title: { text: 'Velocity' }
             }
         }
     },
@@ -217,12 +221,13 @@ let datasets = {
         data: [],
 		stats: {min: null, max: null},
         hasChart: true,
+        active: true,
         id: '#acceleration-chart',
         options: {
             ...defaultChartOptions.area, 
             ...{ //rest will override defaults
 				colors: ['#00f5d4'],
-                title: { text: 'Acceleration' }
+                // title: { text: 'Acceleration' }
             }
         }
     },
@@ -231,11 +236,25 @@ let datasets = {
 		stats: {min: null, max: null},
 		id: '#time-chart',
         hasChart: false, //IMPORTANT, time has NO graph
+        active: false,
         options: {
             ...defaultChartOptions.area, 
             ...{ //rest will override defaults
 				colors: ['#00f5d4'],
-                title: { text: 'Time' }
+                // title: { text: 'Time' }
+            }
+        }
+    },
+    empty: { //placeholder chart for dropdown chart switching
+        data: [],
+		stats: {min: null, max: null},
+		id: '#empty-chart',
+        hasChart: true,
+        active: false,
+        options: {
+            ...defaultChartOptions.area, 
+            ...{ //rest will override defaults
+				colors: ['#00f5d4'],
             }
         }
     }
@@ -292,7 +311,7 @@ function render() {
     // call ApexCharts method for chart object
     for ( let s in datasets) { // each set in the datasets object
         let chartName = s.replace(/^\w/, c => c.toUpperCase()); //capitalise first letter
-        if (datasets[s].hasChart) // if it contains a .chart property
+        if (datasets[s].hasChart && datasets[s].active) // if it contains a .chart property
             charts[chartName].render();
     }
 }
@@ -382,7 +401,7 @@ function displayData(dataObj) {
 
 function updateCharts() {
     for ( let s in datasets) { // each set in the datasets object
-        if (datasets[s].hasChart) {// if it contains a .chart property 
+        if (datasets[s].hasChart && datasets[s].active) {// if it contains a .chart property 
             let chartName = s.replace(/^\w/, c => c.toUpperCase()); //capitalise first letter
             charts[chartName].updateSeries([{ data: datasets[s].data }])
         }
@@ -460,9 +479,25 @@ function updateAllInfoBoxValues() {
         box.querySelector(".info-box-value").innerText = currentData[box.dataset.label];
 }
 
+/****************************
+ * CHART BOX DROPDOWN STUFF *
+ ****************************/
 
 
+// Selects each dropdown list title on the numeric telemetry and flight stats pages
+let chartDropdowns = document.querySelectorAll("select[name='charts']");
 
+Array.from(chartDropdowns, dropdown => dropdown.addEventListener("change", function(e) {
+    console.log("chart dropdown changed");
+    /**
+     * 1. check if the chart that has been changed to already exists
+     * 2. if no, easy, just change id
+     * 3. if yes, make old chart blank chart (assuming doesnt already exist), and change id of new chart
+     * 4. if already a blank chart, swap them
+     * 5. change active status of charts
+     * 6. figure out how to redraw charts based on id
+     */
+}));
 /**
  * ACTUAL CODE TO RUN
  */
