@@ -96,23 +96,16 @@
                                         <div class="col-md-6">
                                             <div class="box box1 info-box-container">
                                                 <div class="details info-box" data-label="velocity">
-                                                    <div class="info-box-info"> <!-- im sorry for the class name -->
-                                                        <h3 class="info-box-heading">Velocity</h3>
-                                                        <h4><span class="info-box-value ws-value" id="velocity">0</span> <span class="info-box-unit">m/s</span></h4>
-                                                    </div>
-                
-                                                    <div class="info-box-selection-arrow">
-                                                        <p>&#x25BC;</p>
-                
-                                                        <div class="info-box-selection-list">
-                                                            <ul>
-                                                                <li>Foo</li>
-                                                                <li>Bar</li>
-                                                                <li>Baz</li>
-                                                                <li>Qux</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
+                                                    <h3 class="info-box-heading">
+                                                        <select name="numeric-telemetry">
+                                                            <option value="velocity" selected="selected">Velocity</option>
+                                                            <option value="acceleration">Acceleration</option>
+                                                            <option value="altitude">Alitude</option>
+                                                            <option value="temperature">Temperature</option>
+                                                            <option value="pressure">Pressure</option>
+                                                        </select>
+                                                    </h3>
+                                                    <h4><span class="info-box-value ws-value" id="velocity">0</span> <span class="info-box-unit">m/s</span></h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -121,24 +114,32 @@
                                         <div class="col-md-6">
                                             <div class="box box2 info-box-container">
                                                 <div class="details info-box" data-label="acceleration">
-                                                    <div class="info-box-info"> <!-- im sorry for the class name -->
-                                                        <h3 class="info-box-heading">Acceleration</h3>
-                                                        <h4><span class="info-box-value ws-value" id="acceleration">0</span> <span class="info-box-unit">m</span></h4>
-                                                    </div>
-                
-                                                    <div class="info-box-selection-arrow"><p>&#x25BC;</p></div>
+                                                    <h3 class="info-box-heading">
+                                                        <select name="numeric-telemetry">
+                                                            <option value="velocity">Velocity</option>
+                                                            <option value="acceleration" selected="selected">Acceleration</option>
+                                                            <option value="altitude">Alitude</option>
+                                                            <option value="temperature">Temperature</option>
+                                                            <option value="pressure">Pressure</option>
+                                                        </select>
+                                                    </h3>
+                                                    <h4><span class="info-box-value ws-value" id="acceleration">0</span> <span class="info-box-unit">m</span></h4>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="box box2 info-box-container">
                                                 <div class="details info-box" data-label="altitude">
-                                                    <div class="info-box-info"> <!-- im sorry for the class name -->
-                                                        <h3 class="info-box-heading">Altitude</h3>
-                                                        <h4><span class="info-box-value ws-value" id="altitude">0</span> <span class="info-box-unit">m</span></h4>
-                                                    </div>
-                
-                                                    <div class="info-box-selection-arrow"><p>&#x25BC;</p></div>
+                                                    <h3 class="info-box-heading">
+                                                        <select name="numeric-telemetry">
+                                                            <option value="velocity">Velocity</option>
+                                                            <option value="acceleration">Acceleration</option>
+                                                            <option value="altitude" selected="selected">Alitude</option>
+                                                            <option value="temperature">Temperature</option>
+                                                            <option value="pressure">Pressure</option>
+                                                        </select>
+                                                    </h3>
+                                                    <h4><span class="info-box-value ws-value" id="altitude">0</span> <span class="info-box-unit">m</span></h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -148,24 +149,32 @@
                                         <div class="col-md-6">
                                             <div class="box box3 info-box-container">
                                                 <div class="details info-box" data-label="temperature">
-                                                    <div class="info-box-info"> <!-- im sorry for the class name -->
-                                                        <h3 class="info-box-heading">Temperature</h3>
-                                                        <h4><span class="info-box-value ws-value" id="temperature">0</span> <span class="info-box-unit">m</span></h4>
-                                                    </div>
-                
-                                                    <div class="info-box-selection-arrow"><p>&#x25BC;</p></div>
+                                                    <h3 class="info-box-heading">
+                                                        <select name="numeric-telemetry">
+                                                            <option value="velocity">Velocity</option>
+                                                            <option value="acceleration">Acceleration</option>
+                                                            <option value="altitude">Alitude</option>
+                                                            <option value="temperature" selected="selected">Temperature</option>
+                                                            <option value="pressure">Pressure</option>
+                                                        </select>
+                                                    </h3>
+                                                    <h4><span class="info-box-value ws-value" id="temperature">0</span> <span class="info-box-unit">m</span></h4>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="box box2 info-box-container">
                                                 <div class="details info-box" data-label="pressure">
-                                                    <div class="info-box-info"> <!-- im sorry for the class name -->
-                                                        <h3 class="info-box-heading">Pressure</h3>
-                                                        <h4><span class="info-box-value ws-value" id="pressure">0</span> <span class="info-box-unit">m</span></h4>
-                                                    </div>
-                
-                                                    <div class="info-box-selection-arrow"><p>&#x25BC;</p></div>
+                                                    <h3 class="info-box-heading">
+                                                        <select name="numeric-telemetry">
+                                                            <option value="velocity">Velocity</option>
+                                                            <option value="acceleration">Acceleration</option>
+                                                            <option value="altitude">Alitude</option>
+                                                            <option value="temperature">Temperature</option>
+                                                            <option value="pressure" selected="selected">Pressure</option>
+                                                        </select>
+                                                    </h3>
+                                                    <h4><span class="info-box-value ws-value" id="pressure">0</span> <span class="info-box-unit">m</span></h4>
                                                 </div>
                                             </div>
                                         </div>

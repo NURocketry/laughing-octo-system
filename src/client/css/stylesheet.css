@@ -198,72 +198,16 @@ h1, h2, h3, h4, h5, h6, strong {
 /* 				Info boxes				 */ 
 /* ------------------------------------- */
 
-.info-box {
-	position: relative;
+.info-box-heading select {
+	background-color: transparent;
+	border: none;
+
+	/* text */
+	color: white;
+	font-family: Montserrat, Arial, sans-serif;
+	font-weight: 600;
 }
 
-.info-box-selection-arrow {
-	position: absolute;
-	top: 0;
-	right: 0;
-
-	opacity: 0; /* hide by default */
-	/* animate transition */
-	transition: opacity 0.2s linear;
-}
-
-/* when hovering on the main box, show selection arrow */
-.info-box-container:hover .info-box-selection-arrow {
-	opacity: 1;
-}
-
-.info-box-selection-arrow > p:hover {
-	cursor: pointer;
-}
-
-.info-box-selection-list {
-	position: absolute;
-	top: 0;
-	right: 0;
-
-	background-color: #F3F4FA;
-	border-radius: .3em;
-	
-	opacity: 0;
-	visibility: hidden;
-
-	transition: opacity 0.2s linear, display 0.2s linear
-}
-
-.info-box-selection-arrow:hover .info-box-selection-list, .info-box-selection-list:hover {
-	visibility: visible;
-	opacity: 1;
-	z-index: 9999
-}
-
-.info-box-selection-list ul {
-	list-style: none;
-
-	padding: 0.2em 1em;
-
-	margin: 0.2em 0 !important; /*override some dumb automatic bottom margin from _reboot.scss*/
-
-}
-
-.info-box-selection-list li {
-
-	margin: 0.2em 0;
-	padding: .25em 1em;
-
-	font-size: 1.2rem;
-
-	color: black;
-}
-
-.info-box-selection-list li:hover {
-	background-color: lightgrey;
-	border-radius: 0.2em;
-}
 /* ------------------------------------- */
 /* 				Carousell 				 */
 /* ------------------------------------- */
