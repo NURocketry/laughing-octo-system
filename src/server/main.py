@@ -194,7 +194,7 @@ async def file_stream():
 # Web server to publish html and other client side resources
 # Web server to publish web page contents this includes resources like css and js files
 async def index(request):
-    return web.FileResponse('../client/liveData.html')
+    return web.FileResponse('../client/index.html')
 
 
 def _start_async():
