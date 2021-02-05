@@ -4,23 +4,22 @@ const ws = new WebSocket('ws://localhost:5678/');
 //basic websocket handlers
 ws.onopen = function () {
     //change status indicator
-	document.querySelector('.status').classList.replace('disconnected', 'connected');
-    document.querySelector('.status').innerText = 'OPEN';
-	document.querySelector(".status");
 	let status = document.querySelectorAll(".status");
-	for (let item of status) 
-		item.style.color= "green";
+	for (let item of status){
+	    item.style.color= "green";
+	    item.innerText = "OPEN";
+    }
 }
 
 
 ws.onclose = function() {
     //change status indicator
-	document.querySelector('.status').classList.replace('connected', 'disconnected');
-    document.querySelector('.status').innerText = 'CLOSED';
 	let status = document.querySelectorAll(".status");
-	for (let item of status) 
-		item.style.color= "red";
-		
+	for (let item of status){
+	    item.style.color= "red";
+	    item.innerText = "CLOSED";
+    }
+
 }
 
 ws.onmessage = function(e) { 
@@ -80,8 +79,8 @@ function wsMessageHandler(e) {
     //re-draw charts accordingly
     update();
 
-    //cut off datapoints to keep at 10 max and redraw
-    trimData(namedData, 100);
+    //cut off data points to keep at 10 max and redraw
+    trimData(namedData, 50);
 }
 
 

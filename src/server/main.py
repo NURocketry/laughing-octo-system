@@ -48,8 +48,9 @@ async def notify_state(STATE):
 
 
 async def terminate_async_loops():
-    print("test")
-    print(async_container)
+    # function to terminate the async loops, the for loop iterates through the loop container
+    # then calls the stop on each one, but the system still runs and requires the os._exit()
+    # to stop entirely
     for x in range(0, len(async_container)):
         async_container[x].call_soon_threadsafe(async_container[x].stop)
 
@@ -160,8 +161,6 @@ async def file_stream():
 
         if read_count == 10:  # limits render time
 
-            # logging/debugging
-
             # the only reason these variables are explicitly split up and defined is for debugging/logging
             # doubt it's importance (performance-wise) to combine the statements and I figure it's done under
             # the hood during interpretation anyway
@@ -177,7 +176,7 @@ async def file_stream():
             # print("-> %0.3f (%0.3f = %0.3f - %0.3f)" % (offset, delta, current_time, reference_time) ) 
 
             # time_difference_to_wait
-            await asyncio.sleep(time_difference_to_wait)
+            await asyncio.sleep(0.1)
 
             print(file_line)
             await notify_state(file_line)
