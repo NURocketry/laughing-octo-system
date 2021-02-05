@@ -409,25 +409,21 @@ function updateCharts() {
  * INFO BOX DROPDOWN STUFF *
  **************************/
 
-// Selects each dropdown list title on the numeric telemetry and flight stats pages
-let infoBoxDropdowns = document.querySelectorAll("select[name='numeric-telemetry'], select[name='flight-stats']");
+function infoBoxDropdownHandler(e) {
 
-// Oh boy this is a lot
-// Adds an event listener to teach dropdown menu that will trigger when a new value is selected 
-Array.from(infoBoxDropdowns, dropdown => dropdown.addEventListener("change", function(e) {
+    const infoBox = e.target.closest('.info-box'); //div containing the dropdown
 
-    const infoBox = this.closest('.info-box'); //div containing the dropdown
-
-    console.log(`[*] Updating ${infoBox.dataset.label} box to ${this.value}`)
+    console.log(`[*] Updating ${infoBox.dataset.label} box to ${e.target.value}`)
 
     // 'this' is the element which caused the event listener to trigger, i.e. the 'select' tag
     // .closest() will traverse up the parent nodes until it finds a matching tag
     // we then change the data label of the info box to match the new selected value
-    infoBox.dataset.label = this.value;
+    infoBox.dataset.label = e.target.value;
 
     // now that the value has been changed, update the corresponding box
-    updateInfoBoxDetails(infoBox, this.value);
-}));
+    updateInfoBoxDetails(infoBox, e.target.value);
+
+}
 
 // Update the value and other relevant details for a specific info box
 /**
@@ -479,15 +475,11 @@ function updateAllInfoBoxValues() {
  * CHART BOX DROPDOWN STUFF *
  ****************************/
 
-
-// Selects each dropdown list title on the numeric telemetry and flight stats pages
-let chartDropdowns = document.querySelectorAll("select[name='charts']");
-
-Array.from(chartDropdowns, dropdown => dropdown.addEventListener("change", function(e) {
+function chartDropdownHandler(e) {
     //required info
-    const oldId = this.parentNode.querySelector(".chart-container").id;
+    const oldId = e.target.parentNode.querySelector(".chart-container").id;
     const oldValue = oldId.split('-')[0]; //disgusting hardcoded way of getting 'value' from 'value-chart'
-    const newValue = this.value;
+    const newValue = e.target.value;
     const newId = newValue + '-chart';
     const selectedChartAlreadyExists = document.querySelector('#' + newValue + '-chart') != null;
 
@@ -539,7 +531,7 @@ Array.from(chartDropdowns, dropdown => dropdown.addEventListener("change", funct
         datasets[newValue].active = true;
 
         //change container id
-        this.parentNode.querySelector(".chart-container").id = newId;
+        e.target.parentNode.querySelector(".chart-container").id = newId;
 
         //create the new chart
         charts[newValue] = new ApexCharts( document.querySelector('#' + newId), datasets[newValue].options);
@@ -549,9 +541,9 @@ Array.from(chartDropdowns, dropdown => dropdown.addEventListener("change", funct
 
         //display new chart
         charts[newValue].updateSeries([{ data: datasets[newValue].data }])
-
     }
-}));
+}
+
 /**
  * ACTUAL CODE TO RUN
  */
@@ -569,5 +561,17 @@ let currentData = {
     'pressure': null
 }
 
+// Selects each dropdown list title on the numeric telemetry and flight stats pages
+let infoBoxDropdowns = document.querySelectorAll("select[name='numeric-telemetry'], select[name='flight-stats']");
+// Selects each dropdown list title on the live telemetry graphs page
+let chartDropdowns = document.querySelectorAll("select[name='charts']");
+
+// Adds an event listener to teach dropdown menu that will trigger when a new value is selected 
+Array.from(infoBoxDropdowns, dropdown => dropdown.addEventListener("change", infoBoxDropdownHandler));
+// Add an event handler to each dropdown to trigger on value change
+Array.from(chartDropdowns, dropdown => dropdown.addEventListener("change", chartDropdownHandler));
+
+// Create all chart objects
 init();
+// Draw the charts
 render();
