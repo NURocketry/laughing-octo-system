@@ -247,15 +247,11 @@ let datasets = {
     },
     empty: { //placeholder chart for dropdown chart switching
         data: [],
-		stats: {min: null, max: null},
 		id: '#empty-chart',
         hasChart: true,
         active: false,
         options: {
-            ...defaultChartOptions.area, 
-            ...{ //rest will override defaults
-				colors: ['#00f5d4'],
-            }
+            ...defaultChartOptions.area
         }
     }
 }
@@ -294,9 +290,9 @@ const dataInfo = {
 function init() { //create the actual chart for each 
 	for ( let s in datasets) {// each set in the datasets object
         if (datasets[s].hasChart) {// if it contains a .chart property 
-            let chartName = s.replace(/^\w/, c => c.toUpperCase()); //capitalise first letter
+            // let chartName = s.replace(/^\w/, c => c.toUpperCase()); //capitalise first letter
             // creat chart object
-            charts[chartName] = new ApexCharts(
+            charts[s] = new ApexCharts(
                 document.querySelector(datasets[s].id), 
                 datasets[s].options
             );
@@ -310,9 +306,9 @@ function init() { //create the actual chart for each
 function render() { 
     // call ApexCharts method for chart object
     for ( let s in datasets) { // each set in the datasets object
-        let chartName = s.replace(/^\w/, c => c.toUpperCase()); //capitalise first letter
+        // let chartName = s.replace(/^\w/, c => c.toUpperCase()); //capitalise first letter
         if (datasets[s].hasChart && datasets[s].active) // if it contains a .chart property
-            charts[chartName].render();
+            charts[s].render();
     }
 }
 
@@ -402,8 +398,8 @@ function displayData(dataObj) {
 function updateCharts() {
     for ( let s in datasets) { // each set in the datasets object
         if (datasets[s].hasChart && datasets[s].active) {// if it contains a .chart property 
-            let chartName = s.replace(/^\w/, c => c.toUpperCase()); //capitalise first letter
-            charts[chartName].updateSeries([{ data: datasets[s].data }])
+            // let chartName = s.replace(/^\w/, c => c.toUpperCase()); //capitalise first letter
+            charts[s].updateSeries([{ data: datasets[s].data }])
         }
     }
 }
@@ -488,15 +484,73 @@ function updateAllInfoBoxValues() {
 let chartDropdowns = document.querySelectorAll("select[name='charts']");
 
 Array.from(chartDropdowns, dropdown => dropdown.addEventListener("change", function(e) {
-    console.log("chart dropdown changed");
-    /**
-     * 1. check if the chart that has been changed to already exists
-     * 2. if no, easy, just change id
-     * 3. if yes, make old chart blank chart (assuming doesnt already exist), and change id of new chart
-     * 4. if already a blank chart, swap them
-     * 5. change active status of charts
-     * 6. figure out how to redraw charts based on id
-     */
+    //required info
+    const oldId = this.parentNode.querySelector(".chart-container").id;
+    const oldValue = oldId.split('-')[0]; //disgusting hardcoded way of getting 'value' from 'value-chart'
+    const newValue = this.value;
+    const newId = newValue + '-chart';
+    const selectedChartAlreadyExists = document.querySelector('#' + newValue + '-chart') != null;
+
+    // console.log(oldId, newValue, selectedChartAlreadyExists);
+
+    if (selectedChartAlreadyExists) {
+
+        console.log('[*] Selected chart already exists, swapping charts...');
+
+        //destroy old charts before swapping
+        charts[oldValue].destroy();
+        charts[newValue].destroy();
+
+        //delete old chart objects linked to old DOM object
+        delete charts[oldValue];
+        delete charts[newValue];
+
+        //swap ID's
+        //need to get the DOM elements first to have a consistent reference to 
+        //... each object after changing the id
+        let oldChart = document.getElementById(oldId);
+        let newChart = document.getElementById(newId);
+
+        [ oldChart.id, newChart.id ] = [ newId, oldId]; //swap in place
+
+        //update title of new chart (doesn't auto update as it wasnt selected)
+        newChart.parentNode.querySelector('select[name="charts"]').value = oldValue;
+
+        //recreate the charts with swapped ID's
+        charts[newValue] = new ApexCharts( document.querySelector('#' + newId), datasets[newValue].options);
+        charts[oldValue] = new ApexCharts( document.querySelector('#' + oldId), datasets[oldValue].options);
+
+        //render new charts
+        charts[newValue].render();
+        charts[oldValue].render();
+
+        //display new charts
+        charts[newValue].updateSeries([{ data: datasets[newValue].data }])
+        charts[oldValue].updateSeries([{ data: datasets[oldValue].data }])
+
+    } else { // dont need to check anything, can just change it
+        //destroy old chart
+        charts[oldValue].destroy();
+    
+        delete charts[oldValue]; //only keep active charts in the charts object
+
+        //update flags
+        datasets[oldValue].active = false;
+        datasets[newValue].active = true;
+
+        //change container id
+        this.parentNode.querySelector(".chart-container").id = newId;
+
+        //create the new chart
+        charts[newValue] = new ApexCharts( document.querySelector('#' + newId), datasets[newValue].options);
+
+        //render new chart
+        charts[newValue].render();
+
+        //display new chart
+        charts[newValue].updateSeries([{ data: datasets[newValue].data }])
+
+    }
 }));
 /**
  * ACTUAL CODE TO RUN

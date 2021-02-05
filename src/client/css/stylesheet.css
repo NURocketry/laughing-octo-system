@@ -210,11 +210,11 @@ h1, h2, h3, h4, h5, h6, strong {
 	width: 100%;
 }
 
-.info-box-heading select:hover, .charts-dropdown:hover {
+.info-box-heading select:hover, select[name='charts']:hover {
 	cursor: pointer;
 }
 
-.charts-dropdown {
+select[name='charts'] {
 	background-color: transparent;
 	border: none;
 	margin: 0;
