@@ -176,6 +176,7 @@ async def file_stream():
             # debugging
             # print("-> %0.3f (%0.3f = %0.3f - %0.3f)" % (offset, delta, current_time, reference_time) ) 
 
+            # time_difference_to_wait
             await asyncio.sleep(time_difference_to_wait)
 
             print(file_line)
