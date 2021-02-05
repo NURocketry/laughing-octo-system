@@ -1,11 +1,10 @@
+import os
 import threading
-
 import serial
 import asyncio
 import websockets
 import sys  # commandline arguments
 import time  # for logging
-import random
 from aiohttp import web  # Web server
 
 if len(sys.argv) > 1:  # filepath given, read
@@ -33,6 +32,9 @@ else:  # no filepath given, write
 
 USERS = set()  # All active web socket connection
 
+async_container = []
+thread_container = []
+
 
 # Broadcast messages to all web socket connected
 async def notify_state(STATE):
@@ -43,6 +45,16 @@ async def notify_state(STATE):
         for user in USERS:
             task = asyncio.create_task(user.send(STATE))
             await task
+
+
+async def terminate_async_loops():
+    print("test")
+    print(async_container)
+    for x in range(0, len(async_container)):
+        async_container[x].call_soon_threadsafe(async_container[x].stop)
+
+    # shutdown_asyncgens
+    os._exit(0)
 
 
 # Add new web socket user
@@ -64,7 +76,6 @@ async def unregister(websocket):
 async def counter(websocket, path):
     await register(websocket)
     try:
-        # For some reason have to read a message?????????
         async for message in websocket:
             print(message)
     finally:
@@ -92,6 +103,7 @@ async def serial_stream():
                     print("Error detected, writing final data and closing file connection")
                     f.write(data_to_write)
                     f.close()
+                    await terminate_async_loops()
                     break
 
             if serial_content != "":  # make sure we don't send a blank message (happens) and
@@ -135,43 +147,47 @@ async def serial_stream():
 
 
 # handle file data and send to client via websockets
-async def file_stream(websocket, path):
+async def file_stream():
     read_count = 0  # rate limit sent data
+    previous_time = 0
 
-    reference_time = time.time()  # seconds since epoch for accurate playback
+    # reference_time = time.time()  # seconds since epoch for accurate playback
 
-    for line in (l.strip() for l in f):  # iterate over each line with trailing newlines removed
+    for file_line in (l.strip() for l in f):  # iterate over each line with trailing newlines removed
 
-        if len(line) < 2: continue  # dont send empty lines
-        # dont merge these two if statements because itll fuckup the $read_count rate limiting
+        if len(file_line) < 2:
+            continue  # dont send empty lines
 
-        if (read_count % 10) == 0:  # limits render time
+        if read_count == 10:  # limits render time
 
-            print(line)  # logging/debugging
+            # logging/debugging
 
             # the only reason these variables are explicitly split up and defined is for debugging/logging
             # doubt it's importance (performance-wise) to combine the statements and I figure it's done under
             # the hood during interpretation anyway
 
-            timestamp = float(line.split(',')[0])  # exract time value from csv line
+            current_time = float(file_line.split(',')[0])  # extract time value from csv line
 
-            current_time = time.time()  # take a wild fucking guess what this is xox
+            time_difference_to_wait = current_time - previous_time
 
-            delta = current_time - reference_time  # difference between the python program's time and the live time
-            offset = timestamp - delta  # amount by which the program is ahead of schedule
+            # set the previous time for next loop
+            previous_time = current_time
 
             # debugging
             # print("-> %0.3f (%0.3f = %0.3f - %0.3f)" % (offset, delta, current_time, reference_time) ) 
 
-            if offset > 0:  # if the loop is running faster than incoming data, wait to catch up
-                time.sleep(offset)  # sleep in seconds
+            await asyncio.sleep(time_difference_to_wait)
 
-            # second data from file
-            await websocket.send(line)
+            print(file_line)
+            await notify_state(file_line)
+
+            read_count = 0
 
         read_count += 1  # increment rate limiter
 
     print("\nFinished replaying launch data from '%s'" % filepath)
+    f.close()
+    await terminate_async_loops()
 
 
 # Web server to publish html and other client side resources
@@ -182,7 +198,11 @@ async def index(request):
 
 def _start_async():
     async_loop = asyncio.new_event_loop()
-    threading.Thread(target=async_loop.run_forever).start()
+    new_thread = threading.Thread(target=async_loop.run_forever).start()
+
+    async_container.append(async_loop)
+    thread_container.append(new_thread)
+
     return async_loop
 
 
@@ -196,35 +216,34 @@ app.router.add_static('/', path='../client/')
 with open(filepath, mode,
           encoding='windows-1252') as f:  # 'with' is important as it ensures file is closed even on an exception
     # READ i.e. replaying from file
+
+    stream_loop = _start_async()
+
     if mode == 'r':
         next(f)  # discard csv column labels by skipping first line
-        # TODO server handling to be updated to work with Josh's improvements (including both windows and multiple connections)
-        start_server = websockets.serve(counter, "localhost", 5678)
+        # TODO server handling to be updated to work with Josh's improvements (including both windows and multiple
+        #  connections)
+
+        asyncio.run_coroutine_threadsafe(file_stream(), stream_loop)
 
     # WRITE i.e. logging data from serial
     elif mode == 'a':  # append mode ensures data is not overwritten in case of a file name mishap
         # add column labels
         f.write(
             "Time (s), Altitude (m), Velocity (m/s), Acceleration (m/s^2), Air temperature (oC), Air pressure (mbar)\n")
-        # TODO server handling to be updated to work with Josh's improvements (including both windows and multiple connections)
-        start_server = websockets.serve(counter, "localhost", 5678)
+        # TODO server handling to be updated to work with Josh's improvements (including both windows and multiple
+        #  connections)
 
-    # TODO server handling to be updated to work with Josh's improvements (including both windows and multiple connections)
+        asyncio.run_coroutine_threadsafe(serial_stream(), stream_loop)
 
-    # start_server_loop = _start_async()
-    # asyncio.run_coroutine_threadsafe(start_server, start_server_loop)
-    asyncio.ensure_future(start_server)
+    # TODO server handling to be updated to work with Josh's improvements (including both windows and multiple
+    #  connections)
 
-    serial_stream_loop = _start_async()
-    asyncio.run_coroutine_threadsafe(serial_stream(), serial_stream_loop)
+    # web socket stuff
+    start_server = websockets.serve(counter, "localhost", 5678)
 
+    asyncio.get_event_loop().run_until_complete(start_server)
+
+    # web server stuff
     web_app_loop = _start_async()
     asyncio.run_coroutine_threadsafe(web.run_app(app, port=8080), web_app_loop)
-
-    # asyncio.ensure_future(serial_stream())
-    # asyncio.ensure_future(web.run_app(app, port=8080))  # Web server running on port 8080
-
-    # Make run in infinite loop
-    # loop = asyncio.get_event_loop()
-    # loop.run_forever()
-    # loop.close()
