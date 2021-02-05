@@ -1,12 +1,10 @@
 import os
 import threading
-
 import serial
 import asyncio
 import websockets
 import sys  # commandline arguments
 import time  # for logging
-import random
 from aiohttp import web  # Web server
 
 if len(sys.argv) > 1:  # filepath given, read
@@ -54,20 +52,9 @@ async def terminate_async_loops():
     print(async_container)
     for x in range(0, len(async_container)):
         async_container[x].call_soon_threadsafe(async_container[x].stop)
-        # async_container[x].close()
-        #thread_container[x].join()
-        # thread_container[x].join()
 
-        #async_loop.call_soon_threadsafe(async_loop.stop)
-    for x in range(0, len(async_container)):
-        print(async_container[x].is_closed())
-        # print(thread_container[x].is_closed())
-        # async_container[x].call_soon_threadsafe(async_container[x].stop)
-        # thread_container[x].join()
-
-
-    #shutdown_asyncgens
-    #os._exit(0)
+    # shutdown_asyncgens
+    os._exit(0)
 
 
 # Add new web socket user
@@ -89,7 +76,6 @@ async def unregister(websocket):
 async def counter(websocket, path):
     await register(websocket)
     try:
-        # For some reason have to read a message?????????
         async for message in websocket:
             print(message)
     finally:
@@ -169,9 +155,8 @@ async def file_stream():
 
     for file_line in (l.strip() for l in f):  # iterate over each line with trailing newlines removed
 
-        # if len(line) < 2:
-        #     continue  # dont send empty lines
-        # # dont merge these two if statements because itll fuckup the $read_count rate limiting
+        if len(file_line) < 2:
+            continue  # dont send empty lines
 
         if read_count == 10:  # limits render time
 
@@ -191,7 +176,7 @@ async def file_stream():
             # debugging
             # print("-> %0.3f (%0.3f = %0.3f - %0.3f)" % (offset, delta, current_time, reference_time) ) 
 
-            await asyncio.sleep(0.1)
+            await asyncio.sleep(time_difference_to_wait)
 
             print(file_line)
             await notify_state(file_line)
@@ -257,16 +242,7 @@ with open(filepath, mode,
     # web socket stuff
     start_server = websockets.serve(counter, "localhost", 5678)
 
-    # asyncio.get_event_loop().run_until_complete(start_server)
-
-
-    # # web_socket_loop = _start_async()
-    # #
-    #
-    # asyncio.run(start_server, web_socket_loop)
-    # web_socket_loop.run(start_server)
-    #
-    # asyncio.run_coroutine_threadsafe(start_server, web_socket_loop)
+    asyncio.get_event_loop().run_until_complete(start_server)
 
     # web server stuff
     web_app_loop = _start_async()
