@@ -50,7 +50,7 @@ function wsMessageHandler(e) {
     updateCharts();
 
     //cut off datapoints to keep at 10 max and redraw
-    trimData(currentData, 50);
+    trimData(currentData, 3);
 };
 
 
@@ -272,22 +272,28 @@ let datasets = {
             }
         }
     },
-    time: {
-        data: [],
-		stats: {min: null, max: null},
-		id: '#time-chart',
-        hasChart: false, //IMPORTANT, time has NO graph
-        active: false,
-        options: {
-            ...defaultChartOptions.area, 
-            ...{ //rest will override defaults
-				colors: ['#00f5d4'],
-                // title: { text: 'Time' }
-            }
-        }
-    },
+    // time: {
+    //     data: [],
+	// 	stats: {min: null, max: null},
+	// 	id: '#time-chart',
+    //     hasChart: false, //IMPORTANT, time has NO graph
+    //     active: false,
+    //     options: {
+    //         ...defaultChartOptions.area, 
+    //         ...{ //rest will override defaults
+	// 			colors: ['#00f5d4'],
+    //             // title: { text: 'Time' }
+    //         }
+    //     }
+    // },
     empty: { //placeholder chart for dropdown chart switching
         data: [],
+        series: [
+            {
+              name: "Empty",
+              data: []
+            }
+          ],
 		id: '#empty-chart',
         hasChart: true,
         active: true,
@@ -368,7 +374,7 @@ function addData(dataObj) {
         if ( !datasets.hasOwnProperty(key) ) continue; 
 
         if (datasets[key].hasChart) {// if it contains a .chart property
-            console.log(datasets, key);
+            // console.log(datasets, key);
             datasets[key].series[0].data.push( [dataObj["time"], dataObj[key]] );
 
             //Determines the min/max for each element in the dataset
@@ -390,11 +396,9 @@ function trimData(dataObj, len) {
     for ( let key in dataObj ) {
         // check to make sure we only trip data we're expecting 
         if ( !datasets.hasOwnProperty(key) ) continue; 
-
         // console.log(key, datasets[key]);
-        if ( datasets[key].data.length > len ) {
-
-            datasets[key].data.shift()
+        if ( datasets[key].series[0].data.length > len ) {
+            datasets[key].series[0].data.shift()
             didTrimData = true;
         }
     }
