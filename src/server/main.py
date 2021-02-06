@@ -33,7 +33,6 @@ else:  # no filepath given, write
 USERS = set()  # All active web socket connection
 
 async_container = []
-thread_container = []
 
 
 # Broadcast messages to all web socket connected
@@ -87,7 +86,7 @@ async def counter(websocket, path):
 async def serial_stream():
     serial_content = ""
     read_count = 0  # Used to limit the amount of data sent to site
-    prev_time = 0
+    # prev_time = 0
     error_count = 0
     data_to_write = ""
     while True:
@@ -139,7 +138,7 @@ async def serial_stream():
                         # for using time difference instead of count as mentioned above
                         # prev_time = current_time
                         read_count = 0
-                read_count = read_count + 1
+                read_count += 1
         else:
             # if connection has closed for some reason, try and open it again indefinitely ... objectively a bad idea
             # but hacky solution to allow arduino resets during testing potentially will need to be properly
@@ -172,11 +171,7 @@ async def file_stream():
             # set the previous time for next loop
             previous_time = current_time
 
-            # debugging
-            # print("-> %0.3f (%0.3f = %0.3f - %0.3f)" % (offset, delta, current_time, reference_time) ) 
-
-            # time_difference_to_wait
-            await asyncio.sleep(0.1)
+            await asyncio.sleep(time_difference_to_wait)
 
             print(file_line)
             await notify_state(file_line)
@@ -198,10 +193,9 @@ async def index(request):
 
 def _start_async():
     async_loop = asyncio.new_event_loop()
-    new_thread = threading.Thread(target=async_loop.run_forever).start()
+    threading.Thread(target=async_loop.run_forever).start()
 
     async_container.append(async_loop)
-    thread_container.append(new_thread)
 
     return async_loop
 

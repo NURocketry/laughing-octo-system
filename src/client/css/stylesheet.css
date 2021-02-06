@@ -115,14 +115,14 @@ h1, h2, h3, h4, h5, h6, strong {
 	transform: rotate(120deg);
 }
 
-ul {
+#lgMenu ul {
 	list-style: none;
 	padding: 0;
 	margin-top: 75px;
 	opacity: 1;
 }
 
-li {
+#lgMenu li {
 	text-align: center;
 	text-transform: uppercase;
 	height: 70px;
@@ -137,7 +137,7 @@ li {
 	opacity: 1;
 }
 
-li:hover {
+#lgMenu li:hover {
 	background-color: white;
 	color: black;
 	letter-spacing: 0.3em;
@@ -191,6 +191,40 @@ li:hover {
 	margin-right: auto;
 	width: 80%;
 	height: auto;
+}
+
+
+/* ------------------------------------- */
+/*        Info boxes / Dropdowns		 */ 
+/* ------------------------------------- */
+
+.info-box-heading select {
+	background-color: transparent;
+	border: none;
+
+	/* text */
+	color: white;
+	font-family: Montserrat, Arial, sans-serif;
+	font-weight: 600;
+
+	width: 100%;
+}
+
+.info-box-heading select:hover, select[name='charts']:hover {
+	cursor: pointer;
+}
+
+select[name='charts'] {
+	background-color: transparent;
+	border: none;
+	margin: 0;
+
+	/* text */
+	color: #ccc;
+	font-family: Montserrat, Arial, sans-serif;
+	font-weight: 600;
+
+	width: 100%;
 }
 
 /* ------------------------------------- */
