@@ -18,8 +18,8 @@ else:  # no filepath given, write
 
     mode = 'a'  # append mode so data is not overwritten in case of existing filename
 
-    filepath = "../data/" + time.strftime("%Y-%m-%dT%H%M%SZ",
-                                          time.gmtime()) + " launch.csv"  # ISO8601 compliant time filename
+    filepath = time.strftime("%Y-%m-%dT%H%M%SZ",
+                             time.gmtime()) + " launch.csv"  # ISO8601 compliant time filename
 
     print("Logging flight data to local file: '%s'" % filepath)
 
@@ -28,7 +28,7 @@ else:  # no filepath given, write
     port = input('port: ') if input('use default port: COM3? Y/n: ') == 'n' else 'COM3'
 
     baud = 115200
-    ser = serial.Serial(port, baud, timeout=1)  # establish serial connection
+
 
 USERS = set()  # All active web socket connection
 
@@ -56,6 +56,17 @@ async def terminate_async_loops():
 
     # shutdown_asyncgens
     os._exit(0)
+
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 
 # Add new web socket user
@@ -90,6 +101,10 @@ async def serial_stream():
     prev_time = 0
     error_count = 0
     data_to_write = ""
+
+    input("Press enter to open the serial port\n")
+    ser = serial.Serial(port, baud, timeout=1)  # establish serial connection
+
     while True:
         if ser.isOpen():
 
@@ -193,7 +208,7 @@ async def file_stream():
 # Web server to publish html and other client side resources
 # Web server to publish web page contents this includes resources like css and js files
 async def index(request):
-    return web.FileResponse('../client/index.html')
+    return web.FileResponse(resource_path('client/index.html'))
 
 
 def _start_async():
@@ -208,7 +223,7 @@ def _start_async():
 
 app = web.Application()
 app.add_routes([web.get('/', index)])
-app.router.add_static('/', path='../client/')
+app.router.add_static('/', path=resource_path('client/'))
 
 # requires windows-1252 encoding instead of UTF-8 because superscript 2's arent ecoded as utf8 atm
 # TODO ensure we're ready to make utf-8 encoding standard for all NuRocketry stuff (and pure ascii block preffered)
