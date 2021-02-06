@@ -50,7 +50,7 @@ function wsMessageHandler(e) {
     updateCharts();
 
     //cut off datapoints to keep at 10 max and redraw
-    trimData(currentData, 3);
+    trimData(currentData, 50);
 };
 
 
