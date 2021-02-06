@@ -210,6 +210,11 @@ h1, h2, h3, h4, h5, h6, strong {
 	width: 100%;
 }
 
+option{
+	color: white;
+	background-color: #2B2D3E;
+}
+
 .info-box-heading select:hover, select[name='charts']:hover {
 	cursor: pointer;
 }
