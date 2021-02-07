@@ -23,7 +23,6 @@ ws.onclose = function() {
 }
 
 ws.onmessage = function(e) { 
-    console.log(e)
     wsMessageHandler(e);
 };
 
@@ -38,7 +37,11 @@ function wsMessageHandler(e) {
         'acceleration': wsValues[3],
         'temperature': 	wsValues[4],
         'pressure':     wsValues[5]
+        //,'latitude':    wsValues[6]
+        //'longitude':    wsValues[7]
     }
+
+	path.push([currentData.longitude, currentData.latitude]);
     
     //push ws data onto chart data array and handles statistics
     addData(currentData);
@@ -590,6 +593,76 @@ function chartDropdownHandler(e) {
         charts[newValue].updateSeries([{ data: datasets[newValue].data }])
     }
 }
+
+/****************************
+ * 			GPS Map			*
+ ****************************/
+var map, point, animation, path = [], longitude, latitude;
+function GetMap() {
+	//Initialize a map instance.
+	map = new atlas.Map('gpsMap', {
+		center: [133.7751, -25.2744],
+		zoom: 2,
+		view: 'Auto',
+
+		//Add authentication details for connecting to Azure Maps.
+		authOptions: {
+			authType: 'subscriptionKey',
+			subscriptionKey: 'BlXjZbW2jorXcheEUDSZykyI3YfVRYDg4zfOynrtEbw'
+		}
+	});
+
+	//Wait until the map resources are ready.
+	map.events.add('ready', function () {
+		point = new atlas.Shape(new atlas.data.Point([-122.33825, 47.53945]));
+
+		//Create a data source and add it to the map.
+		datasource = new atlas.source.DataSource();
+		map.sources.add(datasource);
+
+		//Add a line for the path as a visual reference.
+		datasource.add(new atlas.data.LineString(path));
+
+		//Add the data to the data source.
+		datasource.add(point);                
+
+		//Add a layer for rendering line data. 
+		map.layers.add(new atlas.layer.LineLayer(datasource));
+
+		//Add a layer for rendering point data. This could be any layer that supports rendering point data.
+		map.layers.add(new atlas.layer.SymbolLayer(datasource, null, {
+			iconOptions: {
+				//For smoother animation, ignore the placement of the icon. This skips the label collision calculations and allows the icon to overlap map labels.
+				ignorePlacement: true,
+
+				//For smoother animation, allow symbol to overlap all other symbols on the map.
+				allowOverlap: false,
+
+				rotation: ['get', 'heading'],
+
+				 //Have the rotation align with the map.
+				rotationAlignment: 'map'
+			},
+
+			//Only render Point or MultiPoints in this layer.    
+			filter: ['any', ['==', ['geometry-type'], 'Point'], ['==', ['geometry-type'], 'MultiPoint']] 
+		}));
+
+		map.events.add('click', function () {
+			map.resize();
+			if (animation) {
+				//Restart the animation.
+				animation.reset();
+				animation.play();
+			} else {
+				animation = atlas.animations.moveAlongPath(path, point, {captureMetadata: true, autoPlay: true });
+			}
+		});
+	});
+}
+
+
+document.onload = GetMap();
 
 /**
  * ACTUAL CODE TO RUN
