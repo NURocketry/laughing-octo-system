@@ -41,7 +41,7 @@ function wsMessageHandler(e) {
         //'longitude':    wsValues[7]
     }
 
-	path.push([currentData.longitude, currentData.latitude]);
+	//path.push([currentData.longitude, currentData.latitude]);
     
     //push ws data onto chart data array and handles statistics
     addData(currentData);
