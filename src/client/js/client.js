@@ -597,6 +597,7 @@ function chartDropdownHandler(e) {
 /****************************
  * 			GPS Map			*
  ****************************/
+/*
 var map, point, animation, path = [], longitude, latitude;
 function GetMap() {
 	//Initialize a map instance.
@@ -663,6 +664,7 @@ function GetMap() {
 
 
 document.onload = GetMap();
+*/
 
 /**
  * ACTUAL CODE TO RUN
