@@ -4,42 +4,43 @@ const ws = new WebSocket('ws://localhost:5678/');
 //basic websocket handlers
 ws.onopen = function () {
     //change status indicator
-	let status = document.querySelectorAll(".status");
-	for (let item of status){
-	    item.style.color= "green";
-	    item.innerText = "OPEN";
+    let status = document.querySelectorAll(".status");
+    for (let item of status) {
+        item.style.color = "green";
+        item.innerText = "OPEN";
     }
 }
 
 
-ws.onclose = function() {
+ws.onclose = function () {
     //change status indicator
-	let status = document.querySelectorAll(".status");
-	for (let item of status){
-	    item.style.color= "red";
-	    item.innerText = "CLOSED";
+    let status = document.querySelectorAll(".status");
+    for (let item of status) {
+        item.style.color = "red";
+        item.innerText = "CLOSED";
     }
 
 }
 
-ws.onmessage = function(e) { 
+ws.onmessage = function (e) {
     console.log(e)
     wsMessageHandler(e);
 };
 
 function wsMessageHandler(e) {
-    let wsValues = e.data.split(',').map( x => parseFloat(x) ); //extract data from ws content and convert to number
-    
+    let wsValues = e.data.split(',').map(x => parseFloat(x)); //extract data from ws content and convert to number
+
     // update currentData global for use in other functions
-    currentData = {  ...currentData, //spread operator ensures object isnt overriden, only named field are updated.
-        'time':         wsValues[0],
-        'altitude':     wsValues[1],
-        'velocity':     wsValues[2],
+    currentData = {
+        ...currentData, //spread operator ensures object isnt overriden, only named field are updated.
+        'time': wsValues[0],
+        'altitude': wsValues[1],
+        'velocity': wsValues[2],
         'acceleration': wsValues[3],
-        'temperature': 	wsValues[4],
-        'pressure':     wsValues[5]
+        'temperature': wsValues[4],
+        'pressure': wsValues[5]
     }
-    
+
     //push ws data onto chart data array and handles statistics
     addData(currentData);
 
@@ -58,107 +59,166 @@ function wsMessageHandler(e) {
 //Documentation: https://apexcharts.com/docs/installation/
 
 let defaultChartOptions = {
-	line: {
-		series: [
+    line: {
+        series: [
             {
-              name: "Series",
-              data: []
+                name: "Series",
+                data: []
             }
-          ],
-		noData: { text: "No Data"},
-		chart: {
-			type: 'line',
-			foreColor: '#ccc',
-			toolbar: { show: false },
+        ],
+        noData: {text: "No Data"},
+        chart: {
+            type: 'line',
+            foreColor: '#ccc',
+            toolbar: {
+            theme: 'dark',
+            show: true,
+            offsetX: 0,
+            offsetY: 0,
+            tools: {
+                download: true,
+                selection: true,
+                zoom: true,
+                zoomin: true,
+                zoomout: true,
+                pan: true,
+                reset: true,
+                customIcons: []
+            },
+            export: {
+                csv: {
+                    filename: undefined,
+                    columnDelimiter: ',',
+                    headerCategory: 'category',
+                    headerValue: 'value',
+                    dateFormatter(timestamp) {
+                        return new Date(timestamp).toDateString()
+                    }
+                },
+                svg: {
+                    filename: undefined,
+                },
+                png: {
+                    filename: undefined,
+                }
+            },
+            autoSelected: 'zoom'
+        },
             animations: {
                 enabled: true,
                 easing: 'smooth',
-                dynamicAnimation: { speed: 1000 }
+                dynamicAnimation: {speed: 1000}
             },
-		},
-		dropShadow: {
-			enabled: true,
-			top: 3,
-			left: 2,
-			blur: 4,
-			opacity: 1,
-		},
+        },
+        dropShadow: {
+            enabled: true,
+            top: 3,
+            left: 2,
+            blur: 4,
+            opacity: 1,
+        },
 
-		stroke: {
-			curve: 'smooth'
-		},
+        stroke: {
+            curve: 'smooth'
+        },
 
-		dataLabels: {
-			enabled: false
-		},
+        dataLabels: {
+            enabled: false
+        },
 
-		tooltip: {
-			theme: 'dark'
-		},
-
-		grid: {
-			borderColor: "#535A6C",
-			xaxis: {
-				lines: { show: false}
-			}
-		},
-
-		xaxis: {
-			type: 'numeric',
-		},
-
-	},
-
-	area: {
-		series: [
-            {
-              name: "Series",
-              data: []
+        grid: {
+            borderColor: "#535A6C",
+            xaxis: {
+                lines: {show: false}
             }
-          ],
-		noData: { text: "No Data"},
-		chart: {
-			type: 'area',
-			foreColor: '#ccc',
-			toolbar: { show: false },
+        },
+
+        xaxis: {
+            type: 'numeric',
+        },
+
+    },
+
+    area: {
+        series: [
+            {
+                name: "Series",
+                data: []
+            }
+        ],
+        noData: {text: "No Data"},
+        chart: {
+            type: 'area',
+            foreColor: '#ccc',
+            toolbar: {
+                theme: 'dark',
+                show: true,
+                offsetX: 0,
+                offsetY: 0,
+                tools: {
+                    download: true,
+                    selection: true,
+                    zoom: true,
+                    zoomin: true,
+                    zoomout: true,
+                    pan: true,
+                    reset: true,
+                    customIcons: []
+                },
+                export: {
+                    csv: {
+                        filename: undefined,
+                        columnDelimiter: ',',
+                        headerCategory: 'category',
+                        headerValue: 'value',
+                        dateFormatter(timestamp) {
+                            return new Date(timestamp).toDateString()
+                        }
+                    },
+                    svg: {
+                        filename: undefined,
+                    },
+                    png: {
+                        filename: undefined,
+                    }
+                },
+                autoSelected: 'zoom'
+            },
             animations: {
                 enabled: true,
                 easing: 'smooth',
-                dynamicAnimation: { speed: 1000 }
+                dynamicAnimation: {speed: 1000}
             },
-		},
-		dropShadow: {
-			enabled: true,
-			top: 3,
-			left: 2,
-			blur: 4,
-			opacity: 1,
-		},
+        },
+        dropShadow: {
+            enabled: true,
+            top: 3,
+            left: 2,
+            blur: 4,
+            opacity: 1,
+        },
 
-		stroke: {
-			curve: 'smooth'
-		},
+        stroke: {
+            curve: 'smooth'
+        },
 
-		dataLabels: {
-			enabled: false
-		},
+        dataLabels: {
+            enabled: false
+        },
 
-		tooltip: {
-			theme: 'dark'
-		},
 
-		grid: {
-			borderColor: "#535A6C",
-			xaxis: {
-				lines: { show: false}
-			}
-		},
+        grid: {
+            borderColor: "#535A6C",
+            xaxis: {
+                lines: {show: false}
+            }
+        },
 
-		xaxis: {
-			type: 'numeric',
-		},
+        xaxis: {
+            type: 'numeric',
+        },
 
-	}
+    }
 }
 
 
@@ -175,19 +235,19 @@ let datasets = {
         data: [],
         series: [
             {
-              name: "Altitude",
-              data: []
+                name: "Altitude",
+                data: []
             }
-          ],
+        ],
         // data: [],
-		stats: {min: null, max: null},
+        stats: {min: null, max: null},
         hasChart: true,
         active: true,
         id: '#altitude-chart',
         options: {
             ...defaultChartOptions.area,
             ...{ //rest will override defaults
-				colors: ['#9b5de5'],
+                colors: ['#9b5de5'],
                 // title: { text: 'Altitude' }
             }
         }
@@ -196,18 +256,18 @@ let datasets = {
         data: [],
         series: [
             {
-              name: "Temperature",
-              data: []
+                name: "Temperature",
+                data: []
             }
-          ],
-		stats: {min: null, max: null},
+        ],
+        stats: {min: null, max: null},
         hasChart: true,
         active: true,
         id: '#temperature-chart',
         options: {
             ...defaultChartOptions.line,
             ...{ //rest will override defaults
-				colors: ['#f15bb5'],
+                colors: ['#f15bb5'],
                 // title: { text: 'Temperature' }
             }
         }
@@ -216,18 +276,18 @@ let datasets = {
         data: [],
         series: [
             {
-              name: "Pressure",
-              data: []
+                name: "Pressure",
+                data: []
             }
-          ],
-		stats: {min: null, max: null},
+        ],
+        stats: {min: null, max: null},
         hasChart: true,
         active: true,
         id: '#pressure-chart',
         options: {
             ...defaultChartOptions.line,
             ...{ //rest will override defaults
-				colors: ['#fee440'],
+                colors: ['#fee440'],
                 // title: { text: 'Pressure' }
             }
         }
@@ -236,18 +296,18 @@ let datasets = {
         data: [],
         series: [
             {
-              name: "Velocity",
-              data: []
+                name: "Velocity",
+                data: []
             }
-          ],
-		stats: {min: null, max: null},
+        ],
+        stats: {min: null, max: null},
         hasChart: true,
         active: true,
         id: '#velocity-chart',
         options: {
             ...defaultChartOptions.area,
             ...{ //rest will override defaults
-				colors: ['#00bbf9'],
+                colors: ['#00bbf9'],
                 // title: { text: 'Velocity' }
             }
         }
@@ -256,32 +316,32 @@ let datasets = {
         data: [],
         series: [
             {
-              name: "Acceleration",
-              data: []
+                name: "Acceleration",
+                data: []
             }
-          ],
-		stats: {min: null, max: null},
+        ],
+        stats: {min: null, max: null},
         hasChart: true,
         active: true,
         id: '#acceleration-chart',
         options: {
             ...defaultChartOptions.area,
             ...{ //rest will override defaults
-				colors: ['#00f5d4'],
+                colors: ['#00f5d4'],
                 // title: { text: 'Acceleration' }
             }
         }
     },
     // time: {
     //     data: [],
-	// 	stats: {min: null, max: null},
-	// 	id: '#time-chart',
+    // 	stats: {min: null, max: null},
+    // 	id: '#time-chart',
     //     hasChart: false, //IMPORTANT, time has NO graph
     //     active: false,
     //     options: {
     //         ...defaultChartOptions.area, 
     //         ...{ //rest will override defaults
-	// 			colors: ['#00f5d4'],
+    // 			colors: ['#00f5d4'],
     //             // title: { text: 'Time' }
     //         }
     //     }
@@ -290,11 +350,11 @@ let datasets = {
         data: [],
         series: [
             {
-              name: "Empty",
-              data: []
+                name: "Empty",
+                data: []
             }
-          ],
-		id: '#empty-chart',
+        ],
+        id: '#empty-chart',
         hasChart: true,
         active: true,
         options: {
@@ -335,12 +395,12 @@ const dataInfo = {
  * Automate initialising for when we have heaps of charts
  */
 function init() { //create the actual chart for each
-	for ( let s in datasets) {// each set in the datasets object
+    for (let s in datasets) {// each set in the datasets object
         if (datasets[s].hasChart) {// if it contains a .chart property 
             // let chartName = s.replace(/^\w/, c => c.toUpperCase()); //capitalise first letter
             // creat chart object
             charts[s] = new ApexCharts(
-                document.querySelector(datasets[s].id), 
+                document.querySelector(datasets[s].id),
                 datasets[s].options
             );
         }
@@ -352,7 +412,7 @@ function init() { //create the actual chart for each
  */
 function render() {
     // call ApexCharts method for chart object
-    for ( let s in datasets) { // each set in the datasets object
+    for (let s in datasets) { // each set in the datasets object
         // let chartName = s.replace(/^\w/, c => c.toUpperCase()); //capitalise first letter
         if (datasets[s].hasChart && datasets[s].active) // if it contains a .chart property
             charts[s].render();
@@ -364,40 +424,40 @@ function render() {
  * { dataSetName1: [new data 1],
  *   dataSetName2: [new data 2], ... }
  * where dataSetName matches the .name property of the corresonding entry in the datasets object
- * 
+ *
  * data can be within arrays to allow for multiple datapoints to be added at once
  */
 function addData(dataObj) {
-    for ( let key in dataObj ) {
-        
+    for (let key in dataObj) {
+
         // check to make sure we only add data we're expecting 
-        if ( !datasets.hasOwnProperty(key) ) continue; 
+        if (!datasets.hasOwnProperty(key)) continue;
 
         if (datasets[key].hasChart) {// if it contains a .chart property
             // console.log(datasets, key);
-            datasets[key].series[0].data.push( [dataObj["time"], dataObj[key]] );
+            datasets[key].series[0].data.push([dataObj["time"], dataObj[key]]);
 
             //Determines the min/max for each element in the dataset
             //used for the statistics page
             let min = datasets[key].stats.min;
             let max = datasets[key].stats.max;
-            if( dataObj[key] < min || min == null ) { //if current value is smaller than min
-                datasets[key].stats.min = dataObj[key]; 
+            if (dataObj[key] < min || min == null) { //if current value is smaller than min
+                datasets[key].stats.min = dataObj[key];
             }
-            if(dataObj[key] > max || max == null) {  //if current value is larger than max
-                datasets[key].stats.max = dataObj[key]; 
+            if (dataObj[key] > max || max == null) {  //if current value is larger than max
+                datasets[key].stats.max = dataObj[key];
             }
         }
-	}
+    }
 }
 
 function trimData(dataObj, len) {
     let didTrimData = false;
-    for ( let key in dataObj ) {
+    for (let key in dataObj) {
         // check to make sure we only trip data we're expecting 
-        if ( !datasets.hasOwnProperty(key) ) continue; 
+        if (!datasets.hasOwnProperty(key)) continue;
         // console.log(key, datasets[key]);
-        if ( datasets[key].series[0].data.length > len ) {
+        if (datasets[key].series[0].data.length > len) {
             datasets[key].series[0].data.shift()
             didTrimData = true;
         }
@@ -406,33 +466,33 @@ function trimData(dataObj, len) {
 }
 
 /**
- * @param dataObj should have the form 
+ * @param dataObj should have the form
  * { dataSetName1: [new data 1], 
  *   dataSetName2: [new data 2], ... }
  * where dataSetName matches the .name property of the corresonding entry in the datasets object
- * 
+ *
  * data can be within arrays to allow for multiple datapoints to be added at once
  */
 function displayData(dataObj) {
-	//get HTMLCollection of text spans for each stat to be displayed
-	const htmlValuesStats = document.querySelectorAll('.ws-stat'); 
-	
+    //get HTMLCollection of text spans for each stat to be displayed
+    const htmlValuesStats = document.querySelectorAll('.ws-stat');
+
     //Appends named data with all the minimums statistics
     //NOTE: Stats must be a min/max values
-    for ( let item of htmlValuesStats ){
+    for (let item of htmlValuesStats) {
         let label = item.closest('.details').dataset.label;
         let quantity = item.closest('.details').dataset.quantity;
 
-		//Adds data to currentData for easy display
-		if ( label.startsWith('min') ) //case sensitive
-			dataObj[label] = datasets[quantity]['stats']['min'];
-		else if ( label.startsWith('max') ) //case sensitive
-			dataObj[label] = datasets[quantity]['stats']['max'];
-	}
+        //Adds data to currentData for easy display
+        if (label.startsWith('min')) //case sensitive
+            dataObj[label] = datasets[quantity]['stats']['min'];
+        else if (label.startsWith('max')) //case sensitive
+            dataObj[label] = datasets[quantity]['stats']['max'];
+    }
 
     // //get HTMLCollection of text spans for all telemetry values
     // const htmlValuesTelemetry = document.querySelectorAll('.ws-value'); 
-    
+
     // //update all telemetry values
     // for ( let item of htmlValuesTelemetry )
     //     item.innerText = dataObj[item.id]; //extract data based on id
@@ -440,13 +500,13 @@ function displayData(dataObj) {
 }
 
 function updateCharts() {
-    for ( let s in datasets) { // each set in the datasets object
+    for (let s in datasets) { // each set in the datasets object
         if (datasets[s].hasChart && datasets[s].active) {// if it contains a .chart property
             //TODO check if this if is required
-            if(Object.keys(datasets[s].series[0].data).length != 0){
-                
+            if (Object.keys(datasets[s].series[0].data).length != 0) {
+
                 charts[s].updateSeries([{data: datasets[s].series[0].data}]); //musb be object within array
-            
+
             }
         }
     }
@@ -480,9 +540,9 @@ function infoBoxDropdownHandler(e) {
  */
 function updateInfoBoxDetails(infoBox, label) {
     //get HTMLCollection of text spans for each value to be displayed
-    const infoBoxes = document.querySelectorAll(`.info-box[data-label=${label}]`); 
+    const infoBoxes = document.querySelectorAll(`.info-box[data-label=${label}]`);
     //still needs a for loop because multiple boxes can have the same label
-    for ( let box of infoBoxes ) {
+    for (let box of infoBoxes) {
 
         //update value w/ most recent value from global variable
         box.querySelector(".info-box-value").innerText = currentData[box.dataset.label];
@@ -512,8 +572,8 @@ function updateInfoBoxDetails(infoBox, label) {
 function updateAllInfoBoxValues() {
     //get HTMLCollection of text spans for each value to be displayed
     const infoBoxes = document.querySelectorAll('.info-box');
-    
-    for ( let box of infoBoxes )
+
+    for (let box of infoBoxes)
         //update text with most recent value from global variable
         box.querySelector(".info-box-value").innerText = currentData[box.dataset.label];
 }
@@ -550,27 +610,27 @@ function chartDropdownHandler(e) {
         let oldChart = document.getElementById(oldId);
         let newChart = document.getElementById(newId);
 
-        [ oldChart.id, newChart.id ] = [ newId, oldId]; //swap in place
+        [oldChart.id, newChart.id] = [newId, oldId]; //swap in place
 
         //update title of new chart (doesn't auto update as it wasnt selected)
         newChart.parentNode.querySelector('select[name="charts"]').value = oldValue;
 
         //recreate the charts with swapped ID's
-        charts[newValue] = new ApexCharts( document.querySelector('#' + newId), datasets[newValue].options);
-        charts[oldValue] = new ApexCharts( document.querySelector('#' + oldId), datasets[oldValue].options);
+        charts[newValue] = new ApexCharts(document.querySelector('#' + newId), datasets[newValue].options);
+        charts[oldValue] = new ApexCharts(document.querySelector('#' + oldId), datasets[oldValue].options);
 
         //render new charts
         charts[newValue].render();
         charts[oldValue].render();
 
         //display new charts
-        charts[newValue].updateSeries([{ data: datasets[newValue].data }])
-        charts[oldValue].updateSeries([{ data: datasets[oldValue].data }])
+        charts[newValue].updateSeries([{data: datasets[newValue].data}])
+        charts[oldValue].updateSeries([{data: datasets[oldValue].data}])
 
     } else { // dont need to check anything, can just change it
         //destroy old chart
         charts[oldValue].destroy();
-    
+
         delete charts[oldValue]; //only keep active charts in the charts object
 
         //update flags
@@ -581,13 +641,13 @@ function chartDropdownHandler(e) {
         e.target.parentNode.querySelector(".chart-container").id = newId;
 
         //create the new chart
-        charts[newValue] = new ApexCharts( document.querySelector('#' + newId), datasets[newValue].options);
+        charts[newValue] = new ApexCharts(document.querySelector('#' + newId), datasets[newValue].options);
 
         //render new chart
         charts[newValue].render();
 
         //display new chart
-        charts[newValue].updateSeries([{ data: datasets[newValue].data }])
+        charts[newValue].updateSeries([{data: datasets[newValue].data}])
     }
 }
 
@@ -599,7 +659,7 @@ function chartDropdownHandler(e) {
 let charts = new Object();
 
 // hold the most recent value of each datapoint
-let currentData = { 
+let currentData = {
     'time': null,
     'altitude': null,
     'velocity': null,
