@@ -1,0 +1,6 @@
+python pip3 install pyinstaller
+
+pyinstaller --onefile --icon="icon.ico" --add-data="client/;client" .\main.py
+
+./main/ ".../flight.csv/"
+

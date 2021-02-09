@@ -64,7 +64,7 @@ def resource_path(relative_path):
         # PyInstaller creates a temp folder and stores path in _MEIPASS
         base_path = sys._MEIPASS
     except Exception:
-        base_path = os.path.abspath(".")
+        base_path = os.path.abspath("../")
 
     return os.path.join(base_path, relative_path)
 
@@ -191,7 +191,7 @@ async def file_stream():
             # print("-> %0.3f (%0.3f = %0.3f - %0.3f)" % (offset, delta, current_time, reference_time) ) 
 
             # time_difference_to_wait
-            await asyncio.sleep(0.1)
+            await asyncio.sleep(time_difference_to_wait)
 
             print(file_line)
             await notify_state(file_line)

@@ -18,7 +18,7 @@ Follow the instruction below to get the exe file.
 2. Install pyinstaller using pip, by running `pip install pyinstaller`.
 3. Get into the src directory of this project.
 4. Make sure you've installed all the dependancies required to run this project.
-5. Run the following command in th windows terminal `pyinstaller --onefile --icon="icon.ico" --add-data="../client/;client" .\main.py`.
+5. Run the following command in th windows terminal `pyinstaller --onefile --icon="icon.ico" --add-data="client/;client" .\main.py`.
 6. In the dist folder will now contain your windows executable file.
 
 Note: Windows defender identifies the compiled executable as a trojan virus. Feel free to inspect our code and come to your own conclusion if this project is
