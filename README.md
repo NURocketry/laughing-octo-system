@@ -32,3 +32,12 @@ malicious or not. Here the virus inspection https://www.virustotal.com/gui/file/
 * pyserial
 * aiohttp
 
+# Start up the project
+## Start recording
+1.
+2.
+3.
+## Read from a file
+1.
+2.
+3.
