@@ -14,7 +14,7 @@
 This project can be compiled to a single windows executable using pyinstaller.
 Follow the instruction below to get the exe file.
 
-1. Grab a copy of the project from github.
+1. Grab a copy of the project from github. Use git tool `git clone https://github.com/NURocketry/laughing-octo-system`
 2. Install pyinstaller using pip, by running `pip install pyinstaller`.
 3. Get into the src directory of this project.
 4. Make sure you've installed all the dependancies required to run this project.
