@@ -609,7 +609,7 @@ function GetMap() {
 		//Add authentication details for connecting to Azure Maps.
 		authOptions: {
 			authType: 'subscriptionKey',
-			subscriptionKey: 'BlXjZbW2jorXcheEUDSZykyI3YfVRYDg4zfOynrtEbw'
+			subscriptionKey: '<key here>'
 		}
 	});
 
