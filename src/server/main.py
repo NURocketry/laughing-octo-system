@@ -1,3 +1,4 @@
+import glob
 import os
 import threading
 import serial
@@ -6,6 +7,7 @@ import websockets
 import sys  # commandline arguments
 import time  # for logging
 from aiohttp import web  # Web server
+import serial.tools.list_ports
 
 if len(sys.argv) > 1:  # filepath given, read
 
@@ -23,12 +25,24 @@ else:  # no filepath given, write
 
     print("Logging flight data to local file: '%s'" % filepath)
 
+    port_list = serial.tools.list_ports.comports()
+
+    print("\nThe current ports connected to this computer are:")
+    port_counter = 0
+    for port, desc, hwid in port_list:
+        print("Option: {}\n {}: {} [{}]".format(port_counter, port, desc, hwid))
+        port_counter += 1
+
+    print("\nWhat port would you like to use?")
+    port_option = int(input("Option: "))
+    print("Selected port: " + str(port_list.__getitem__(port_option)))
+
+    selected_port = str(port_list.__getitem__(port_option).device)
+
     # init required serial stuff
     # Port Selection
-    port = input('port: ') if input('use default port: COM3? Y/n: ') == 'n' else 'COM3'
-
     baud = 115200
-    ser = serial.Serial(port, baud, timeout=1)  # establish serial connection
+    ser = serial.Serial(selected_port, baud, timeout=1)  # establish serial connection
 
 USERS = set()  # All active web socket connection
 
