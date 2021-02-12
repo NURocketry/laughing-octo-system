@@ -63,6 +63,7 @@ async def terminate_async_loops():
     # function to terminate the async loops, the for loop iterates through the loop container
     # then calls the stop on each one, but the system still runs and requires the os._exit()
     # to stop entirely
+    print("Attempting to terminate the program...")
     for x in range(0, len(async_container)):
         async_container[x].call_soon_threadsafe(async_container[x].stop)
 
@@ -166,6 +167,12 @@ async def serial_stream():
                         # for using time difference instead of count as mentioned above
                         # prev_time = current_time
                         read_count = 0
+
+                elif serial_content.lower() == "stop":
+                    print("\nStop has been received from the device")
+                    await terminate_async_loops()
+                    break
+
                 read_count += 1
         else:
             # if connection has closed for some reason, try and open it again indefinitely ... objectively a bad idea
