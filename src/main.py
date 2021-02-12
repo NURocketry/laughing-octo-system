@@ -41,7 +41,7 @@ else:  # no filepath given, write
     # init required serial stuff
     # Port Selection
     baud = 115200
-    ser = serial.Serial(selected_port, baud, timeout=1)  # establish serial connection
+    # ser = serial.Serial(selected_port, baud, timeout=1)  # establish serial connection
 
 USERS = set()  # All active web socket connection
 
@@ -114,8 +114,8 @@ async def serial_stream():
     error_count = 0
     data_to_write = ""
 
-    input("Press enter to open the serial port\n")
-    ser = serial.Serial(port, baud, timeout=1)  # establish serial connection
+    input("Press enter to open the serial port")
+    ser = serial.Serial(selected_port, baud, timeout=1)  # establish serial connection
 
     while True:
         if ser.isOpen():
@@ -180,6 +180,7 @@ async def file_stream():
     previous_time = 0
 
     # reference_time = time.time()  # seconds since epoch for accurate playback
+    input("Press enter to start reading the file")
 
     for file_line in (l.strip() for l in f):  # iterate over each line with trailing newlines removed
 
@@ -204,14 +205,13 @@ async def file_stream():
 
             # time_difference_to_wait
             await asyncio.sleep(time_difference_to_wait)
-            await asyncio.sleep(time_difference_to_wait)
 
             print(file_line)
             await notify_state(file_line)
 
             read_count = 0
 
-        read_count += 1  # increment rate limiter
+        read_count += 1
 
     print("\nFinished replaying launch data from '%s'" % filepath)
     f.close()
