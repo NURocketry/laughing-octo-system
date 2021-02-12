@@ -31,6 +31,7 @@ malicious or not. Here the virus inspection https://www.virustotal.com/gui/file/
 * websockets
 * pyserial
 * aiohttp
+* aiohttp-jinja2
 
 # Start up the project
 ## Start recording
