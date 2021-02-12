@@ -7,6 +7,19 @@ import sys  # commandline arguments
 import time  # for logging
 from aiohttp import web  # Web server
 import serial.tools.list_ports
+import aiohttp_jinja2
+import jinja2
+
+AZUREKEY1 = ""
+AZUREKEY2 = ""
+
+#Load in azure keys from the computer enviroment
+try:
+    AZUREKEY1 = os.environ['NU_ROCKET_AZUREKEY_1']
+    AZUREKEY2 = os.environ['NU_ROCKET_AZUREKEY_2']
+except:
+    print("WARNING: Azure keys are not set so map feature will not be functional")
+    print("Set NU_ROCKET_AZUREKEY_1 and NU_ROCKET_AZUREKEY_2 with appropiate azure keys")
 
 if len(sys.argv) > 1:  # filepath given, read
 
@@ -232,10 +245,21 @@ def _start_async():
 
     return async_loop
 
-
 app = web.Application()
+
+aiohttp_jinja2.setup(app,loader=jinja2.FileSystemLoader(resource_path('client/js/')) )
+
+def handler(request):
+    context = {'azKey1': AZUREKEY1,'azkey2':AZUREKEY2}
+    response = aiohttp_jinja2.render_template('client.js',
+                                              request,
+                                              context)
+    return response
+
 app.add_routes([web.get('/', index)])
+app.add_routes([web.get('/js/client.js', handler)])
 app.router.add_static('/', path=resource_path('client/'))
+
 
 # requires windows-1252 encoding instead of UTF-8 because superscript 2's arent ecoded as utf8 atm
 # TODO ensure we're ready to make utf-8 encoding standard for all NuRocketry stuff (and pure ascii block preffered)

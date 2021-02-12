@@ -22,6 +22,9 @@ ws.onclose = function () {
 
 }
 
+var azKey1 = "{{ azKey1 }}"
+var azKey2 = "{{ azkey2 }}"
+
 ws.onmessage = function (e) {
     console.log(e)
     wsMessageHandler(e);
