@@ -9,10 +9,15 @@ As the name implies this is a tool for displaying and replaying collected from o
 
 
 ## Quick start 
+### Live Launch
 1. Ensure that you have an active serial connection with data that is in the correct format.
 2. Run the program installed by the [executable]() and follow the prompts.
 3. In the browser of your choice open ![](ws://localhost:8080). 
 Note. The program does not have to be running on your machine to the telemetry. Ensure that you are on the same networks as a computer running the program and navigate to [](ws://localhost:8080) 
+
+### Replay Launch
+1. Run the program installed by the [executable]() with the file path of the flight to be replayed i.e. `telemetry dist/replay.csv`.
+2. In the browser of your choice open ![](ws://localhost:8080). 
 
 
 ## Compiling executable
