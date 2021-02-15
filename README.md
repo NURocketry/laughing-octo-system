@@ -4,8 +4,8 @@ As the name implies this is a tool for displaying and replaying collected from o
 
 ## Installation
 1. Download and install the latest version of python. It can be found ![here](https://www.python.org/downloads/). 
-2. Open your terminal of choice (Command Prompt, Powershell etc.) and run: `pip install asyncio websockets pyserial aiohttp aiohttp-jinja2`
-3. Download and run the executable from the team's sharepoint server. It can be found ![here]()
+2. Open your terminal of choice (Command Prompt, Powershell etc.) and run: `pip install asyncio websockets pyserial aiohttp aiohttp-jinja2 pyinstaller`
+3. Download and run the executable from the team's sharepoint server. It can be found ![here](). Link not working, will have to compile execuateable yourself.
 
 
 ## Quick start 
@@ -17,9 +17,8 @@ Note. The program does not have to be running on your machine to the telemetry. 
 
 ## Compiling executable
 1. Ensure git is installed. It can be found ![here](https://git-scm.com/download/win)
-2. Work through the ![installation](## Installation)
+2. Work through the ![installation](## Installation). i.e. python installation and pip packages
 3. Clone the project: `git clone https://github.com/NURocketry/laughing-octo-system.git`
 4. Navigate to the `src` directory of the repository you just cloned i.e. `cd ..\laughing-octo-system\src\`
 5. Run the following command: `pyinstaller --onefile --icon="icon.ico" --add-data="client/;client" .\main.py`
-6. The dist directory will now contain the executable
-
+6. The dist directory will now contain a runnable executable
