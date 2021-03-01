@@ -9,7 +9,7 @@ from aiohttp import web  # Web server
 import serial.tools.list_ports
 import aiohttp_jinja2
 import jinja2
-
+import psutil
 AZUREKEY1 = ""
 AZUREKEY2 = ""
 
@@ -20,6 +20,34 @@ try:
 except:
     print("WARNING: Azure keys are not set so map feature will not be functional")
     print("Set NU_ROCKET_AZUREKEY_1 and NU_ROCKET_AZUREKEY_2 with appropiate azure keys")
+
+
+#Get all possible network addresses
+possible_network_addresses = set()
+addrs = psutil.net_connections("tcp")
+
+#Remove duplicates
+for address in addrs:
+    possible_network_addresses.add(address.laddr.ip)
+
+#Remove address that can't bind to
+possible_network_addresses.remove("::")
+possible_network_addresses.remove("0.0.0.0")
+
+print("\nSelect from the list below which network to broadcast to")
+
+x = 0
+for address in possible_network_addresses:
+    print("Option: {}\n {}".format(x, address))
+    x = x + 1
+
+print("\nWhat netwok would you like to use?")
+network_option = int(input("Option: "))
+
+network_address = list(possible_network_addresses)[network_option]
+
+print("You have selected the network: "+ network_address)
+print("Go to http://"+ network_address +":8080")
 
 if len(sys.argv) > 1:  # filepath given, read
 
@@ -59,7 +87,6 @@ else:  # no filepath given, write
 USERS = set()  # All active web socket connection
 
 async_container = []
-
 
 # Broadcast messages to all web socket connected
 async def notify_state(STATE):
@@ -257,7 +284,7 @@ app = web.Application()
 aiohttp_jinja2.setup(app,loader=jinja2.FileSystemLoader(resource_path('client/js/')) )
 
 def handler(request):
-    context = {'azKey1': AZUREKEY1,'azkey2':AZUREKEY2}
+    context = {'azKey1': AZUREKEY1,'azkey2':AZUREKEY2,'webserver':network_address}
     response = aiohttp_jinja2.render_template('client.js',
                                               request,
                                               context)
@@ -298,7 +325,7 @@ with open(filepath, mode,
     #  connections)
 
     # web socket stuff
-    start_server = websockets.serve(counter, "localhost", 5678)
+    start_server = websockets.serve(counter, network_address, 5678)
 
     asyncio.get_event_loop().run_until_complete(start_server)
 

@@ -1,5 +1,5 @@
 //open websocket connection
-const ws = new WebSocket('ws://localhost:5678/');
+const ws = new WebSocket('ws://{{webserver}}:5678/');
 
 //basic websocket handlers
 ws.onopen = function () {
