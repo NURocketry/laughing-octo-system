@@ -33,3 +33,16 @@ Note. The program does not have to be running on your machine to the telemetry. 
 4. Navigate to the `src` directory of the repository you just cloned i.e. `cd ..\laughing-octo-system\src\`
 5. Run the following command: `pyinstaller --onefile --icon="icon.ico" --add-data="client/;client" .\main.py`
 6. The dist directory will now contain a runnable executable
+
+## Install cmdline (Windows only)
+Enables easier access to the program as you can run the program as a command in command prompt.
+E.g telerocket as a command, this makes accessible anywhere in command prompt.
+
+### Steps
+1. Generate an exe file using the build instructions in this document.
+2. TODO add more instruction to get and set env vars.
+3. Add the path of the exe into windows PATH enviroment variables. If you need it applied to all users of the system, admin privellages is required.
+4. Restart command prompt.
+5. Run telerocket and the program should start.
+
+For more information refer [here](https://origin.geeksforgeeks.org/how-to-add-python-to-windows-path/), use your nurocket dist folder as the folder instead of python folder in this tutorial. 
