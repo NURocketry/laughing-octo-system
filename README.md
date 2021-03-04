@@ -40,6 +40,7 @@ E.g telerocket as a command, this makes accessible anywhere in command prompt.
 
 ## CSV structure
 For file reading it must be a csv file structured as follows:
+
 Time (us), Altitude (m), Velocity (m/s), Acceleration (m/s²), Air temperature (°C), Air pressure (mbar)
 
 ### Steps
