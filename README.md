@@ -15,10 +15,13 @@ As the name implies this is a tool for displaying and replaying collected from o
 
 Image above describes how the program will execute each time.
 
-## CSV structure
-For file reading it must be a csv file structured as follows:
+## CSV / Serial stream data structure
+The data must be structured as follows
 
 Time (us), Altitude (m), Velocity (m/s), Acceleration (m/s²), Air temperature (°C), Air pressure (mbar)
+
+This is both for the .csv, where each column is one of the different data types.
+The serial stream needs to be a string of the above data types, seperated by a comma ","
 
 ### Live Launch
 1. Ensure that you have an active serial connection with data that is in the correct format.
