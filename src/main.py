@@ -80,15 +80,16 @@ else:  # if no file path given; run as append mode
     print("Selected port: " + str(port_list.__getitem__(port_option)))
 
     selected_port = str(port_list.__getitem__(port_option).device)
-
-    # generate the QR code, so users are able to scan the address with their phone instead of typing it in
-    print("\nGenerating QR Code for the network address...")
-    qr_code = pyqrcode.create("http://" + network_address + ":8080")
-    qr_code.png('code.png', scale=6, module_color=[0, 0, 0, 128], background=[0xff, 0xff, 0xcc])
-    qr_code.show()
-
-    # set baud for micro-controller
+     # set baud for micro-controller
     baud = 115200
+    
+# generate the QR code, so users are able to scan the address with their phone instead of typing it in
+print("\nGenerating QR Code for the network address...")
+qr_code = pyqrcode.create("http://" + network_address + ":8080")
+qr_code.png('code.png', scale=6, module_color=[0, 0, 0, 128], background=[0xff, 0xff, 0xcc])
+qr_code.show()
+
+   
 
 USERS = set()  # All active web socket connection
 
