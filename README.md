@@ -56,10 +56,10 @@ E.g telerocket as a command, this makes accessible anywhere in command prompt.
 For more information refer [here](https://origin.geeksforgeeks.org/how-to-add-python-to-windows-path/), use your nurocket dist folder as the folder instead of python folder in this tutorial. 
 
 
-### How to setup Azure Keys
+## How to setup Azure Keys
 The azure keys are injected through environment variables, and thus the environment variables need to be set for the injection
 
-Note:  the order of the API keys does not matter, just ensure that both keys are not the same key. The setup only has to be completed once. If you wish to set up the keys for multiple users, you can add the keys to the System variables instead, but it may require Administrator privileges.
+Note:  the order of the API keys does not matter, just ensure that both keys are not the same key. The setup only has to be completed once. If you wish to set up the keys for multiple users, you can add the keys to the System variables instead, but it may require Administrator privileges. The azure keys are currently not required, but the implementation for injecting the keys is there for future iterations of the software.
 1. Press the windows button, then search for "Environment Variables"
 2. Click on it, and in the popup click "Environment Variables" which should be in the bottom right
 3. Once open, in the top section named "User vairables for ______", click on "New"
