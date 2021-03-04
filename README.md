@@ -38,6 +38,10 @@ Note. The program does not have to be running on your machine to the telemetry. 
 Enables easier access to the program as you can run the program as a command in command prompt.
 E.g telerocket as a command, this makes accessible anywhere in command prompt.
 
+## CSV structure
+For file reading it must be a csv file structured as follows:
+Time (us), Altitude (m), Velocity (m/s), Acceleration (m/s²), Air temperature (°C), Air pressure (mbar)
+
 ### Steps
 1. Generate an exe file using the build instructions in this document.
 2. TODO add more instruction to get and set env vars.
