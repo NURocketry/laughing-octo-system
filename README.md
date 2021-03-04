@@ -11,7 +11,10 @@ As the name implies this is a tool for displaying and replaying collected from o
 ## Quick start 
 
 ### Program Flow
-![Program Flow](/programflow.png)
+![Program Flow](/programFlow.jpg)
+
+Image above describes how the program will execute each time.
+
 ### Live Launch
 1. Ensure that you have an active serial connection with data that is in the correct format.
 2. Run the program installed by the [executable]() and follow the prompts.
