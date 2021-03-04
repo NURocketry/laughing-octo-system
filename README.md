@@ -15,6 +15,11 @@ As the name implies this is a tool for displaying and replaying collected from o
 
 Image above describes how the program will execute each time.
 
+## CSV structure
+For file reading it must be a csv file structured as follows:
+
+Time (us), Altitude (m), Velocity (m/s), Acceleration (m/s²), Air temperature (°C), Air pressure (mbar)
+
 ### Live Launch
 1. Ensure that you have an active serial connection with data that is in the correct format.
 2. Run the program installed by the [executable]() and follow the prompts.
@@ -24,7 +29,6 @@ Note. The program does not have to be running on your machine to the telemetry. 
 ### Replay Launch
 1. Run the program installed by the [executable]() with the file path of the flight to be replayed i.e. `telemetry dist/replay.csv`.
 2. In the browser of your choice open ![](ws://localhost:8080). 
-
 
 ## Compiling executable
 1. Ensure git is installed. It can be found [here](https://git-scm.com/download/win)
@@ -38,10 +42,6 @@ Note. The program does not have to be running on your machine to the telemetry. 
 Enables easier access to the program as you can run the program as a command in command prompt.
 E.g telerocket as a command, this makes accessible anywhere in command prompt.
 
-## CSV structure
-For file reading it must be a csv file structured as follows:
-
-Time (us), Altitude (m), Velocity (m/s), Acceleration (m/s²), Air temperature (°C), Air pressure (mbar)
 
 ### Steps
 1. Generate an exe file using the build instructions in this document.
