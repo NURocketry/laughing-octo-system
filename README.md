@@ -68,3 +68,14 @@ Note:  the order of the API keys does not matter, just ensure that both keys are
 6. Repeat step 3-4, but use a new "Variable Name" called "NU_ROCKET_AZUREKEY_2" and on the second line, add the other API key
 7. Once both fields are completed, click "Ok"
 8. The environment variables are now set up, when the program is executed it will read the API keys from the system
+
+
+##Installing Python
+Pytyhon is used to run and execute the code used in this software, python does not need to be installed for running the .exe file specifically, but it is required to build it. We have used and tested with Python 3.8.6 and Python 3.9.1 (any newer version should not have issues). The download link for Python 3.8.6 can be found [here](https://www.python.org/downloads/release/python-386/)
+
+### Installing pip
+Once python is installed, you need to install pip to install the packages that have been used in this project.
+
+Installing pip can be completed by typing `py install pip`
+
+Further troubleshooting can be fouynd [here](https://pip.pypa.io/en/stable/installing/)
