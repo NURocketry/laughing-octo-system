@@ -1,6 +1,9 @@
 //open websocket connection
 const ws = new WebSocket('ws://{{webserver}}:5678/');
 
+//get environment variables
+var azKey1 = "{{ azKey1 }}"
+var azKey2 = "{{ azkey2 }}"
 //basic websocket handlers
 ws.onopen = function () {
     //change status indicator
@@ -22,11 +25,11 @@ ws.onclose = function () {
 
 }
 
-var azKey1 = "{{ azKey1 }}"
-var azKey2 = "{{ azkey2 }}"
+
 
 ws.onmessage = function (e) {
-    console.log(e)
+    //logs the current message to the console
+    //console.log(e)
     wsMessageHandler(e);
 };
 
@@ -35,7 +38,7 @@ function wsMessageHandler(e) {
 
     // update currentData global for use in other functions
     currentData = {
-        ...currentData, //spread operator ensures object isnt overriden, only named field are updated.
+        ...currentData, //spread operator ensures object isn't overridden, only named field are updated.
         'time': wsValues[0],
         'altitude': wsValues[1],
         'velocity': wsValues[2],
@@ -53,7 +56,7 @@ function wsMessageHandler(e) {
     //re-draw charts accordingly
     updateCharts();
 
-    //cut off datapoints to keep at 10 max and redraw
+    //cut off data points to keep at 10 max and redraw
     trimData(currentData, 50);
 };
 

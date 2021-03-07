@@ -17,7 +17,16 @@ h1, h2, h3, h4, h5, h6, strong {
 	margin: 0 auto;
 }
 
-#logo {
+#header_container {
+	height: auto;
+	width: 40%;
+	display: block;
+	margin: auto;
+	padding-top: 5px;
+	padding-bottom: 10px;
+}
+
+#header_logo {
 	height: auto;
 	width: 40%;
 	display: block;
@@ -69,7 +78,7 @@ h1, h2, h3, h4, h5, h6, strong {
 }
 
 .details h4 {
-	font: Monospace;
+	/*font: Monospace;*/
 	font-family: 'IBM Plex Mono', monospace;
 }
 
