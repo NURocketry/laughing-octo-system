@@ -5,9 +5,11 @@ As the name implies this is a tool for displaying and replaying collected from o
 ## Installation
 1. Download and install the latest version of python. It can be found [here](https://www.python.org/downloads/). 
 2. Open your terminal of choice (Command Prompt, Powershell etc.) and run: `pip install asyncio websockets pyserial aiohttp aiohttp-jinja2 pyinstaller psutil pypng pyqrcode`
-3. Download and run the executable from the team's sharepoint server. It can be found [here](). Link not working, will have to compile executable yourself.
-4. If you've installed pip and python. Run install bat script file which will finish the rest of the installation.
-5. If previous step is sucessful, you can now use the command ``` telerocket ``` in command prompt which will start the program.
+3. Get a copy of the project ethier using git tool or download directly of the repo website.
+4. If you've download the zip file extract it and open the terminal in the extracted folder directory.
+5. In the src/dist folder will contain a portable executable file, this file can run on any windows machine that is 10 or later.
+6. If you've installed pip and python. Run install bat script file located in the src folder, which will finish the rest of the installation.
+7. If previous step is sucessful, you can now use the command ``` telerocket ``` in command prompt which will start the program.
 
 ## Quick start 
 
@@ -79,4 +81,4 @@ Once python is installed, you need to install pip to install the packages that h
 
 Installing pip can be completed by typing `py install pip`
 
-Further troubleshooting can be fouynd [here](https://pip.pypa.io/en/stable/installing/)
+Further troubleshooting can be found [here](https://pip.pypa.io/en/stable/installing/)
