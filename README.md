@@ -1,4 +1,4 @@
-# Live Telemetry Display
+# Flight Telemetry Display
 As the name implies this is a tool for displaying and replaying collected from our various rocket platforms. 
 
 
